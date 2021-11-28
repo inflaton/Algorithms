@@ -47,7 +47,7 @@ public class Kosaraju {
     return sccs;
   }
 
-  private void solve() {
+  void solve() {
     sccCount = 0;
     sccs = new int[n];
     visited = new boolean[n];
