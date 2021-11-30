@@ -115,7 +115,7 @@ class TestTreeNode implements TreePrinter.PrintableNode {
 
 public class BinarySearchTreeTest {
 
-	static final int LOOPS = 10; // 100
+	static final int LOOPS = 100;
 
 	@Before
 	public void setup() {
@@ -414,13 +414,16 @@ public class BinarySearchTreeTest {
 		TestTreeNode testTree = null;
 		BinarySearchTree<Integer> tree = new BinarySearchTree<>();
 
-		System.out.println("\ninput: " + input);
-
+		int size = 0;
 		// Construct Binary Tree and test tree
 		for (Integer value : input) {
 			testTree = TestTreeNode.add(testTree, value);
 			tree.add(value);
+			size++;
 		}
+		boolean printTree = LOOPS / 5 == size;
+		if (printTree)
+			System.out.println("\ninput: " + input);
 
 		// Generate the expected output for the particular traversal
 		switch (trav_order) {
@@ -438,7 +441,8 @@ public class BinarySearchTreeTest {
 			break;
 		}
 
-		TreePrinter.print(testTree);
+		if (printTree)
+			TreePrinter.print(testTree);
 
 		// Get traversal output
 		Iterator<Integer> iter = tree.traverse(trav_order);
