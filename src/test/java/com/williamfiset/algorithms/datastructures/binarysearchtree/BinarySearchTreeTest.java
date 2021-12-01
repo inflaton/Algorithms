@@ -13,9 +13,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.williamfiset.algorithms.datastructures.binarysearchtree.TreePrinter.PrintableNode;
-
-class TestTreeNode implements TreePrinter.PrintableNode {
+class TestTreeNode {
 
 	Integer data;
 	TestTreeNode left, right;
@@ -94,22 +92,42 @@ class TestTreeNode implements TreePrinter.PrintableNode {
 		}
 	}
 
-	@Override
-	public PrintableNode getLeft() {
-		// TODO Auto-generated method stub
-		return left;
+	public void printTree() {
+		if (right != null) {
+			right.printTree(true, "");
+		}
+		printNodeValue();
+		if (left != null) {
+			left.printTree(false, "");
+		}
 	}
 
-	@Override
-	public PrintableNode getRight() {
-		// TODO Auto-generated method stub
-		return right;
+	private void printNodeValue() {
+		if (data == null) {
+			System.out.print("<null>");
+		} else {
+			System.out.print(data.toString());
+		}
+		System.out.print('\n');
 	}
 
-	@Override
-	public String getText() {
-		// TODO Auto-generated method stub
-		return data.toString();
+	// use string and not StringBuffer on purpose as we need to change the indent at
+	// each recursion
+	private void printTree(boolean isRight, String indent) {
+		if (right != null) {
+			right.printTree(true, indent + (isRight ? "        " : " |      "));
+		}
+		System.out.print(indent);
+		if (isRight) {
+			System.out.print(" /");
+		} else {
+			System.out.print(" \\");
+		}
+		System.out.print("----- ");
+		printNodeValue();
+		if (left != null) {
+			left.printTree(false, indent + (isRight ? " |      " : "        "));
+		}
 	}
 }
 
@@ -421,9 +439,11 @@ public class BinarySearchTreeTest {
 			tree.add(value);
 			size++;
 		}
-		boolean printTree = LOOPS / 5 == size;
-		if (printTree)
-			System.out.println("\ninput: " + input);
+		boolean printTree = LOOPS / 4 == size;
+		if (printTree) {
+			System.out.println("\norder:\t" + trav_order);
+			System.out.println("input:\t" + input);
+		}
 
 		// Generate the expected output for the particular traversal
 		switch (trav_order) {
@@ -441,8 +461,10 @@ public class BinarySearchTreeTest {
 			break;
 		}
 
-		if (printTree)
-			TreePrinter.print(testTree);
+		if (printTree) {
+			System.out.println("output:\t" + expected);
+			testTree.printTree();
+		}
 
 		// Get traversal output
 		Iterator<Integer> iter = tree.traverse(trav_order);
