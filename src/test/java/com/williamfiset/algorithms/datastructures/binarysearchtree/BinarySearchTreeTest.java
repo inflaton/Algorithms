@@ -91,44 +91,6 @@ class TestTreeNode {
 				q.offer(node.right);
 		}
 	}
-
-	public void printTree() {
-		if (right != null) {
-			right.printTree(true, "");
-		}
-		printNodeValue();
-		if (left != null) {
-			left.printTree(false, "");
-		}
-	}
-
-	private void printNodeValue() {
-		if (data == null) {
-			System.out.print("<null>");
-		} else {
-			System.out.print(data.toString());
-		}
-		System.out.print('\n');
-	}
-
-	// use string and not StringBuffer on purpose as we need to change the indent at
-	// each recursion
-	private void printTree(boolean isRight, String indent) {
-		if (right != null) {
-			right.printTree(true, indent + (isRight ? "        " : " |      "));
-		}
-		System.out.print(indent);
-		if (isRight) {
-			System.out.print(" /");
-		} else {
-			System.out.print(" \\");
-		}
-		System.out.print("----- ");
-		printNodeValue();
-		if (left != null) {
-			left.printTree(false, indent + (isRight ? " |      " : "        "));
-		}
-	}
 }
 
 public class BinarySearchTreeTest {
@@ -143,9 +105,11 @@ public class BinarySearchTreeTest {
 	public void testIsEmpty() {
 
 		BinarySearchTree<String> tree = new BinarySearchTree<>();
+		tree.printTree();
 		assertThat(tree.isEmpty()).isTrue();
 
 		tree.add("Hello World!");
+		tree.printTree();
 		assertThat(tree.isEmpty()).isFalse();
 	}
 
@@ -170,16 +134,19 @@ public class BinarySearchTreeTest {
 
 		// No tree
 		assertThat(tree.height()).isEqualTo(0);
+		tree.printTree();
 
 		// Layer One
 		tree.add("M");
 		assertThat(tree.height()).isEqualTo(1);
+		tree.printTree();
 
 		// Layer Two
 		tree.add("J");
 		assertThat(tree.height()).isEqualTo(2);
 		tree.add("S");
 		assertThat(tree.height()).isEqualTo(2);
+		tree.printTree();
 
 		// Layer Three
 		tree.add("B");
@@ -188,10 +155,12 @@ public class BinarySearchTreeTest {
 		assertThat(tree.height()).isEqualTo(3);
 		tree.add("Z");
 		assertThat(tree.height()).isEqualTo(3);
+		tree.printTree();
 
 		// Layer 4
 		tree.add("A");
 		assertThat(tree.height()).isEqualTo(4);
+		tree.printTree();
 	}
 
 	@Test
@@ -252,6 +221,8 @@ public class BinarySearchTreeTest {
 
 		// Try looking for an element which exists as the right child of the root
 		assertThat(tree.contains('C')).isTrue();
+
+		tree.printTree();
 	}
 
 	@Test(expected = ConcurrentModificationException.class)
@@ -463,7 +434,7 @@ public class BinarySearchTreeTest {
 
 		if (printTree) {
 			System.out.println("output:\t" + expected);
-			testTree.printTree();
+			tree.printTree();
 		}
 
 		// Get traversal output
