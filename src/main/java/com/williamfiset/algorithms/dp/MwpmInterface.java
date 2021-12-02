@@ -3,7 +3,7 @@
 package com.williamfiset.algorithms.dp;
 
 public interface MwpmInterface {
-  public double getMinWeightCost();
+	public double getMinWeightCost();
 
-  public int[] getMatching();
+	public int[] getMatching();
 }
