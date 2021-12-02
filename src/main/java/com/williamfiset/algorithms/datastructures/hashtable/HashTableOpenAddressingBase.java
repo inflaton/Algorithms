@@ -135,18 +135,11 @@ public abstract class HashTableOpenAddressingBase<K, V> implements Iterable<K> {
 
 		threshold = (int) (capacity * loadFactor);
 
-		K[] oldKeyTable = (K[]) new Object[capacity];
-		V[] oldValueTable = (V[]) new Object[capacity];
+		K[] oldKeyTable = keys;
+		V[] oldValueTable = values;
 
-		// Perform key table pointer swap
-		K[] keyTableTmp = keys;
-		keys = oldKeyTable;
-		oldKeyTable = keyTableTmp;
-
-		// Perform value table pointer swap
-		V[] valueTableTmp = values;
-		values = oldValueTable;
-		oldValueTable = valueTableTmp;
+		keys = (K[]) new Object[capacity];
+		values = (V[]) new Object[capacity];
 
 		// Reset the key count and buckets used since we are about to
 		// re-insert all the keys into the hash-table.
