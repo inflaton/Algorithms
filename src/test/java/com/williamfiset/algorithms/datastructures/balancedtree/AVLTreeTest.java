@@ -16,6 +16,7 @@ public class AVLTreeTest {
 	static final int MIN_RAND_NUM = -100000;
 
 	static final int TEST_SZ = 2500;
+	static final int PRINT_SZ = 15;
 
 	private AVLTreeRecursive<Integer> tree;
 
@@ -46,6 +47,8 @@ public class AVLTreeTest {
 		tree.insert(2);
 		tree.insert(1);
 
+		System.out.println(tree);
+
 		assertThat(tree.root.value.intValue()).isEqualTo(2);
 		assertThat(tree.root.left.value.intValue()).isEqualTo(1);
 		assertThat(tree.root.right.value.intValue()).isEqualTo(3);
@@ -62,6 +65,8 @@ public class AVLTreeTest {
 		tree.insert(3);
 		tree.insert(1);
 		tree.insert(2);
+
+		System.out.println(tree);
 
 		assertThat(tree.root.value.intValue()).isEqualTo(2);
 		assertThat(tree.root.left.value.intValue()).isEqualTo(1);
@@ -80,6 +85,8 @@ public class AVLTreeTest {
 		tree.insert(2);
 		tree.insert(3);
 
+		System.out.println(tree);
+
 		assertThat(tree.root.value.intValue()).isEqualTo(2);
 		assertThat(tree.root.left.value.intValue()).isEqualTo(1);
 		assertThat(tree.root.right.value.intValue()).isEqualTo(3);
@@ -97,6 +104,8 @@ public class AVLTreeTest {
 		tree.insert(3);
 		tree.insert(2);
 
+		System.out.println(tree);
+
 		assertThat(tree.root.value.intValue()).isEqualTo(2);
 		assertThat(tree.root.left.value.intValue()).isEqualTo(1);
 		assertThat(tree.root.right.value.intValue()).isEqualTo(3);
@@ -112,6 +121,10 @@ public class AVLTreeTest {
 		for (int i = 0; i < TEST_SZ; i++) {
 			tree.insert(randValue());
 			assertThat(validateBalanceFactorValues(tree.root)).isTrue();
+
+			if (i == PRINT_SZ) {
+				System.out.println(tree);
+			}
 		}
 	}
 
@@ -180,6 +193,69 @@ public class AVLTreeTest {
 
 			assertThat(tree.isEmpty()).isTrue();
 		}
+	}
+
+	@Test
+	public void testComparePerfTest1() {
+		AVLTreeRecursiveOptimized<Integer> treeOptimized = new AVLTreeRecursiveOptimized<>();
+
+		List<Integer> lst = genRandList(TEST_SZ);
+
+		long start = System.nanoTime();
+		for (Integer value : lst) {
+			tree.insert(value);
+		}
+		long end = System.nanoTime();
+		System.out.println("AVLTreeRecursive          Time: " + (end - start));
+
+		start = System.nanoTime();
+		for (Integer value : lst) {
+			treeOptimized.insert(value);
+		}
+		end = System.nanoTime();
+		System.out.println("AVLTreeRecursiveOptimized Time: " + (end - start));
+	}
+
+	@Test
+	public void testComparePerfTest2() {
+		AVLTreeRecursiveOptimized<Integer> treeOptimized = new AVLTreeRecursiveOptimized<>();
+
+		List<Integer> lst = genRandList(TEST_SZ * 10);
+
+		long start = System.nanoTime();
+		for (Integer value : lst) {
+			tree.insert(value);
+		}
+		long end = System.nanoTime();
+		System.out.println("AVLTreeRecursive          Time: " + (end - start));
+
+		start = System.nanoTime();
+		for (Integer value : lst) {
+			treeOptimized.insert(value);
+		}
+		end = System.nanoTime();
+		System.out.println("AVLTreeRecursiveOptimized Time: " + (end - start));
+	}
+
+	@Test
+	public void testComparePerfTest3() {
+		AVLTreeRecursiveOptimized<Integer> treeOptimized = new AVLTreeRecursiveOptimized<>();
+
+		List<Integer> lst = genRandList(TEST_SZ * 100);
+
+		long start = System.nanoTime();
+		for (Integer value : lst) {
+			tree.insert(value);
+		}
+		long end = System.nanoTime();
+		System.out.println("AVLTreeRecursive          Time: " + (end - start));
+
+		start = System.nanoTime();
+		for (Integer value : lst) {
+			treeOptimized.insert(value);
+		}
+		end = System.nanoTime();
+		System.out.println("AVLTreeRecursiveOptimized Time: " + (end - start));
 	}
 
 	static List<Integer> genRandList(int sz) {
