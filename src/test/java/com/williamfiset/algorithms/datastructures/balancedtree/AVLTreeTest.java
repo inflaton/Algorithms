@@ -195,11 +195,11 @@ public class AVLTreeTest {
 		}
 	}
 
-	@Test
-	public void testComparePerfTest1() {
+	private void runPerfTest(int size) {
+		System.out.println("size: " + size);
 		AVLTreeRecursiveOptimized<Integer> treeOptimized = new AVLTreeRecursiveOptimized<>();
 
-		List<Integer> lst = genRandList(TEST_SZ);
+		List<Integer> lst = genRandList(size);
 
 		long start = System.nanoTime();
 		for (Integer value : lst) {
@@ -214,48 +214,26 @@ public class AVLTreeTest {
 		}
 		end = System.nanoTime();
 		System.out.println("AVLTreeRecursiveOptimized Time: " + (end - start));
+	}
+
+	@Test
+	public void testComparePerfTest1() {
+		runPerfTest(TEST_SZ / 10);
 	}
 
 	@Test
 	public void testComparePerfTest2() {
-		AVLTreeRecursiveOptimized<Integer> treeOptimized = new AVLTreeRecursiveOptimized<>();
-
-		List<Integer> lst = genRandList(TEST_SZ * 10);
-
-		long start = System.nanoTime();
-		for (Integer value : lst) {
-			tree.insert(value);
-		}
-		long end = System.nanoTime();
-		System.out.println("AVLTreeRecursive          Time: " + (end - start));
-
-		start = System.nanoTime();
-		for (Integer value : lst) {
-			treeOptimized.insert(value);
-		}
-		end = System.nanoTime();
-		System.out.println("AVLTreeRecursiveOptimized Time: " + (end - start));
+		runPerfTest(TEST_SZ);
 	}
 
 	@Test
 	public void testComparePerfTest3() {
-		AVLTreeRecursiveOptimized<Integer> treeOptimized = new AVLTreeRecursiveOptimized<>();
+		runPerfTest(TEST_SZ * 10);
+	}
 
-		List<Integer> lst = genRandList(TEST_SZ * 100);
-
-		long start = System.nanoTime();
-		for (Integer value : lst) {
-			tree.insert(value);
-		}
-		long end = System.nanoTime();
-		System.out.println("AVLTreeRecursive          Time: " + (end - start));
-
-		start = System.nanoTime();
-		for (Integer value : lst) {
-			treeOptimized.insert(value);
-		}
-		end = System.nanoTime();
-		System.out.println("AVLTreeRecursiveOptimized Time: " + (end - start));
+	@Test
+	public void testComparePerfTest4() {
+		runPerfTest(TEST_SZ * 100);
 	}
 
 	static List<Integer> genRandList(int sz) {
