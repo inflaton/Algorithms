@@ -2,7 +2,11 @@ package com.williamfiset.algorithms.datastructures.balancedtree;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.TreeSet;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,7 +15,7 @@ public class RedBlackTreeTest {
 	static final int MAX_RAND_NUM = +100000;
 	static final int MIN_RAND_NUM = -100000;
 
-	static final int TEST_SZ = 9000;
+	static final int TEST_SZ = 2500;
 
 	private RedBlackTree<Integer> tree;
 
@@ -313,14 +317,16 @@ public class RedBlackTreeTest {
 		}
 	}
 
-	static void assertNullChildren(RedBlackTree tree, RedBlackTree.Node... nodes) {
-		for (RedBlackTree.Node node : nodes) {
+	@SafeVarargs
+	static void assertNullChildren(RedBlackTree<Integer> tree, RedBlackTree<Integer>.Node... nodes) {
+		for (RedBlackTree<Integer>.Node node : nodes) {
 			assertThat(node.left).isEqualTo(tree.NIL);
 			assertThat(node.right).isEqualTo(tree.NIL);
 		}
 	}
 
-	static void assertCorrectParentLinks(RedBlackTree tree, RedBlackTree.Node node, RedBlackTree.Node parent) {
+	static void assertCorrectParentLinks(RedBlackTree<Integer> tree, RedBlackTree<Integer>.Node node,
+			RedBlackTree<Integer>.Node parent) {
 		if (node == tree.NIL)
 			return;
 		try {
@@ -332,10 +338,59 @@ public class RedBlackTreeTest {
 		assertCorrectParentLinks(tree, node.right, node);
 	}
 
+	private void runPerfTest(int size) {
+		System.out.println("size: " + size);
+		AVLTreeRecursive<Integer> avlTree = new AVLTreeRecursive<>();
+		AVLTreeRecursiveOptimized<Integer> treeOptimized = new AVLTreeRecursiveOptimized<>();
+
+		List<Integer> lst = genRandList(size);
+
+		long start = System.nanoTime();
+		for (Integer value : lst) {
+			avlTree.insert(value);
+		}
+		long end = System.nanoTime();
+		System.out.println("AVLTreeRecursive          Time: " + (end - start));
+
+		start = System.nanoTime();
+		for (Integer value : lst) {
+			treeOptimized.insert(value);
+		}
+		end = System.nanoTime();
+		System.out.println("AVLTreeRecursiveOptimized Time: " + (end - start));
+
+		start = System.nanoTime();
+		for (Integer value : lst) {
+			tree.insert(value);
+		}
+		end = System.nanoTime();
+		System.out.println("RedBlackTree              Time: " + (end - start));
+	}
+
+	@Test
+	public void testComparePerfTest1() {
+		runPerfTest(TEST_SZ / 10);
+	}
+
+	@Test
+	public void testComparePerfTest2() {
+		runPerfTest(TEST_SZ);
+	}
+
+	@Test
+	public void testComparePerfTest3() {
+		runPerfTest(TEST_SZ * 10);
+	}
+
+	@Test
+	public void testComparePerfTest4() {
+		runPerfTest(TEST_SZ * 100);
+	}
+
 	// Make sure all left child nodes are smaller in value than their parent and
 	// make sure all right child nodes are greater in value than their parent.
 	// (Used only for testing)
-	boolean assertBinarySearchTreeInvariant(RedBlackTree tree, RedBlackTree<Integer>.Node node) {
+	boolean assertBinarySearchTreeInvariant(RedBlackTree<Integer> tree, RedBlackTree<Integer>.Node node) {
 		if (node == tree.NIL)
 			return true;
 		boolean isValid = true;
@@ -348,7 +403,7 @@ public class RedBlackTreeTest {
 	}
 
 	// Used for testing.
-	boolean validateParentLinksAreCorrect(RedBlackTree.Node node, RedBlackTree.Node parent) {
+	boolean validateParentLinksAreCorrect(RedBlackTree<Integer>.Node node, RedBlackTree<Integer>.Node parent) {
 		if (node == tree.NIL)
 			return true;
 		if (node.parent != parent)
