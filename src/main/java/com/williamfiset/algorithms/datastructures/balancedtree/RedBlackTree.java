@@ -9,8 +9,6 @@
  */
 package com.williamfiset.algorithms.datastructures.balancedtree;
 
-import java.awt.*;
-
 public class RedBlackTree<T extends Comparable<T>> implements Iterable<T> {
 
 	public static final boolean RED = true;
@@ -389,39 +387,6 @@ public class RedBlackTree<T extends Comparable<T>> implements Iterable<T> {
 		}
 
 		return 1 + Math.max(height(curr.left), height(curr.right));
-	}
-
-	private void swapColors(Node a, Node b) {
-		boolean tmpColor = a.color;
-		a.color = b.color;
-		b.color = tmpColor;
-	}
-
-	// Sometimes the left or right child node of a parent changes and the
-	// parent's reference needs to be updated to point to the new child.
-	// This is a helper method to do just that.
-	private void updateParentChildLink(Node parent, Node oldChild, Node newChild) {
-		if (parent != NIL) {
-			if (parent.left == oldChild) {
-				parent.left = newChild;
-			} else {
-				parent.right = newChild;
-			}
-		}
-	}
-
-	// Helper method to find the leftmost node (which has the smallest value)
-	private Node findMin(Node node) {
-		while (node.left != NIL)
-			node = node.left;
-		return node;
-	}
-
-	// Helper method to find the rightmost node (which has the largest value)
-	private Node findMax(Node node) {
-		while (node.right != NIL)
-			node = node.right;
-		return node;
 	}
 
 	// Returns as iterator to traverse the tree in order.

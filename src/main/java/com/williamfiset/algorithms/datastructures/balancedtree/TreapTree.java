@@ -7,9 +7,9 @@
  */
 package com.williamfiset.algorithms.datastructures.balancedtree;
 
-import com.williamfiset.algorithms.datastructures.utils.TreePrinter;
-import java.awt.*;
 import java.util.Random;
+
+import com.williamfiset.algorithms.datastructures.utils.TreePrinter;
 
 public class TreapTree<T extends Comparable<T>> {
 
