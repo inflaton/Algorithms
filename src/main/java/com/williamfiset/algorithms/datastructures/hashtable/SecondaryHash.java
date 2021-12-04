@@ -7,6 +7,6 @@ package com.williamfiset.algorithms.datastructures.hashtable;
 
 public interface SecondaryHash {
 
-	// A method for a second hash function
-	public int hashCode2();
+  // A method for a second hash function
+  public int hashCode2();
 }

@@ -15,478 +15,478 @@ import org.junit.Test;
 
 class TestTreeNode {
 
-	Integer data;
-	TestTreeNode left, right;
+  Integer data;
+  TestTreeNode left, right;
 
-	public TestTreeNode(Integer data, TestTreeNode l, TestTreeNode r) {
-		this.data = data;
-		this.right = r;
-		this.left = l;
-	}
+  public TestTreeNode(Integer data, TestTreeNode l, TestTreeNode r) {
+    this.data = data;
+    this.right = r;
+    this.left = l;
+  }
 
-	static TestTreeNode add(TestTreeNode node, int data) {
+  static TestTreeNode add(TestTreeNode node, int data) {
 
-		if (node == null) {
-			node = new TestTreeNode(data, null, null);
-		} else {
-			// Place lower elem values on left
-			if (data < node.data) {
-				node.left = add(node.left, data);
-			} else {
-				node.right = add(node.right, data);
-			}
-		}
-		return node;
-	}
+    if (node == null) {
+      node = new TestTreeNode(data, null, null);
+    } else {
+      // Place lower elem values on left
+      if (data < node.data) {
+        node.left = add(node.left, data);
+      } else {
+        node.right = add(node.right, data);
+      }
+    }
+    return node;
+  }
 
-	static void preOrder(List<Integer> lst, TestTreeNode node) {
+  static void preOrder(List<Integer> lst, TestTreeNode node) {
 
-		if (node == null)
-			return;
+    if (node == null)
+      return;
 
-		lst.add(node.data);
-		if (node.left != null)
-			preOrder(lst, node.left);
-		if (node.right != null)
-			preOrder(lst, node.right);
-	}
+    lst.add(node.data);
+    if (node.left != null)
+      preOrder(lst, node.left);
+    if (node.right != null)
+      preOrder(lst, node.right);
+  }
 
-	static void inOrder(List<Integer> lst, TestTreeNode node) {
+  static void inOrder(List<Integer> lst, TestTreeNode node) {
 
-		if (node == null)
-			return;
+    if (node == null)
+      return;
 
-		if (node.left != null)
-			inOrder(lst, node.left);
-		lst.add(node.data);
-		if (node.right != null)
-			inOrder(lst, node.right);
-	}
+    if (node.left != null)
+      inOrder(lst, node.left);
+    lst.add(node.data);
+    if (node.right != null)
+      inOrder(lst, node.right);
+  }
 
-	static void postOrder(List<Integer> lst, TestTreeNode node) {
+  static void postOrder(List<Integer> lst, TestTreeNode node) {
 
-		if (node == null)
-			return;
+    if (node == null)
+      return;
 
-		if (node.left != null)
-			postOrder(lst, node.left);
-		if (node.right != null)
-			postOrder(lst, node.right);
-		lst.add(node.data);
-	}
+    if (node.left != null)
+      postOrder(lst, node.left);
+    if (node.right != null)
+      postOrder(lst, node.right);
+    lst.add(node.data);
+  }
 
-	static void levelOrder(List<Integer> lst, TestTreeNode node) {
+  static void levelOrder(List<Integer> lst, TestTreeNode node) {
 
-		Deque<TestTreeNode> q = new ArrayDeque<>();
-		if (node != null)
-			q.offer(node);
+    Deque<TestTreeNode> q = new ArrayDeque<>();
+    if (node != null)
+      q.offer(node);
 
-		while (!q.isEmpty()) {
+    while (!q.isEmpty()) {
 
-			node = q.poll();
-			lst.add(node.data);
-			if (node.left != null)
-				q.offer(node.left);
-			if (node.right != null)
-				q.offer(node.right);
-		}
-	}
+      node = q.poll();
+      lst.add(node.data);
+      if (node.left != null)
+        q.offer(node.left);
+      if (node.right != null)
+        q.offer(node.right);
+    }
+  }
 }
+
 
 public class BinarySearchTreeTest {
 
-	static final int LOOPS = 100;
-
-	@Before
-	public void setup() {
-	}
-
-	@Test
-	public void testIsEmpty() {
-
-		BinarySearchTree<String> tree = new BinarySearchTree<>();
-		tree.printTree();
-		assertThat(tree.isEmpty()).isTrue();
-
-		tree.add("Hello World!");
-		tree.printTree();
-		assertThat(tree.isEmpty()).isFalse();
-	}
-
-	@Test
-	public void testSize() {
-		BinarySearchTree<String> tree = new BinarySearchTree<>();
-		assertThat(tree.size()).isEqualTo(0);
-
-		tree.add("Hello World!");
-		assertThat(tree.size()).isEqualTo(1);
-	}
-
-	@Test
-	public void testHeight() {
-		BinarySearchTree<String> tree = new BinarySearchTree<>();
-
-		// Tree should look like:
-		// M
-		// J S
-		// B N Z
-		// A
-
-		// No tree
-		assertThat(tree.height()).isEqualTo(0);
-		tree.printTree();
-
-		// Layer One
-		tree.add("M");
-		assertThat(tree.height()).isEqualTo(1);
-		tree.printTree();
-
-		// Layer Two
-		tree.add("J");
-		assertThat(tree.height()).isEqualTo(2);
-		tree.add("S");
-		assertThat(tree.height()).isEqualTo(2);
-		tree.printTree();
-
-		// Layer Three
-		tree.add("B");
-		assertThat(tree.height()).isEqualTo(3);
-		tree.add("N");
-		assertThat(tree.height()).isEqualTo(3);
-		tree.add("Z");
-		assertThat(tree.height()).isEqualTo(3);
-		tree.printTree();
-
-		// Layer 4
-		tree.add("A");
-		assertThat(tree.height()).isEqualTo(4);
-		tree.printTree();
-	}
-
-	@Test
-	public void testAdd() {
-
-		// Add element which does not yet exist
-		BinarySearchTree<Character> tree = new BinarySearchTree<>();
-		assertThat(tree.add('A')).isTrue();
-
-		// Add duplicate element
-		assertThat(tree.add('A')).isFalse();
-
-		// Add a second element which is not a duplicate
-		assertThat(tree.add('B')).isTrue();
-	}
-
-	@Test
-	public void testRemove() {
+  static final int LOOPS = 100;
+
+  @Before
+  public void setup() {}
+
+  @Test
+  public void testIsEmpty() {
+
+    BinarySearchTree<String> tree = new BinarySearchTree<>();
+    tree.printTree();
+    assertThat(tree.isEmpty()).isTrue();
+
+    tree.add("Hello World!");
+    tree.printTree();
+    assertThat(tree.isEmpty()).isFalse();
+  }
+
+  @Test
+  public void testSize() {
+    BinarySearchTree<String> tree = new BinarySearchTree<>();
+    assertThat(tree.size()).isEqualTo(0);
+
+    tree.add("Hello World!");
+    assertThat(tree.size()).isEqualTo(1);
+  }
+
+  @Test
+  public void testHeight() {
+    BinarySearchTree<String> tree = new BinarySearchTree<>();
+
+    // Tree should look like:
+    // M
+    // J S
+    // B N Z
+    // A
+
+    // No tree
+    assertThat(tree.height()).isEqualTo(0);
+    tree.printTree();
+
+    // Layer One
+    tree.add("M");
+    assertThat(tree.height()).isEqualTo(1);
+    tree.printTree();
+
+    // Layer Two
+    tree.add("J");
+    assertThat(tree.height()).isEqualTo(2);
+    tree.add("S");
+    assertThat(tree.height()).isEqualTo(2);
+    tree.printTree();
+
+    // Layer Three
+    tree.add("B");
+    assertThat(tree.height()).isEqualTo(3);
+    tree.add("N");
+    assertThat(tree.height()).isEqualTo(3);
+    tree.add("Z");
+    assertThat(tree.height()).isEqualTo(3);
+    tree.printTree();
+
+    // Layer 4
+    tree.add("A");
+    assertThat(tree.height()).isEqualTo(4);
+    tree.printTree();
+  }
+
+  @Test
+  public void testAdd() {
+
+    // Add element which does not yet exist
+    BinarySearchTree<Character> tree = new BinarySearchTree<>();
+    assertThat(tree.add('A')).isTrue();
+
+    // Add duplicate element
+    assertThat(tree.add('A')).isFalse();
 
-		// Try removing an element which doesn't exist
-		BinarySearchTree<Character> tree = new BinarySearchTree<>();
-		tree.add('A');
-		assertThat(tree.size()).isEqualTo(1);
-		assertThat(tree.remove('B')).isFalse();
-		assertThat(tree.size()).isEqualTo(1);
+    // Add a second element which is not a duplicate
+    assertThat(tree.add('B')).isTrue();
+  }
 
-		// Try removing an element which does exist
-		tree.add('B');
-		assertThat(tree.size()).isEqualTo(2);
-		assertThat(tree.remove('B')).isTrue();
-		assertThat(tree.size()).isEqualTo(1);
-		assertThat(tree.height()).isEqualTo(1);
+  @Test
+  public void testRemove() {
 
-		// Try removing the root
-		assertThat(tree.remove('A')).isTrue();
-		assertThat(tree.size()).isEqualTo(0);
-		assertThat(tree.height()).isEqualTo(0);
-	}
+    // Try removing an element which doesn't exist
+    BinarySearchTree<Character> tree = new BinarySearchTree<>();
+    tree.add('A');
+    assertThat(tree.size()).isEqualTo(1);
+    assertThat(tree.remove('B')).isFalse();
+    assertThat(tree.size()).isEqualTo(1);
 
-	@Test
-	public void testContains() {
+    // Try removing an element which does exist
+    tree.add('B');
+    assertThat(tree.size()).isEqualTo(2);
+    assertThat(tree.remove('B')).isTrue();
+    assertThat(tree.size()).isEqualTo(1);
+    assertThat(tree.height()).isEqualTo(1);
 
-		// Setup tree
-		BinarySearchTree<Character> tree = new BinarySearchTree<>();
+    // Try removing the root
+    assertThat(tree.remove('A')).isTrue();
+    assertThat(tree.size()).isEqualTo(0);
+    assertThat(tree.height()).isEqualTo(0);
+  }
 
-		tree.add('B');
-		tree.add('A');
-		tree.add('C');
+  @Test
+  public void testContains() {
 
-		// Try looking for an element which doesn't exist
-		assertThat(tree.contains('D')).isFalse();
+    // Setup tree
+    BinarySearchTree<Character> tree = new BinarySearchTree<>();
 
-		// Try looking for an element which exists in the root
-		assertThat(tree.contains('B')).isTrue();
+    tree.add('B');
+    tree.add('A');
+    tree.add('C');
 
-		// Try looking for an element which exists as the left child of the root
-		assertThat(tree.contains('A')).isTrue();
+    // Try looking for an element which doesn't exist
+    assertThat(tree.contains('D')).isFalse();
 
-		// Try looking for an element which exists as the right child of the root
-		assertThat(tree.contains('C')).isTrue();
+    // Try looking for an element which exists in the root
+    assertThat(tree.contains('B')).isTrue();
 
-		tree.printTree();
-	}
+    // Try looking for an element which exists as the left child of the root
+    assertThat(tree.contains('A')).isTrue();
 
-	@Test(expected = ConcurrentModificationException.class)
-	public void concurrentModificationErrorPreOrder() {
+    // Try looking for an element which exists as the right child of the root
+    assertThat(tree.contains('C')).isTrue();
 
-		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+    tree.printTree();
+  }
 
-		bst.add(1);
-		bst.add(2);
-		bst.add(3);
+  @Test(expected = ConcurrentModificationException.class)
+  public void concurrentModificationErrorPreOrder() {
 
-		Iterator<Integer> iter = bst.traverse(TreeTraversalOrder.PRE_ORDER);
+    BinarySearchTree<Integer> bst = new BinarySearchTree<>();
 
-		while (iter.hasNext()) {
-			bst.add(0);
-			iter.next();
-		}
-	}
+    bst.add(1);
+    bst.add(2);
+    bst.add(3);
 
-	@Test(expected = ConcurrentModificationException.class)
-	public void concurrentModificationErrorInOrderOrder() {
+    Iterator<Integer> iter = bst.traverse(TreeTraversalOrder.PRE_ORDER);
 
-		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+    while (iter.hasNext()) {
+      bst.add(0);
+      iter.next();
+    }
+  }
 
-		bst.add(1);
-		bst.add(2);
-		bst.add(3);
+  @Test(expected = ConcurrentModificationException.class)
+  public void concurrentModificationErrorInOrderOrder() {
 
-		Iterator<Integer> iter = bst.traverse(TreeTraversalOrder.IN_ORDER);
+    BinarySearchTree<Integer> bst = new BinarySearchTree<>();
 
-		while (iter.hasNext()) {
-			bst.add(0);
-			iter.next();
-		}
-	}
+    bst.add(1);
+    bst.add(2);
+    bst.add(3);
 
-	@Test(expected = ConcurrentModificationException.class)
-	public void concurrentModificationErrorPostOrder() {
+    Iterator<Integer> iter = bst.traverse(TreeTraversalOrder.IN_ORDER);
 
-		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+    while (iter.hasNext()) {
+      bst.add(0);
+      iter.next();
+    }
+  }
 
-		bst.add(1);
-		bst.add(2);
-		bst.add(3);
+  @Test(expected = ConcurrentModificationException.class)
+  public void concurrentModificationErrorPostOrder() {
 
-		Iterator<Integer> iter = bst.traverse(TreeTraversalOrder.POST_ORDER);
+    BinarySearchTree<Integer> bst = new BinarySearchTree<>();
 
-		while (iter.hasNext()) {
-			bst.add(0);
-			iter.next();
-		}
-	}
+    bst.add(1);
+    bst.add(2);
+    bst.add(3);
 
-	@Test(expected = ConcurrentModificationException.class)
-	public void concurrentModificationErrorLevelOrder() {
+    Iterator<Integer> iter = bst.traverse(TreeTraversalOrder.POST_ORDER);
 
-		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+    while (iter.hasNext()) {
+      bst.add(0);
+      iter.next();
+    }
+  }
 
-		bst.add(1);
-		bst.add(2);
-		bst.add(3);
+  @Test(expected = ConcurrentModificationException.class)
+  public void concurrentModificationErrorLevelOrder() {
 
-		Iterator<Integer> iter = bst.traverse(TreeTraversalOrder.LEVEL_ORDER);
+    BinarySearchTree<Integer> bst = new BinarySearchTree<>();
 
-		while (iter.hasNext()) {
-			bst.add(0);
-			iter.next();
-		}
-	}
+    bst.add(1);
+    bst.add(2);
+    bst.add(3);
 
-	@Test(expected = ConcurrentModificationException.class)
-	public void concurrentModificationErrorRemovingPreOrder() {
+    Iterator<Integer> iter = bst.traverse(TreeTraversalOrder.LEVEL_ORDER);
 
-		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+    while (iter.hasNext()) {
+      bst.add(0);
+      iter.next();
+    }
+  }
 
-		bst.add(1);
-		bst.add(2);
-		bst.add(3);
+  @Test(expected = ConcurrentModificationException.class)
+  public void concurrentModificationErrorRemovingPreOrder() {
 
-		Iterator<Integer> iter = bst.traverse(TreeTraversalOrder.PRE_ORDER);
+    BinarySearchTree<Integer> bst = new BinarySearchTree<>();
 
-		while (iter.hasNext()) {
-			bst.remove(2);
-			iter.next();
-		}
-	}
+    bst.add(1);
+    bst.add(2);
+    bst.add(3);
 
-	@Test(expected = ConcurrentModificationException.class)
-	public void concurrentModificationErrorRemovingInOrderOrder() {
+    Iterator<Integer> iter = bst.traverse(TreeTraversalOrder.PRE_ORDER);
 
-		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+    while (iter.hasNext()) {
+      bst.remove(2);
+      iter.next();
+    }
+  }
 
-		bst.add(1);
-		bst.add(2);
-		bst.add(3);
+  @Test(expected = ConcurrentModificationException.class)
+  public void concurrentModificationErrorRemovingInOrderOrder() {
 
-		Iterator<Integer> iter = bst.traverse(TreeTraversalOrder.IN_ORDER);
+    BinarySearchTree<Integer> bst = new BinarySearchTree<>();
 
-		while (iter.hasNext()) {
-			bst.remove(2);
-			iter.next();
-		}
-	}
+    bst.add(1);
+    bst.add(2);
+    bst.add(3);
 
-	@Test(expected = ConcurrentModificationException.class)
-	public void concurrentModificationErrorRemovingPostOrder() {
+    Iterator<Integer> iter = bst.traverse(TreeTraversalOrder.IN_ORDER);
 
-		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+    while (iter.hasNext()) {
+      bst.remove(2);
+      iter.next();
+    }
+  }
 
-		bst.add(1);
-		bst.add(2);
-		bst.add(3);
+  @Test(expected = ConcurrentModificationException.class)
+  public void concurrentModificationErrorRemovingPostOrder() {
 
-		Iterator<Integer> iter = bst.traverse(TreeTraversalOrder.POST_ORDER);
+    BinarySearchTree<Integer> bst = new BinarySearchTree<>();
 
-		while (iter.hasNext()) {
-			bst.remove(2);
-			iter.next();
-		}
-	}
+    bst.add(1);
+    bst.add(2);
+    bst.add(3);
 
-	@Test(expected = ConcurrentModificationException.class)
-	public void concurrentModificationErrorRemovingLevelOrder() {
+    Iterator<Integer> iter = bst.traverse(TreeTraversalOrder.POST_ORDER);
 
-		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+    while (iter.hasNext()) {
+      bst.remove(2);
+      iter.next();
+    }
+  }
 
-		bst.add(1);
-		bst.add(2);
-		bst.add(3);
+  @Test(expected = ConcurrentModificationException.class)
+  public void concurrentModificationErrorRemovingLevelOrder() {
 
-		Iterator<Integer> iter = bst.traverse(TreeTraversalOrder.LEVEL_ORDER);
+    BinarySearchTree<Integer> bst = new BinarySearchTree<>();
 
-		while (iter.hasNext()) {
-			bst.remove(2);
-			iter.next();
-		}
-	}
+    bst.add(1);
+    bst.add(2);
+    bst.add(3);
 
-	@Test
-	public void randomRemoveTests() {
+    Iterator<Integer> iter = bst.traverse(TreeTraversalOrder.LEVEL_ORDER);
 
-		for (int i = 0; i < LOOPS; i++) {
+    while (iter.hasNext()) {
+      bst.remove(2);
+      iter.next();
+    }
+  }
 
-			int size = i;
-			BinarySearchTree<Integer> tree = new BinarySearchTree<>();
-			List<Integer> lst = genRandList(size);
-			for (Integer value : lst)
-				tree.add(value);
+  @Test
+  public void randomRemoveTests() {
 
-			Collections.shuffle(lst);
-			// Remove all the elements we just placed in the tree
-			for (int j = 0; j < size; j++) {
+    for (int i = 0; i < LOOPS; i++) {
 
-				Integer value = lst.get(j);
+      int size = i;
+      BinarySearchTree<Integer> tree = new BinarySearchTree<>();
+      List<Integer> lst = genRandList(size);
+      for (Integer value : lst)
+        tree.add(value);
 
-				assertThat(tree.remove(value)).isTrue();
-				assertThat(tree.contains(value)).isFalse();
-				assertThat(tree.size()).isEqualTo(size - j - 1);
-			}
+      Collections.shuffle(lst);
+      // Remove all the elements we just placed in the tree
+      for (int j = 0; j < size; j++) {
 
-			assertThat(tree.isEmpty()).isTrue();
-		}
-	}
+        Integer value = lst.get(j);
 
-	static List<Integer> genRandList(int sz) {
-		List<Integer> lst = new ArrayList<>(sz);
-		for (int i = 0; i < sz; i++)
-			lst.add(i);
-		Collections.shuffle(lst);
-		return lst;
-	}
+        assertThat(tree.remove(value)).isTrue();
+        assertThat(tree.contains(value)).isFalse();
+        assertThat(tree.size()).isEqualTo(size - j - 1);
+      }
 
-	public boolean validateTreeTraversal(TreeTraversalOrder trav_order, List<Integer> input) {
+      assertThat(tree.isEmpty()).isTrue();
+    }
+  }
 
-		List<Integer> out = new ArrayList<>();
-		List<Integer> expected = new ArrayList<>();
+  static List<Integer> genRandList(int sz) {
+    List<Integer> lst = new ArrayList<>(sz);
+    for (int i = 0; i < sz; i++)
+      lst.add(i);
+    Collections.shuffle(lst);
+    return lst;
+  }
 
-		TestTreeNode testTree = null;
-		BinarySearchTree<Integer> tree = new BinarySearchTree<>();
+  public boolean validateTreeTraversal(TreeTraversalOrder trav_order, List<Integer> input) {
 
-		int size = 0;
-		// Construct Binary Tree and test tree
-		for (Integer value : input) {
-			testTree = TestTreeNode.add(testTree, value);
-			tree.add(value);
-			size++;
-		}
-		boolean printTree = LOOPS / 4 == size;
-		if (printTree) {
-			System.out.println("\norder:\t" + trav_order);
-			System.out.println("input:\t" + input);
-		}
+    List<Integer> out = new ArrayList<>();
+    List<Integer> expected = new ArrayList<>();
 
-		// Generate the expected output for the particular traversal
-		switch (trav_order) {
-		case PRE_ORDER:
-			TestTreeNode.preOrder(expected, testTree);
-			break;
-		case IN_ORDER:
-			TestTreeNode.inOrder(expected, testTree);
-			break;
-		case POST_ORDER:
-			TestTreeNode.postOrder(expected, testTree);
-			break;
-		case LEVEL_ORDER:
-			TestTreeNode.levelOrder(expected, testTree);
-			break;
-		}
+    TestTreeNode testTree = null;
+    BinarySearchTree<Integer> tree = new BinarySearchTree<>();
 
-		if (printTree) {
-			System.out.println("output:\t" + expected);
-			tree.printTree();
-		}
+    int size = 0;
+    // Construct Binary Tree and test tree
+    for (Integer value : input) {
+      testTree = TestTreeNode.add(testTree, value);
+      tree.add(value);
+      size++;
+    }
+    boolean printTree = LOOPS / 4 == size;
+    if (printTree) {
+      System.out.println("\norder:\t" + trav_order);
+      System.out.println("input:\t" + input);
+    }
 
-		// Get traversal output
-		Iterator<Integer> iter = tree.traverse(trav_order);
-		while (iter.hasNext())
-			out.add(iter.next());
+    // Generate the expected output for the particular traversal
+    switch (trav_order) {
+      case PRE_ORDER:
+        TestTreeNode.preOrder(expected, testTree);
+        break;
+      case IN_ORDER:
+        TestTreeNode.inOrder(expected, testTree);
+        break;
+      case POST_ORDER:
+        TestTreeNode.postOrder(expected, testTree);
+        break;
+      case LEVEL_ORDER:
+        TestTreeNode.levelOrder(expected, testTree);
+        break;
+    }
 
-		// The output and the expected size better be the same size
-		if (out.size() != expected.size())
-			return false;
+    if (printTree) {
+      System.out.println("output:\t" + expected);
+      tree.printTree();
+    }
 
-		// Compare output to expected
-		for (int i = 0; i < out.size(); i++)
-			if (!expected.get(i).equals(out.get(i)))
-				return false;
+    // Get traversal output
+    Iterator<Integer> iter = tree.traverse(trav_order);
+    while (iter.hasNext())
+      out.add(iter.next());
 
-		return true;
-	}
+    // The output and the expected size better be the same size
+    if (out.size() != expected.size())
+      return false;
 
-	@Test
-	public void testPreOrderTraversal() {
+    // Compare output to expected
+    for (int i = 0; i < out.size(); i++)
+      if (!expected.get(i).equals(out.get(i)))
+        return false;
 
-		for (int i = 0; i < LOOPS; i++) {
-			List<Integer> input = genRandList(i);
-			assertThat(validateTreeTraversal(TreeTraversalOrder.PRE_ORDER, input)).isTrue();
-		}
-	}
+    return true;
+  }
 
-	@Test
-	public void testInOrderTraversal() {
+  @Test
+  public void testPreOrderTraversal() {
 
-		for (int i = 0; i < LOOPS; i++) {
-			List<Integer> input = genRandList(i);
-			assertThat(validateTreeTraversal(TreeTraversalOrder.IN_ORDER, input)).isTrue();
-		}
-	}
+    for (int i = 0; i < LOOPS; i++) {
+      List<Integer> input = genRandList(i);
+      assertThat(validateTreeTraversal(TreeTraversalOrder.PRE_ORDER, input)).isTrue();
+    }
+  }
 
-	@Test
-	public void testPostOrderTraversal() {
+  @Test
+  public void testInOrderTraversal() {
 
-		for (int i = 0; i < LOOPS; i++) {
-			List<Integer> input = genRandList(i);
-			assertThat(validateTreeTraversal(TreeTraversalOrder.POST_ORDER, input)).isTrue();
-		}
-	}
+    for (int i = 0; i < LOOPS; i++) {
+      List<Integer> input = genRandList(i);
+      assertThat(validateTreeTraversal(TreeTraversalOrder.IN_ORDER, input)).isTrue();
+    }
+  }
 
-	@Test
-	public void testLevelOrderTraversal() {
+  @Test
+  public void testPostOrderTraversal() {
 
-		for (int i = 0; i < LOOPS; i++) {
-			List<Integer> input = genRandList(i);
-			assertThat(validateTreeTraversal(TreeTraversalOrder.LEVEL_ORDER, input)).isTrue();
-		}
-	}
+    for (int i = 0; i < LOOPS; i++) {
+      List<Integer> input = genRandList(i);
+      assertThat(validateTreeTraversal(TreeTraversalOrder.POST_ORDER, input)).isTrue();
+    }
+  }
+
+  @Test
+  public void testLevelOrderTraversal() {
+
+    for (int i = 0; i < LOOPS; i++) {
+      List<Integer> input = genRandList(i);
+      assertThat(validateTreeTraversal(TreeTraversalOrder.LEVEL_ORDER, input)).isTrue();
+    }
+  }
 }
