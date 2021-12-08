@@ -6,13 +6,13 @@
  */
 package com.williamfiset.algorithms.ai;
 
-import java.util.*;
+import java.util.Random;
 
 public class GeneticAlgorithm_textSearch {
 
   // Target sentence
   static final String TARGET = "to be or not to be that is the question";
-  static final char[] ALPHA = " abcdefghijklmnopqrstuvwxyz".toCharArray();;
+  static final char[] ALPHA = " abcdefghijklmnopqrstuvwxyz".toCharArray();
   static final int TL = TARGET.length();
 
   static final Random RANDOM = new Random();
@@ -74,8 +74,7 @@ public class GeneticAlgorithm_textSearch {
         }
       }
 
-      if (epoch % 50 == 0)
-        System.out.printf("Epoch: %d,       %s\n", epoch, fittest);
+      if (epoch % 50 == 0) System.out.printf("Epoch: %d,       %s\n", epoch, fittest);
 
       // Selection process
       for (int i = 1; i <= POPULATION_SZ; i++) {
@@ -134,8 +133,7 @@ public class GeneticAlgorithm_textSearch {
     public double fitness() {
       double score = 0.0;
       for (int i = 0; i < TL; i++) {
-        if (TARGET.charAt(i) == dna[i])
-          score++;
+        if (TARGET.charAt(i) == dna[i]) score++;
       }
       return Math.pow(score, power);
     }
@@ -160,12 +158,9 @@ public class GeneticAlgorithm_textSearch {
     int mid, l = 0, h = POPULATION_SZ - 1;
     while (true) {
       mid = (l + h) >>> 1;
-      if (lo[mid] <= r && r < hi[mid])
-        return generation[mid + 1];
-      if (r < lo[mid])
-        h = mid - 1;
-      else
-        l = mid + 1;
+      if (lo[mid] <= r && r < hi[mid]) return generation[mid + 1];
+      if (r < lo[mid]) h = mid - 1;
+      else l = mid + 1;
     }
   }
 

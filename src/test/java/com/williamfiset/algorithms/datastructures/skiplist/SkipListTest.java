@@ -8,9 +8,10 @@
  */
 package com.williamfiset.algorithms.datastructures.skiplist;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.*;
+import org.junit.Test;
 
 public class SkipListTest {
 

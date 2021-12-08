@@ -10,8 +10,7 @@
  * operations is O(n)
  *
  * @author Finn Lidbetter
- *         <p>
- *         Refactored and rewritten by:
+ *     <p>Refactored and rewritten by:
  * @author Daniel Gustafsson
  * @author Timmy Lindholm
  * @author Anja Studic
@@ -79,21 +78,17 @@ class SkipList {
   private Node search(int num, Node node) {
     // Check if the next right node is still less than num
     if (node.compareTo(num) < 0) {
-      if (node.down != null)
-        return search(num, node.down);
-      else if (node.right != null && node.right.compareTo(num) <= 0)
-        return search(num, node.right);
+      if (node.down != null) return search(num, node.down);
+      else if (node.right != null && node.right.compareTo(num) <= 0) return search(num, node.right);
     }
     return node;
   }
 
   /** Inserts the number into the list. */
   public boolean insert(int num) {
-    if (num < head.value || num > tail.value)
-      return false;
+    if (num < head.value || num > tail.value) return false;
     Node node = search(num);
-    if (node.value == num)
-      return false;
+    if (node.value == num) return false;
     int nodeHeight = 0;
     // 0.5 probability of having height 1, 0.25 for height 2
     while (rand.nextBoolean() && nodeHeight < (height - 1)) {
@@ -137,12 +132,10 @@ class SkipList {
    * removed. False otherwise.
    */
   public boolean remove(int num) {
-    if (num == head.value || num == tail.value)
-      return false;
+    if (num == head.value || num == tail.value) return false;
     // Get the node to remove
     Node node = search(num);
-    if (node.value != num)
-      return false;
+    if (node.value != num) return false;
     // Re-number all nodes to the right
     decreaseRank(node.right);
 

@@ -6,7 +6,10 @@
  */
 package com.williamfiset.algorithms.graphtheory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 // This file contains an implementation of an integer only stack which is
 // extremely quick and lightweight. In terms of performance it can outperform
@@ -43,7 +46,6 @@ class IntStack {
     return ar[--pos];
   }
 }
-
 
 public class DepthFirstSearchAdjacencyListIterativeFastStack {
 
@@ -116,13 +118,11 @@ public class DepthFirstSearchAdjacencyListIterativeFastStack {
 
     long nodeCount = dfs(graph, 0, numNodes);
     System.out.println("DFS node count starting at node 0: " + nodeCount);
-    if (nodeCount != 4)
-      System.err.println("Error with DFS");
+    if (nodeCount != 4) System.err.println("Error with DFS");
 
     nodeCount = dfs(graph, 4, numNodes);
     System.out.println("DFS node count starting at node 4: " + nodeCount);
-    if (nodeCount != 1)
-      System.err.println("Error with DFS");
+    if (nodeCount != 1) System.err.println("Error with DFS");
   }
 
   // Helper method to setup graph

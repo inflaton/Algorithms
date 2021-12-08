@@ -3,28 +3,28 @@
  * elegant solution to uniquely encode a graph if it is a tree. Here is a brilliant explanation with
  * animations:
  *
- * <p>
- * http://webhome.cs.uvic.ca/~wendym/courses/582/16/notes/582_12_tree_can_form.pdf
+ * <p>http://webhome.cs.uvic.ca/~wendym/courses/582/16/notes/582_12_tree_can_form.pdf
  *
- * <p>
- * This implementation uses a breadth first search on an undirected graph to generate the tree's
+ * <p>This implementation uses a breadth first search on an undirected graph to generate the tree's
  * canonical encoding.
  *
- * <p>
- * Tested code against: https://uva.onlinejudge.org/external/124/p12489.pdf
+ * <p>Tested code against: https://uva.onlinejudge.org/external/124/p12489.pdf
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.graphtheory.treealgorithms;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Queue;
 
 public class TreeIsomorphismWithBfs {
 
   public static List<List<Integer>> createEmptyTree(int n) {
     List<List<Integer>> tree = new ArrayList<>(n);
-    for (int i = 0; i < n; i++)
-      tree.add(new ArrayList<>());
+    for (int i = 0; i < n; i++) tree.add(new ArrayList<>());
     return tree;
   }
 
@@ -42,8 +42,7 @@ public class TreeIsomorphismWithBfs {
     for (int i = 0; i < n; i++) {
       List<Integer> edges = tree.get(i);
       degrees[i] = edges.size();
-      if (degrees[i] <= 1)
-        leaves.add(i);
+      if (degrees[i] <= 1) leaves.add(i);
     }
 
     int processedLeafs = leaves.size();
@@ -54,9 +53,7 @@ public class TreeIsomorphismWithBfs {
     while (processedLeafs < n) {
       List<Integer> newLeaves = new ArrayList<>();
       for (int node : leaves)
-        for (int neighbor : tree.get(node))
-          if (--degrees[neighbor] == 1)
-            newLeaves.add(neighbor);
+        for (int neighbor : tree.get(node)) if (--degrees[neighbor] == 1) newLeaves.add(neighbor);
       processedLeafs += newLeaves.size();
       leaves = newLeaves;
     }
@@ -69,10 +66,8 @@ public class TreeIsomorphismWithBfs {
   // TODO(william): make this method private and test only with the
   // treesAreIsomorphic method
   public static String encodeTree(List<List<Integer>> tree) {
-    if (tree == null || tree.size() == 0)
-      return "";
-    if (tree.size() == 1)
-      return "()";
+    if (tree == null || tree.size() == 0) return "";
+    if (tree.size() == 1) return "()";
     final int n = tree.size();
 
     int root = findTreeCenters(tree).get(0);
@@ -99,8 +94,7 @@ public class TreeIsomorphismWithBfs {
           q.offer(next);
         }
       }
-      if (degree[at] == 1)
-        leafs.add(at);
+      if (degree[at] == 1) leafs.add(at);
     }
 
     List<Integer> newLeafs = new ArrayList<>();
@@ -118,8 +112,7 @@ public class TreeIsomorphismWithBfs {
         // is a candidate for the next cycle of leaf nodes
         visited[leaf] = true;
         int p = parent[leaf];
-        if (--degree[p] == 1)
-          newLeafs.add(p);
+        if (--degree[p] == 1) newLeafs.add(p);
 
         treeSize--;
       }
@@ -131,8 +124,7 @@ public class TreeIsomorphismWithBfs {
         for (int child : tree.get(p))
           // Recall edges are bidirectional so we don't want to
           // access the parent's parent here.
-          if (visited[child])
-            labels.add(map[child]);
+          if (visited[child]) labels.add(map[child]);
 
         String parentInnerParentheses = map[p].substring(1, map[p].length() - 1);
         labels.add(parentInnerParentheses);
@@ -148,8 +140,7 @@ public class TreeIsomorphismWithBfs {
 
     // Only one node remains and it holds the canonical form
     String l1 = map[leafs.get(0)];
-    if (treeSize == 1)
-      return l1;
+    if (treeSize == 1) return l1;
 
     // Two nodes remain and we need to combine their labels
     String l2 = map[leafs.get(1)];

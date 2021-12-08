@@ -2,7 +2,7 @@ package com.williamfiset.algorithms.other;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import org.junit.*;
+import org.junit.Test;
 
 public class SlidingWindowMaximumTest {
 
@@ -79,13 +79,11 @@ public class SlidingWindowMaximumTest {
       }
 
       // Ignore invalid queries
-      if (window.lo == window.hi)
-        continue;
+      if (window.lo == window.hi) continue;
 
       // Manually find the window maximum
       int max = Integer.MIN_VALUE;
-      for (int i = lo; i < hi; i++)
-        max = Math.max(max, ar[i]);
+      for (int i = lo; i < hi; i++) max = Math.max(max, ar[i]);
 
       assertThat(window.getMax()).isEqualTo(max);
     }

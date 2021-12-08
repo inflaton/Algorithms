@@ -162,8 +162,7 @@ public class QuadTreeTest {
     QuadTree quadTree = new QuadTree(region);
 
     // Add points on a diagonal
-    for (int i = 0; i <= SZ; i++)
-      quadTree.add(i, i);
+    for (int i = 0; i <= SZ; i++) quadTree.add(i, i);
 
     // Query entire region there should be 101 points
     assertThat(quadTree.count(region)).isEqualTo(101);
@@ -171,9 +170,7 @@ public class QuadTreeTest {
 
   public int bruteForceCount(int[][] grid, int x1, int y1, int x2, int y2) {
     int sum = 0;
-    for (int i = y1; i <= y2; i++)
-      for (int j = x1; j <= x2; j++)
-        sum += grid[i][j];
+    for (int i = y1; i <= y2; i++) for (int j = x1; j <= x2; j++) sum += grid[i][j];
     return sum;
   }
 
@@ -198,7 +195,7 @@ public class QuadTreeTest {
 
       // for (int i = H; i >= 0; i--) System.out.println(Arrays.toString(grid[i]));
 
-      for (int i = 0; i < TEST_SZ;) {
+      for (int i = 0; i < TEST_SZ; ) {
 
         int x1 = (int) (Math.random() * (W));
         int y1 = (int) (Math.random() * (H));
@@ -225,29 +222,29 @@ public class QuadTreeTest {
 
   /*
    * @Test public void testKNN1() {
-   * 
+   *
    * int W = 99, H = 99, NUM_NODES = 2; QuadTree quadTree = new QuadTree(new QuadTree.Rect(0,0,W,H),
    * NUM_NODES);
-   * 
+   *
    * int x = 46, y = 92, k = 7;
-   * 
+   *
    * // Cluster surrounding point quadTree.add(x, y - 1); // Below quadTree.add(x, y + 1); // Above
    * quadTree.add(x - 1, y); // Left quadTree.add(x + 1, y); // Right
-   * 
+   *
    * // Noise points far away left from point in NW quadrant. quadTree.add(0, 77); quadTree.add(4,
    * 56); quadTree.add(2, 80); quadTree.add(6, 60); quadTree.add(8, 90);
-   * 
+   *
    * // Noise points in quadrants quadTree.add(25, 25); quadTree.add(75, 25); quadTree.add(25, 75);
    * // Target point in NW quadrant. quadTree.add(75, 75);
-   * 
+   *
    * // NE quadrant target points quadTree.add(52, y); quadTree.add(52, y+1); quadTree.add(52, y-1);
-   * 
+   *
    * List<QuadTree.Pt> points = quadTree.kNearestNeighbors(k, x, y); System.out.println(points);
-   * 
+   *
    * List<QuadTree.SortedPt> sPoints = new ArrayList<>(); for (QuadTree.Pt p : quadTree.getPoints())
    * { sPoints.add(new QuadTree.SortedPt(Math.hypot(p.x - x, p.y - y), p)); }
    * Collections.sort(sPoints); for (QuadTree.SortedPt p : sPoints) { System.out.println(p); }
-   * 
+   *
    * }
    */
 

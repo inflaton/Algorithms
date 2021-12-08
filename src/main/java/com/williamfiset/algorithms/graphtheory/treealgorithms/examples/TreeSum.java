@@ -1,22 +1,20 @@
 /**
  * Tree sum example
  *
- * <p>
- * Download the code: <br>
+ * <p>Download the code: <br>
  * $ git clone https://github.com/williamfiset/Algorithms
  *
- * <p>
- * Run: <br>
+ * <p>Run: <br>
  * $ ./gradlew run -Palgorithm=graphtheory.treealgorithms.examples.TreeSum
  *
- * <p>
- * Time Complexity: O(n)
+ * <p>Time Complexity: O(n)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.graphtheory.treealgorithms.examples;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TreeSum {
 
@@ -44,11 +42,9 @@ public class TreeSum {
   }
 
   public static int treeSum(TreeNode node) {
-    if (node == null)
-      return 0;
+    if (node == null) return 0;
     int total = 0;
-    for (TreeNode child : node.getChildren())
-      total += treeSum(child);
+    for (TreeNode child : node.getChildren()) total += treeSum(child);
     total += node.getValue();
     return total;
   }

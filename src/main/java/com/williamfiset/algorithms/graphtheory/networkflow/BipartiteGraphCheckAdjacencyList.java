@@ -2,8 +2,7 @@
  * This file shows you how to determine if a graph is bipartite or not. This can be achieved in
  * linear time by coloring the visited nodes.
  *
- * <p>
- * Time Complexity: O(V + E)
+ * <p>Time Complexity: O(V + E)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -23,16 +22,14 @@ public class BipartiteGraphCheckAdjacencyList {
   public static final int RED = 0b10, BLACK = (RED ^ 1);
 
   public BipartiteGraphCheckAdjacencyList(List<List<Integer>> graph) {
-    if (graph == null)
-      throw new IllegalArgumentException("Graph cannot be null.");
+    if (graph == null) throw new IllegalArgumentException("Graph cannot be null.");
     n = graph.size();
     this.graph = graph;
   }
 
   // Checks whether the input graph is bipartite.
   public boolean isBipartite() {
-    if (!solved)
-      solve();
+    if (!solved) solve();
     return isBipartite;
   }
 
@@ -44,8 +41,7 @@ public class BipartiteGraphCheckAdjacencyList {
   }
 
   private void solve() {
-    if (n <= 1)
-      return;
+    if (n <= 1) return;
 
     colors = new int[n];
     int nodesVisited = colorGraph(0, RED);
@@ -73,16 +69,13 @@ public class BipartiteGraphCheckAdjacencyList {
     for (int to : edges) {
       // Contradiction found. In a bipartite graph no two
       // nodes of the same color can be next to each other!
-      if (colors[to] == color)
-        return -1;
-      if (colors[to] == nextColor)
-        continue;
+      if (colors[to] == color) return -1;
+      if (colors[to] == nextColor) continue;
 
       // If a contradiction is found propagate return -1
       // otherwise keep track of the number of visited nodes.
       int count = colorGraph(to, nextColor);
-      if (count == -1)
-        return -1;
+      if (count == -1) return -1;
       visitCount += count;
     }
 
@@ -201,9 +194,7 @@ public class BipartiteGraphCheckAdjacencyList {
     final int n = graph.size();
 
     System.out.println("Graph has " + n + " node(s) and the following edges:");
-    for (int f = 0; f < n; f++)
-      for (int t : graph.get(f))
-        System.out.println(f + " -> " + t);
+    for (int f = 0; f < n; f++) for (int t : graph.get(f)) System.out.println(f + " -> " + t);
 
     BipartiteGraphCheckAdjacencyList solver;
     solver = new BipartiteGraphCheckAdjacencyList(graph);

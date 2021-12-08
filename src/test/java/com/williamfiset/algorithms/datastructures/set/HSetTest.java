@@ -1,11 +1,14 @@
 package com.williamfiset.algorithms.datastructures.set;
 
+import static com.google.common.truth.Truth.assertThat;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.*;
-
-import static com.google.common.truth.Truth.assertThat;
 
 // You can set the hash value of this object to be whatever you want
 // This makes it great for testing special cases.
@@ -27,7 +30,6 @@ class ConstObj {
     return data == ((ConstObj) o).data;
   }
 }
-
 
 public class HSetTest {
 
@@ -77,10 +79,8 @@ public class HSetTest {
         s.add(num);
 
         // Make sure this is a bijection
-        for (Integer n : s)
-          hs.contains(n);
-        for (Integer n : hs)
-          s.contains(n);
+        for (Integer n : s) hs.contains(n);
+        for (Integer n : hs) s.contains(n);
 
         assertThat(s.size()).isEqualTo(hs.size());
       }
@@ -109,10 +109,8 @@ public class HSetTest {
         s.add(obj);
 
         // Make sure this is a bijection
-        for (ConstObj n : s)
-          hs.contains(n);
-        for (ConstObj n : hs)
-          s.contains(n);
+        for (ConstObj n : s) hs.contains(n);
+        for (ConstObj n : hs) s.contains(n);
 
         assertThat(s.size()).isEqualTo(hs.size());
       }
@@ -140,8 +138,7 @@ public class HSetTest {
   // Generate a list of random numbers
   static List<Integer> genRandList(int sz) {
     List<Integer> lst = new ArrayList<>(sz);
-    for (int i = 0; i < sz; i++)
-      lst.add((int) (Math.random() * MAX_RAND_NUM));
+    for (int i = 0; i < sz; i++) lst.add((int) (Math.random() * MAX_RAND_NUM));
     Collections.shuffle(lst);
     return lst;
   }
@@ -149,8 +146,7 @@ public class HSetTest {
   // Generate a list of unique random numbers
   static List<Integer> genUniqueRandList(int sz) {
     List<Integer> lst = new ArrayList<>(sz);
-    for (int i = 0; i < sz; i++)
-      lst.add(i);
+    for (int i = 0; i < sz; i++) lst.add(i);
     Collections.shuffle(lst);
     return lst;
   }

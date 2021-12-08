@@ -5,7 +5,8 @@ import static com.google.common.truth.Truth.assertThat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 
 public class LinkedListTest {
   private static final int LOOPS = 10000;
@@ -215,13 +216,11 @@ public class LinkedListTest {
 
         java.util.Iterator<Integer> iter1 = javaLinkedList.iterator();
         java.util.Iterator<Integer> iter2 = list.iterator();
-        while (iter1.hasNext())
-          assertThat(iter1.next()).isEqualTo(iter2.next());
+        while (iter1.hasNext()) assertThat(iter1.next()).isEqualTo(iter2.next());
 
         iter1 = javaLinkedList.iterator();
         iter2 = list.iterator();
-        while (iter1.hasNext())
-          assertThat(iter1.next()).isEqualTo(iter2.next());
+        while (iter1.hasNext()) assertThat(iter1.next()).isEqualTo(iter2.next());
       }
 
       list.clear();
@@ -241,8 +240,7 @@ public class LinkedListTest {
 
         java.util.Iterator<Integer> iter1 = javaLinkedList.iterator();
         java.util.Iterator<Integer> iter2 = list.iterator();
-        while (iter1.hasNext())
-          assertThat(iter1.next()).isEqualTo(iter2.next());
+        while (iter1.hasNext()) assertThat(iter1.next()).isEqualTo(iter2.next());
       }
     }
   }
@@ -274,8 +272,7 @@ public class LinkedListTest {
 
         java.util.Iterator<Integer> iter1 = javaLinkedList.iterator();
         java.util.Iterator<Integer> iter2 = list.iterator();
-        while (iter1.hasNext())
-          assertThat(iter1.next()).isEqualTo(iter2.next());
+        while (iter1.hasNext()) assertThat(iter1.next()).isEqualTo(iter2.next());
       }
     }
   }
@@ -308,8 +305,7 @@ public class LinkedListTest {
 
         java.util.Iterator<Integer> iter1 = javaLinkedList.iterator();
         java.util.Iterator<Integer> iter2 = list.iterator();
-        while (iter1.hasNext())
-          assertThat(iter1.next()).isEqualTo(iter2.next());
+        while (iter1.hasNext()) assertThat(iter1.next()).isEqualTo(iter2.next());
       }
     }
   }
@@ -332,10 +328,8 @@ public class LinkedListTest {
   // Generate a list of random numbers
   static List<Integer> genRandList(int sz) {
     List<Integer> lst = new ArrayList<>(sz);
-    for (int i = 0; i < sz; i++)
-      lst.add((int) (Math.random() * MAX_RAND_NUM));
-    for (int i = 0; i < NUM_NULLS; i++)
-      lst.add(null);
+    for (int i = 0; i < sz; i++) lst.add((int) (Math.random() * MAX_RAND_NUM));
+    for (int i = 0; i < NUM_NULLS; i++) lst.add(null);
     Collections.shuffle(lst);
     return lst;
   }
@@ -343,10 +337,8 @@ public class LinkedListTest {
   // Generate a list of unique random numbers
   static List<Integer> genUniqueRandList(int sz) {
     List<Integer> lst = new ArrayList<>(sz);
-    for (int i = 0; i < sz; i++)
-      lst.add(i);
-    for (int i = 0; i < NUM_NULLS; i++)
-      lst.add(null);
+    for (int i = 0; i < sz; i++) lst.add(i);
+    for (int i = 0; i < NUM_NULLS; i++) lst.add(null);
     Collections.shuffle(lst);
     return lst;
   }

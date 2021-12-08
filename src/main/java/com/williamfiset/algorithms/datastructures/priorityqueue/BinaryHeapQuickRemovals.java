@@ -50,15 +50,13 @@ public class BinaryHeapQuickRemovals<T extends Comparable<T>> {
     }
 
     // Heapify process, O(n)
-    for (int i = Math.max(0, (heapSize / 2) - 1); i >= 0; i--)
-      sink(i);
+    for (int i = Math.max(0, (heapSize / 2) - 1); i >= 0; i--) sink(i);
   }
 
   // Priority queue construction, O(nlog(n))
   public BinaryHeapQuickRemovals(Collection<T> elems) {
     this(elems.size());
-    for (T elem : elems)
-      add(elem);
+    for (T elem : elems) add(elem);
   }
 
   // Returns true/false depending on if the priority queue is empty
@@ -81,8 +79,7 @@ public class BinaryHeapQuickRemovals<T extends Comparable<T>> {
   // priority in this priority queue. If the priority
   // queue is empty null is returned.
   public T peek() {
-    if (isEmpty())
-      return null;
+    if (isEmpty()) return null;
     return heap.get(0);
   }
 
@@ -95,8 +92,7 @@ public class BinaryHeapQuickRemovals<T extends Comparable<T>> {
   public boolean contains(T elem) {
 
     // Map lookup to check containment, O(1)
-    if (elem == null)
-      return false;
+    if (elem == null) return false;
     return map.containsKey(elem);
 
     // Linear scan to check containment, O(n)
@@ -111,8 +107,7 @@ public class BinaryHeapQuickRemovals<T extends Comparable<T>> {
   // element must not be null, O(log(n))
   public void add(T elem) {
 
-    if (elem == null)
-      throw new IllegalArgumentException();
+    if (elem == null) throw new IllegalArgumentException();
 
     heap.add(elem);
     int indexOfLastElem = size() - 1;
@@ -161,13 +156,11 @@ public class BinaryHeapQuickRemovals<T extends Comparable<T>> {
 
       // Find which is smaller left or right
       // If right is smaller set smallest to be right
-      if (right < heapSize && less(right, left))
-        smallest = right;
+      if (right < heapSize && less(right, left)) smallest = right;
 
       // Stop if we're outside the bounds of the tree
       // or stop early if we cannot sink k anymore
-      if (left >= heapSize || less(k, smallest))
-        break;
+      if (left >= heapSize || less(k, smallest)) break;
 
       // Move down the tree following the smallest node
       swap(smallest, k);
@@ -190,8 +183,7 @@ public class BinaryHeapQuickRemovals<T extends Comparable<T>> {
   // Removes a particular element in the heap, O(log(n))
   public boolean remove(T element) {
 
-    if (element == null)
-      return false;
+    if (element == null) return false;
 
     // Linear removal via search, O(n)
     // for (int i = 0; i < heapSize; i++) {
@@ -203,16 +195,14 @@ public class BinaryHeapQuickRemovals<T extends Comparable<T>> {
 
     // Logarithmic removal with map, O(log(n))
     Integer index = mapGet(element);
-    if (index != null)
-      removeAt(index);
+    if (index != null) removeAt(index);
     return index != null;
   }
 
   // Removes a node at particular index, O(log(n))
   private T removeAt(int i) {
 
-    if (isEmpty())
-      return null;
+    if (isEmpty()) return null;
 
     int indexOfLastElem = size() - 1;
     T removed_data = heap.get(i);
@@ -223,8 +213,7 @@ public class BinaryHeapQuickRemovals<T extends Comparable<T>> {
     mapRemove(removed_data, indexOfLastElem);
 
     // Removed last element
-    if (i == indexOfLastElem)
-      return removed_data;
+    if (i == indexOfLastElem) return removed_data;
 
     T elem = heap.get(i);
 
@@ -232,8 +221,7 @@ public class BinaryHeapQuickRemovals<T extends Comparable<T>> {
     sink(i);
 
     // If sinking did not work try swimming
-    if (heap.get(i).equals(elem))
-      swim(i);
+    if (heap.get(i).equals(elem)) swim(i);
 
     return removed_data;
   }
@@ -246,8 +234,7 @@ public class BinaryHeapQuickRemovals<T extends Comparable<T>> {
 
     // If we are outside the bounds of the heap return true
     int heapSize = size();
-    if (k >= heapSize)
-      return true;
+    if (k >= heapSize) return true;
 
     int left = 2 * k + 1;
     int right = 2 * k + 2;
@@ -255,10 +242,8 @@ public class BinaryHeapQuickRemovals<T extends Comparable<T>> {
     // Make sure that the current node k is less than
     // both of its children left, and right if they exist
     // return false otherwise to indicate an invalid heap
-    if (left < heapSize && !less(k, left))
-      return false;
-    if (right < heapSize && !less(k, right))
-      return false;
+    if (left < heapSize && !less(k, left)) return false;
+    if (right < heapSize && !less(k, right)) return false;
 
     // Recurse on both children to make sure they're also valid heaps
     return isMinHeap(left) && isMinHeap(right);
@@ -277,16 +262,14 @@ public class BinaryHeapQuickRemovals<T extends Comparable<T>> {
       map.put(value, set);
 
       // Value already exists in map
-    } else
-      set.add(index);
+    } else set.add(index);
   }
 
   // Removes the index at a given value, O(log(n))
   private void mapRemove(T value, int index) {
     TreeSet<Integer> set = map.get(value);
     set.remove(index); // TreeSets take O(log(n)) removal time
-    if (set.size() == 0)
-      map.remove(value);
+    if (set.size() == 0) map.remove(value);
   }
 
   // Extract an index position for the given value
@@ -294,8 +277,7 @@ public class BinaryHeapQuickRemovals<T extends Comparable<T>> {
   // index is returned (this has arbitrarily been chosen)
   private Integer mapGet(T value) {
     TreeSet<Integer> set = map.get(value);
-    if (set != null)
-      return set.last();
+    if (set != null) return set.last();
     return null;
   }
 

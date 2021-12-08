@@ -5,7 +5,10 @@
  */
 package com.williamfiset.algorithms.graphtheory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 // A custom implementation of a circular integer only queue which is
 // extremely quick and lightweight. In terms of performance it can outperform
@@ -36,21 +39,17 @@ class IntQueue {
   // Add an element to the queue
   public void enqueue(int value) {
     ar[end] = value;
-    if (++end == sz)
-      end = 0;
-    if (end == front)
-      throw new RuntimeException("Queue too small!");
+    if (++end == sz) end = 0;
+    if (end == front) throw new RuntimeException("Queue too small!");
   }
 
   // Make sure you check is the queue is not empty before calling dequeue!
   public int dequeue() {
     int ret_val = ar[front];
-    if (++front == sz)
-      front = 0;
+    if (++front == sz) front = 0;
     return ret_val;
   }
 }
-
 
 public class BreadthFirstSearchAdjacencyListIterativeFastQueue {
 
@@ -94,8 +93,7 @@ public class BreadthFirstSearchAdjacencyListIterativeFastQueue {
       if (node == DEPTH_TOKEN) {
 
         // No more nodes to process
-        if (queue.isEmpty())
-          break;
+        if (queue.isEmpty()) break;
 
         // Add another DEPTH_TOKEN
         queue.enqueue(DEPTH_TOKEN);
@@ -151,13 +149,11 @@ public class BreadthFirstSearchAdjacencyListIterativeFastQueue {
     graph.clear();
     numNodes = 100;
     for (int i = 0; i < numNodes; i++)
-      for (int j = 0; j < numNodes; j++)
-        addDirectedEdge(graph, i, j, 1);
+      for (int j = 0; j < numNodes; j++) addDirectedEdge(graph, i, j, 1);
 
     nodeCount = bfs(graph, 6, numNodes);
     System.out.println("BFS node count starting at node 6: " + nodeCount);
-    if (nodeCount != 100)
-      System.err.println("Error with BFS");
+    if (nodeCount != 100) System.err.println("Error with BFS");
   }
 
   // Helper method to setup graph

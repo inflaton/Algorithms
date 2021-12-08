@@ -1,7 +1,8 @@
 /** NOTE: This file is still in development! */
 package com.williamfiset.algorithms.graphtheory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TwoSatSolverAdjacencyList {
 
@@ -19,14 +20,12 @@ public class TwoSatSolverAdjacencyList {
 
   // Returns true/false depending on whether this 2SAT problem is satisfiable
   public boolean isSatisfiable() {
-    if (!solved)
-      solve();
+    if (!solved) solve();
     return isSatisfiable;
   }
 
   public void solve() {
-    if (solved)
-      return;
+    if (solved) return;
 
     int[] sccs = sccSolver.getSccs();
     // System.out.println(Arrays.toString(sccs));
@@ -57,8 +56,7 @@ public class TwoSatSolverAdjacencyList {
   // Node 4's negation is 5 since 4 ⊕ 1 = 5 and 5's negation is 4 since 5 ⊕ 1 = 4.
   public static List<List<Integer>> createImplicationGraph(int n) {
     List<List<Integer>> graph = new ArrayList<>(2 * n);
-    for (int i = 0; i < 2 * n; i++)
-      graph.add(new ArrayList<>());
+    for (int i = 0; i < 2 * n; i++) graph.add(new ArrayList<>());
     return graph;
   }
 

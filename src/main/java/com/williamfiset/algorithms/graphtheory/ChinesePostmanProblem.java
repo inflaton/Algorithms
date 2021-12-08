@@ -1,15 +1,17 @@
 /**
  * This file is still a WIP
  *
- * <p>
- * Still need to: - Implemented undirected edge eulerain path algo
+ * <p>Still need to: - Implemented undirected edge eulerain path algo
  *
- * <p>
- * ./gradlew run -Palgorithm=graphtheory.ChinesePostmanProblem
+ * <p>./gradlew run -Palgorithm=graphtheory.ChinesePostmanProblem
  */
 package com.williamfiset.algorithms.graphtheory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class ChinesePostmanProblem {
 
@@ -235,11 +237,9 @@ public class ChinesePostmanProblem {
     // a cost of `null`
     // between nodes i and j if no edge exists between those two nodes.
     public WeightedMaximumCardinalityMatchingRecursive(Double[][] cost) {
-      if (cost == null)
-        throw new IllegalArgumentException("Input cannot be null");
+      if (cost == null) throw new IllegalArgumentException("Input cannot be null");
       n = cost.length;
-      if (n <= 1)
-        throw new IllegalArgumentException("Invalid matrix size: " + n);
+      if (n <= 1) throw new IllegalArgumentException("Invalid matrix size: " + n);
       setCostMatrix(cost);
       FULL_STATE = (1 << n) - 1;
     }
@@ -288,11 +288,9 @@ public class ChinesePostmanProblem {
      * index 2*i and 2*i+1 form a matched pair. For example, nodes at indexes (0, 1) are a pair, (2,
      * 3) are another pair, etc...
      *
-     * <p>
-     * How to iterate over the pairs:
+     * <p>How to iterate over the pairs:
      *
-     * <pre>
-     * {@code
+     * <pre>{@code
      * WeightedMaximumCardinalityMatchingRecursive mwpm = ...
      * int[] matching = mwpm.getMatching();
      * for (int i = 0; i < matching.length / 2; i++) {
@@ -300,8 +298,7 @@ public class ChinesePostmanProblem {
      *   int node2 = matching[2*i+1];
      *   // Do something with the matched pair (node1, node2)
      * }
-     * }
-     * </pre>
+     * }</pre>
      */
     public int[] getMatching() {
       solve();
@@ -309,8 +306,7 @@ public class ChinesePostmanProblem {
     }
 
     private void solve() {
-      if (solved)
-        return;
+      if (solved) return;
       MatchingCost[] dp = new MatchingCost[1 << n];
       int[] history = new int[1 << n];
 
@@ -438,8 +434,7 @@ public class ChinesePostmanProblem {
     private List<List<Edge>> graph;
 
     public EulerianPathDirectedEdgesAdjacencyList(List<List<Edge>> graph) {
-      if (graph == null)
-        throw new IllegalArgumentException("Graph cannot be null");
+      if (graph == null) throw new IllegalArgumentException("Graph cannot be null");
       n = graph.size();
       this.graph = graph;
       path = new LinkedList<>();
@@ -459,8 +454,7 @@ public class ChinesePostmanProblem {
       // Instead of returning the 'path' as a linked list return
       // the solution as a primitive array for convenience.
       List<Edge> soln = new ArrayList<>();
-      for (int i = 0; !path.isEmpty(); i++)
-        soln.add(path.removeFirst());
+      for (int i = 0; !path.isEmpty(); i++) soln.add(path.removeFirst());
 
       return soln;
     }
@@ -483,16 +477,12 @@ public class ChinesePostmanProblem {
     }
 
     private boolean graphHasEulerianPath() {
-      if (edgeCount == 0)
-        return false;
+      if (edgeCount == 0) return false;
       int startNodes = 0, endNodes = 0;
       for (int i = 0; i < n; i++) {
-        if (out[i] - in[i] > 1 || in[i] - out[i] > 1)
-          return false;
-        else if (out[i] - in[i] == 1)
-          startNodes++;
-        else if (in[i] - out[i] == 1)
-          endNodes++;
+        if (out[i] - in[i] > 1 || in[i] - out[i] > 1) return false;
+        else if (out[i] - in[i] == 1) startNodes++;
+        else if (in[i] - out[i] == 1) endNodes++;
       }
       return (endNodes == 0 && startNodes == 0) || (endNodes == 1 && startNodes == 1);
     }
@@ -501,11 +491,9 @@ public class ChinesePostmanProblem {
       int start = 0;
       for (int i = 0; i < n; i++) {
         // Unique starting node.
-        if (out[i] - in[i] == 1)
-          return i;
+        if (out[i] - in[i] == 1) return i;
         // Start at a node with an outgoing edge.
-        if (out[i] > 0)
-          start = i;
+        if (out[i] > 0) start = i;
       }
       return start;
     }

@@ -2,8 +2,7 @@
  * This is an implementation of doing a breadth first search recursively with a slight cheat of
  * passing in a queue as an argument to the function. A breadth first search
  *
- * <p>
- * Time Complexity: O(V + E)
+ * <p>Time Complexity: O(V + E)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -40,25 +39,20 @@ public class BreadthFirstSearchRecursive {
     }
 
     // This node is already visited.
-    if (visited[at])
-      return 0;
+    if (visited[at]) return 0;
 
     // Visit this node.
     visited[at] = true;
 
     // Add all neighbors to queue.
     List<Integer> neighbors = graph.get(at);
-    if (neighbors != null)
-      for (int next : neighbors)
-        if (!visited[next])
-          queue.add(next);
+    if (neighbors != null) for (int next : neighbors) if (!visited[next]) queue.add(next);
 
     int depth = 0;
 
     while (true) {
       // Stop when the queue is empty (i.e there's only one depth token remaining)
-      if (queue.size() == 1 && queue.peek() == DEPTH_TOKEN)
-        break;
+      if (queue.size() == 1 && queue.peek() == DEPTH_TOKEN) break;
 
       // The depth is the sum of all DEPTH_TOKENS encountered.
       depth += bfs(visited, queue, graph);
@@ -70,8 +64,7 @@ public class BreadthFirstSearchRecursive {
   public static void main(String[] args) {
     int n = 14;
     List<List<Integer>> graph = new ArrayList<>();
-    for (int i = 0; i < n; i++)
-      graph.add(new ArrayList<>());
+    for (int i = 0; i < n; i++) graph.add(new ArrayList<>());
 
     addUndirectedEdge(graph, 0, 1);
     addUndirectedEdge(graph, 0, 2);

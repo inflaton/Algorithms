@@ -2,12 +2,10 @@
  * NOTE: An issue was found with this file when dealing with negative numbers when exponentiating!
  * See bug tracking progress on issue
  *
- * <p>
- * An implementation of the modPow(a, n, mod) operation. This implementation is substantially faster
- * than Java's BigInteger class because it only uses primitive types.
+ * <p>An implementation of the modPow(a, n, mod) operation. This implementation is substantially
+ * faster than Java's BigInteger class because it only uses primitive types.
  *
- * <p>
- * Time Complexity O(lg(n))
+ * <p>Time Complexity O(lg(n))
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -33,8 +31,7 @@ public class ModPow {
   // and can be used for several things such as finding modular inverses and
   // solutions to linear Diophantine equations.
   private static long[] egcd(long a, long b) {
-    if (b == 0)
-      return new long[] {a < 0 ? -a : a, 1L, 0L};
+    if (b == 0) return new long[] {a < 0 ? -a : a, 1L, 0L};
     long[] v = egcd(b, a % b);
     long tmp = v[1] - v[2] * (a / b);
     v[1] = v[2];
@@ -59,8 +56,7 @@ public class ModPow {
   // base, however the modulus must be positive.
   public static long modPow(long a, long n, long mod) {
 
-    if (mod <= 0)
-      throw new ArithmeticException("mod must be > 0");
+    if (mod <= 0) throw new ArithmeticException("mod must be > 0");
     if (a > MAX || mod > MAX)
       throw new IllegalArgumentException("Long overflow is upon you, mod or base is too high!");
     if (a < MIN || mod < MIN)
@@ -74,8 +70,7 @@ public class ModPow {
       return modPow(modInv(a, mod), -n, mod);
     }
 
-    if (n == 0L)
-      return 1L;
+    if (n == 0L) return 1L;
     long p = a, r = 1L;
 
     for (long i = 0; n != 0; i++) {

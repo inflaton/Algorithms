@@ -3,8 +3,7 @@
  * java.util.Arrays.binarySearch(int[] ar, int key) However, in the event that you need to do a
  * binary search on the real numbers you can resort to this implementation.
  *
- * <p>
- * Time Complexity: O(log(high-low))
+ * <p>Time Complexity: O(log(high-low))
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -18,11 +17,10 @@ public class BinarySearch {
   // Using a small epsilon value is the preferred approach
   private static final double EPS = 0.00000001;
 
-  public static double binarySearch(double lo, double hi, double target,
-      DoubleFunction<Double> function) {
+  public static double binarySearch(
+      double lo, double hi, double target, DoubleFunction<Double> function) {
 
-    if (hi <= lo)
-      throw new IllegalArgumentException("hi should be greater than lo");
+    if (hi <= lo) throw new IllegalArgumentException("hi should be greater than lo");
 
     double mid;
     do {

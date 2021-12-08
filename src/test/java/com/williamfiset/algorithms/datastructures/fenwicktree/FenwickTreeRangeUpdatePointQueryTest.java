@@ -19,8 +19,7 @@ public class FenwickTreeRangeUpdatePointQueryTest {
     }
 
     public void updateRange(int i, int j, long v) {
-      for (int k = i; k <= j; k++)
-        ar[k] += v;
+      for (int k = i; k <= j; k++) ar[k] += v;
     }
   }
 
@@ -93,8 +92,7 @@ public class FenwickTreeRangeUpdatePointQueryTest {
     int delta = 10;
 
     for (int loop = 0; loop < TEST_SZ; loop++) {
-      for (int i = 1; i < n; i++)
-        assertThat(ft.get(i)).isEqualTo(sum);
+      for (int i = 1; i < n; i++) assertThat(ft.get(i)).isEqualTo(sum);
       ft.updateRange(1, n - 1, delta);
       sum += delta;
     }
@@ -106,16 +104,14 @@ public class FenwickTreeRangeUpdatePointQueryTest {
     // Setup values
     int n = 100;
     long[] values = new long[n];
-    for (int i = 0; i < n; i++)
-      values[i] = randValue();
+    for (int i = 0; i < n; i++) values[i] = randValue();
 
     FenwickTreeRangeUpdatePointQuery ft = new FenwickTreeRangeUpdatePointQuery(values);
     MockRangeUpdateFt mockedFt = new MockRangeUpdateFt(values);
 
     for (int loop = 0; loop < TEST_SZ; loop++) {
 
-      for (int i = 1; i < n; i++)
-        assertThat(ft.get(i)).isEqualTo(mockedFt.get(i));
+      for (int i = 1; i < n; i++) assertThat(ft.get(i)).isEqualTo(mockedFt.get(i));
 
       long delta = randValue();
       int lo = lowBound(n);

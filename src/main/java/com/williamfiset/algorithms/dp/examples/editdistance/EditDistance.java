@@ -5,8 +5,8 @@ public class EditDistance {
   final char[] a, b;
   final int insertionCost, deletionCost, substitutionCost;
 
-  public EditDistance(String a, String b, int insertionCost, int deletionCost,
-      int substitutionCost) {
+  public EditDistance(
+      String a, String b, int insertionCost, int deletionCost, int substitutionCost) {
     if (a == null || b == null) {
       throw new IllegalArgumentException("Input string must not be null");
     }
@@ -57,8 +57,8 @@ public class EditDistance {
 
   // Computes the cost to convert a string 'a' into a string 'b' using dynamic
   // programming given the insertionCost, deletionCost and substitutionCost, O(nm)
-  public static int micahEditDistance(String a, String b, int insertionCost, int deletionCost,
-      int substitutionCost) {
+  public static int micahEditDistance(
+      String a, String b, int insertionCost, int deletionCost, int substitutionCost) {
 
     final int AL = a.length(), BL = b.length();
     int[][] arr = new int[AL + 1][BL + 1];
@@ -73,12 +73,10 @@ public class EditDistance {
           min = arr[i - 1][j - 1] + (a.charAt(i - 1) == b.charAt(j - 1) ? 0 : substitutionCost);
 
         // Deletion
-        if (i > 0)
-          min = Math.min(min, arr[i - 1][j] + deletionCost);
+        if (i > 0) min = Math.min(min, arr[i - 1][j] + deletionCost);
 
         // Insertion
-        if (j > 0)
-          min = Math.min(min, arr[i][j - 1] + insertionCost);
+        if (j > 0) min = Math.min(min, arr[i][j - 1] + insertionCost);
 
         arr[i][j] = min;
       }

@@ -7,7 +7,8 @@
  */
 package com.williamfiset.algorithms.graphtheory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConnectedComponentsDfsSolverAdjacencyList {
 
@@ -21,8 +22,7 @@ public class ConnectedComponentsDfsSolverAdjacencyList {
 
   /** @param graph - An undirected graph as an adjacency list. */
   public ConnectedComponentsDfsSolverAdjacencyList(List<List<Integer>> graph) {
-    if (graph == null)
-      throw new NullPointerException();
+    if (graph == null) throw new NullPointerException();
     this.n = graph.size();
     this.graph = graph;
   }
@@ -38,8 +38,7 @@ public class ConnectedComponentsDfsSolverAdjacencyList {
   }
 
   public void solve() {
-    if (solved)
-      return;
+    if (solved) return;
 
     visited = new boolean[n];
     components = new int[n];
@@ -56,17 +55,14 @@ public class ConnectedComponentsDfsSolverAdjacencyList {
   private void dfs(int at) {
     visited[at] = true;
     components[at] = componentCount;
-    for (int to : graph.get(at))
-      if (!visited[to])
-        dfs(to);
+    for (int to : graph.get(at)) if (!visited[to]) dfs(to);
   }
 
   /* Finding connected components example */
 
   public static List<List<Integer>> createGraph(int n) {
     List<List<Integer>> graph = new ArrayList<>(n);
-    for (int i = 0; i < n; i++)
-      graph.add(new ArrayList<>());
+    for (int i = 0; i < n; i++) graph.add(new ArrayList<>());
     return graph;
   }
 

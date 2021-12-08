@@ -21,8 +21,11 @@ public class GenericSegmentTree2Test {
   @Test
   public void testSumQuerySumUpdate_Simple() {
     long[] values = {1, 2, 3, 4, 5};
-    GenericSegmentTree2 st = new GenericSegmentTree2(values,
-        GenericSegmentTree2.SegmentCombinationFn.SUM, GenericSegmentTree2.RangeUpdateFn.ADDITION);
+    GenericSegmentTree2 st =
+        new GenericSegmentTree2(
+            values,
+            GenericSegmentTree2.SegmentCombinationFn.SUM,
+            GenericSegmentTree2.RangeUpdateFn.ADDITION);
 
     assertThat(st.rangeQuery1(0, 1)).isEqualTo(3);
     assertThat(st.rangeQuery1(2, 2)).isEqualTo(3);
@@ -33,8 +36,11 @@ public class GenericSegmentTree2Test {
   public void testSumQuerySumUpdate_RangeUpdate() {
     // 0, 1, 2, 3, 4
     long[] ar = {1, 2, 1, 2, 1};
-    GenericSegmentTree2 st = new GenericSegmentTree2(ar,
-        GenericSegmentTree2.SegmentCombinationFn.SUM, GenericSegmentTree2.RangeUpdateFn.ADDITION);
+    GenericSegmentTree2 st =
+        new GenericSegmentTree2(
+            ar,
+            GenericSegmentTree2.SegmentCombinationFn.SUM,
+            GenericSegmentTree2.RangeUpdateFn.ADDITION);
 
     // Do multiple range updates
     st.rangeUpdate1(0, 1, 5);
@@ -58,8 +64,11 @@ public class GenericSegmentTree2Test {
   @Test
   public void testSumQueryAssignUpdate_simple() {
     long[] ar = {2, 1, 3, 4, -1};
-    GenericSegmentTree2 st = new GenericSegmentTree2(ar,
-        GenericSegmentTree2.SegmentCombinationFn.SUM, GenericSegmentTree2.RangeUpdateFn.ASSIGN);
+    GenericSegmentTree2 st =
+        new GenericSegmentTree2(
+            ar,
+            GenericSegmentTree2.SegmentCombinationFn.SUM,
+            GenericSegmentTree2.RangeUpdateFn.ASSIGN);
 
     st.rangeUpdate1(3, 4, 2);
 
@@ -93,7 +102,9 @@ public class GenericSegmentTree2Test {
   public void testSumQueryMulUpdate_simple() {
     long[] ar = {1, 4, 5, 3, 2};
     GenericSegmentTree2 st =
-        new GenericSegmentTree2(ar, GenericSegmentTree2.SegmentCombinationFn.SUM,
+        new GenericSegmentTree2(
+            ar,
+            GenericSegmentTree2.SegmentCombinationFn.SUM,
             GenericSegmentTree2.RangeUpdateFn.MULTIPLICATION);
 
     st.rangeUpdate1(1, 3, 3);
@@ -110,8 +121,11 @@ public class GenericSegmentTree2Test {
   @Test
   public void minQuerySumUpdates_simple() {
     long[] ar = {2, 1, 3, 4, -1};
-    GenericSegmentTree2 st = new GenericSegmentTree2(ar,
-        GenericSegmentTree2.SegmentCombinationFn.MIN, GenericSegmentTree2.RangeUpdateFn.ADDITION);
+    GenericSegmentTree2 st =
+        new GenericSegmentTree2(
+            ar,
+            GenericSegmentTree2.SegmentCombinationFn.MIN,
+            GenericSegmentTree2.RangeUpdateFn.ADDITION);
 
     st.rangeUpdate1(0, 4, 1);
 
@@ -148,8 +162,11 @@ public class GenericSegmentTree2Test {
   @Test
   public void maxQuerySumUpdate_simple() {
     long[] ar = {2, 1, 3, 4, -1};
-    GenericSegmentTree2 st = new GenericSegmentTree2(ar,
-        GenericSegmentTree2.SegmentCombinationFn.MAX, GenericSegmentTree2.RangeUpdateFn.ADDITION);
+    GenericSegmentTree2 st =
+        new GenericSegmentTree2(
+            ar,
+            GenericSegmentTree2.SegmentCombinationFn.MAX,
+            GenericSegmentTree2.RangeUpdateFn.ADDITION);
 
     // st.printDebugInfo();
     st.rangeUpdate1(0, 4, 1);
@@ -191,10 +208,14 @@ public class GenericSegmentTree2Test {
   public void maxminQueryMulUpdate_simple() {
     long[] ar = {2, 1, 3, 4, -1};
     GenericSegmentTree2 st1 =
-        new GenericSegmentTree2(ar, GenericSegmentTree2.SegmentCombinationFn.MAX,
+        new GenericSegmentTree2(
+            ar,
+            GenericSegmentTree2.SegmentCombinationFn.MAX,
             GenericSegmentTree2.RangeUpdateFn.MULTIPLICATION);
     GenericSegmentTree2 st2 =
-        new GenericSegmentTree2(ar, GenericSegmentTree2.SegmentCombinationFn.MIN,
+        new GenericSegmentTree2(
+            ar,
+            GenericSegmentTree2.SegmentCombinationFn.MIN,
             GenericSegmentTree2.RangeUpdateFn.MULTIPLICATION);
 
     st1.rangeUpdate1(0, 4, 1);
@@ -221,7 +242,9 @@ public class GenericSegmentTree2Test {
   public void maxQueryMulUpdate_simple() {
     long[] ar = {2, 1, 3, 4, -1};
     GenericSegmentTree2 st1 =
-        new GenericSegmentTree2(ar, GenericSegmentTree2.SegmentCombinationFn.MAX,
+        new GenericSegmentTree2(
+            ar,
+            GenericSegmentTree2.SegmentCombinationFn.MAX,
             GenericSegmentTree2.RangeUpdateFn.MULTIPLICATION);
 
     // [4, 2, 6, 8, -2]
@@ -246,7 +269,9 @@ public class GenericSegmentTree2Test {
   public void minQueryMulUpdate_simple() {
     long[] ar = {2, 1, 3, 4, -1};
     GenericSegmentTree2 st1 =
-        new GenericSegmentTree2(ar, GenericSegmentTree2.SegmentCombinationFn.MIN,
+        new GenericSegmentTree2(
+            ar,
+            GenericSegmentTree2.SegmentCombinationFn.MIN,
             GenericSegmentTree2.RangeUpdateFn.MULTIPLICATION);
 
     // [4, 2, 6, 8, -2]
@@ -352,13 +377,17 @@ public class GenericSegmentTree2Test {
 
   @Test
   public void testAllFunctionCombinations() {
-    GenericSegmentTree2.SegmentCombinationFn[] combinationFns =
-        {GenericSegmentTree2.SegmentCombinationFn.SUM, GenericSegmentTree2.SegmentCombinationFn.MIN,
-            GenericSegmentTree2.SegmentCombinationFn.MAX,};
+    GenericSegmentTree2.SegmentCombinationFn[] combinationFns = {
+      GenericSegmentTree2.SegmentCombinationFn.SUM,
+      GenericSegmentTree2.SegmentCombinationFn.MIN,
+      GenericSegmentTree2.SegmentCombinationFn.MAX,
+    };
 
-    GenericSegmentTree2.RangeUpdateFn[] rangeUpdateFns =
-        {GenericSegmentTree2.RangeUpdateFn.ADDITION, GenericSegmentTree2.RangeUpdateFn.ASSIGN,
-            GenericSegmentTree2.RangeUpdateFn.MULTIPLICATION};
+    GenericSegmentTree2.RangeUpdateFn[] rangeUpdateFns = {
+      GenericSegmentTree2.RangeUpdateFn.ADDITION,
+      GenericSegmentTree2.RangeUpdateFn.ASSIGN,
+      GenericSegmentTree2.RangeUpdateFn.MULTIPLICATION
+    };
 
     for (GenericSegmentTree2.SegmentCombinationFn combinationFn : combinationFns) {
       for (GenericSegmentTree2.RangeUpdateFn rangeUpdateFn : rangeUpdateFns) {
@@ -417,7 +446,8 @@ public class GenericSegmentTree2Test {
 
             long segTreeAnswer = st.rangeQuery1(i1, i2);
             if (bf != segTreeAnswer) {
-              System.out.printf("(%s query, %s range update) | [%d, %d], want = %d, got = %d\n",
+              System.out.printf(
+                  "(%s query, %s range update) | [%d, %d], want = %d, got = %d\n",
                   combinationFn, rangeUpdateFn, i1, i2, bf, segTreeAnswer);
             }
             assertThat(bf).isEqualTo(segTreeAnswer);

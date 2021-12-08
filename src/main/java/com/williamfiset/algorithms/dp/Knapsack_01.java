@@ -3,11 +3,9 @@
  * you are trying to maximize the total profit of items selected without exceeding the capacity of
  * your knapsack.
  *
- * <p>
- * Time Complexity: O(nW) Space Complexity: O(nW)
+ * <p>Time Complexity: O(nW) Space Complexity: O(nW)
  *
- * <p>
- * Tested code against: https://open.kattis.com/problems/knapsack
+ * <p>Tested code against: https://open.kattis.com/problems/knapsack
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -23,7 +21,7 @@ public class Knapsack_01 {
    * @param W - The weights of the items
    * @param V - The values of the items
    * @return The maximum achievable profit of selecting a subset of the elements such that the
-   *         capacity of the knapsack is not exceeded
+   *     capacity of the knapsack is not exceeded
    */
   public static int knapsack(int capacity, int[] W, int[] V) {
 
@@ -48,8 +46,7 @@ public class Knapsack_01 {
 
         // Consider including the current element and
         // see if this would be more profitable
-        if (sz >= w && DP[i - 1][sz - w] + v > DP[i][sz])
-          DP[i][sz] = DP[i - 1][sz - w] + v;
+        if (sz >= w && DP[i - 1][sz - w] + v > DP[i][sz]) DP[i][sz] = DP[i - 1][sz - w] + v;
       }
     }
 

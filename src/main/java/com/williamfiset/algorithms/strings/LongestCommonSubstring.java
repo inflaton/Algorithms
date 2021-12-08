@@ -1,24 +1,26 @@
 /**
  * An implementation of the k Longest Common Substring problem.
  *
- * <p>
- * Video: https://youtu.be/Ic80xQFWevc Time complexity: O(nlog^2(n))
+ * <p>Video: https://youtu.be/Ic80xQFWevc Time complexity: O(nlog^2(n))
  *
- * <p>
- * Run on command line:
+ * <p>Run on command line:
  *
- * <p>
- * Compile: $ javac -d src/main/java
+ * <p>Compile: $ javac -d src/main/java
  * src/main/java/com/williamfiset/algorithms/strings/LongestCommonSubstring.java
  *
- * <p>
- * Run: $ java -cp src/main/java com/williamfiset/algorithms/strings/LongestCommonSubstring
+ * <p>Run: $ java -cp src/main/java com/williamfiset/algorithms/strings/LongestCommonSubstring
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.strings;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class LongestCommonSubstring {
 
@@ -46,8 +48,7 @@ public class LongestCommonSubstring {
       t += string;
       t += (char) token;
       token++;
-      if (sentinelIndexes != null)
-        sentinelIndexes.add(t.length());
+      if (sentinelIndexes != null) sentinelIndexes.add(t.length());
     }
     return t;
   }
@@ -70,8 +71,7 @@ public class LongestCommonSubstring {
     private boolean constructedLcpArray = false;
 
     public SuffixArray(int[] text) {
-      if (text == null)
-        throw new IllegalArgumentException("Text cannot be null.");
+      if (text == null) throw new IllegalArgumentException("Text cannot be null.");
       this.T = text;
       this.N = text.length;
     }
@@ -94,8 +94,7 @@ public class LongestCommonSubstring {
 
     // Builds the suffix array by calling the construct() method.
     protected void buildSuffixArray() {
-      if (constructedSa)
-        return;
+      if (constructedSa) return;
       construct();
       constructedSa = true;
     }
@@ -103,19 +102,16 @@ public class LongestCommonSubstring {
     // Builds the LCP array by first creating the SA and then running the kasai
     // algorithm.
     protected void buildLcpArray() {
-      if (constructedLcpArray)
-        return;
+      if (constructedLcpArray) return;
       buildSuffixArray();
       kasai();
       constructedLcpArray = true;
     }
 
     protected static int[] toIntArray(String s) {
-      if (s == null)
-        return null;
+      if (s == null) return null;
       int[] t = new int[s.length()];
-      for (int i = 0; i < s.length(); i++)
-        t[i] = s.charAt(i);
+      for (int i = 0; i < s.length(); i++) t[i] = s.charAt(i);
       return t;
     }
 
@@ -128,16 +124,13 @@ public class LongestCommonSubstring {
     private void kasai() {
       lcp = new int[N];
       int[] inv = new int[N];
-      for (int i = 0; i < N; i++)
-        inv[sa[i]] = i;
+      for (int i = 0; i < N; i++) inv[sa[i]] = i;
       for (int i = 0, len = 0; i < N; i++) {
         if (inv[i] > 0) {
           int k = sa[inv[i] - 1];
-          while ((i + len < N) && (k + len < N) && T[i + len] == T[k + len])
-            len++;
+          while ((i + len < N) && (k + len < N) && T[i + len] == T[k + len]) len++;
           lcp[inv[i]] = len;
-          if (len > 0)
-            len--;
+          if (len > 0) len--;
         }
       }
     }
@@ -150,8 +143,7 @@ public class LongestCommonSubstring {
       for (int i = 0; i < N; i++) {
         int suffixLen = N - sa[i];
         char[] string = new char[suffixLen];
-        for (int j = sa[i], k = 0; j < N; j++, k++)
-          string[k] = (char) (T[j]);
+        for (int j = sa[i], k = 0; j < N; j++, k++) string[k] = (char) (T[j]);
         String suffix = new String(string);
         String formattedStr = String.format("% 7d % 7d % 7d %s\n", i, sa[i], lcp[i], suffix);
         sb.append(formattedStr);
@@ -162,12 +154,19 @@ public class LongestCommonSubstring {
     // Lazy way of finding color of suffix is by comparing against all sentinel
     // positions
     private static Color findColorFromPos(int pos, List<Integer> sentinelIndexes) {
-      Color[] colors = {Color.GREEN, Color.RED, Color.BLUE, Color.YELLOW, Color.MAGENTA, Color.CYAN,
-          Color.WHITE, Color.BLACK_BACKGROUND_BRIGHT};
+      Color[] colors = {
+        Color.GREEN,
+        Color.RED,
+        Color.BLUE,
+        Color.YELLOW,
+        Color.MAGENTA,
+        Color.CYAN,
+        Color.WHITE,
+        Color.BLACK_BACKGROUND_BRIGHT
+      };
       int colorIndex = 0;
       for (int tokenIndex : sentinelIndexes) {
-        if (tokenIndex <= pos)
-          colorIndex++;
+        if (tokenIndex <= pos) colorIndex++;
       }
       if (colorIndex >= colors.length) {
         throw new IllegalStateException("Too many strings, not enough terminal colors :/");
@@ -182,8 +181,7 @@ public class LongestCommonSubstring {
       for (int i = 0; i < N; i++) {
         int suffixLen = N - sa[i];
         char[] string = new char[suffixLen];
-        for (int j = sa[i], k = 0; j < N; j++, k++)
-          string[k] = (char) (T[j]);
+        for (int j = sa[i], k = 0; j < N; j++, k++) string[k] = (char) (T[j]);
         String suffix = new String(string);
 
         System.out.print(findColorFromPos(sa[i], sentinelIndexes));
@@ -199,9 +197,15 @@ public class LongestCommonSubstring {
     private enum Color {
       RESET("\033[0m"),
 
-      BLACK("\033[0;30m"), RED("\033[0;31m"), GREEN("\033[0;32m"), YELLOW("\033[0;33m"), BLUE(
-          "\033[0;34m"), MAGENTA("\033[0;35m"), CYAN(
-              "\033[0;36m"), WHITE("\033[0;37m"), BLACK_BACKGROUND_BRIGHT("\033[0;100m");
+      BLACK("\033[0;30m"),
+      RED("\033[0;31m"),
+      GREEN("\033[0;32m"),
+      YELLOW("\033[0;33m"),
+      BLUE("\033[0;34m"),
+      MAGENTA("\033[0;35m"),
+      CYAN("\033[0;36m"),
+      WHITE("\033[0;37m"),
+      BLACK_BACKGROUND_BRIGHT("\033[0;100m");
 
       private final String code;
 
@@ -226,8 +230,7 @@ public class LongestCommonSubstring {
       @Override
       public int compareTo(SuffixRankTuple other) {
         int cmp = Integer.compare(firstHalf, other.firstHalf);
-        if (cmp == 0)
-          return Integer.compare(secondHalf, other.secondHalf);
+        if (cmp == 0) return Integer.compare(secondHalf, other.secondHalf);
         return cmp;
       }
     }
@@ -277,8 +280,7 @@ public class LongestCommonSubstring {
 
           // If the first half differs from the second half
           if (currSuffixRank.firstHalf != lastSuffixRank.firstHalf
-              || currSuffixRank.secondHalf != lastSuffixRank.secondHalf)
-            newRank++;
+              || currSuffixRank.secondHalf != lastSuffixRank.secondHalf) newRank++;
 
           suffixRanks[1][currSuffixRank.originalIndex] = newRank;
         }
@@ -287,8 +289,7 @@ public class LongestCommonSubstring {
         suffixRanks[0] = suffixRanks[1];
 
         // Optimization to stop early
-        if (newRank == N - 1)
-          break;
+        if (newRank == N - 1) break;
       }
 
       // Fill suffix array
@@ -345,8 +346,7 @@ public class LongestCommonSubstring {
 
     private void computeTextLength(String[] strings) {
       textLength = 0;
-      for (String str : strings)
-        textLength += str.length();
+      for (String str : strings) textLength += str.length();
       textLength += numSentinels;
     }
 
@@ -358,10 +358,8 @@ public class LongestCommonSubstring {
         String str = strings[i];
         for (int j = 0; j < str.length(); j++) {
           int asciiVal = str.charAt(j);
-          if (asciiVal < lowestAsciiValue)
-            lowestAsciiValue = asciiVal;
-          if (asciiVal > highestAsciiValue)
-            highestAsciiValue = asciiVal;
+          if (asciiVal < lowestAsciiValue) lowestAsciiValue = asciiVal;
+          if (asciiVal > highestAsciiValue) highestAsciiValue = asciiVal;
           imap[k++] = i;
         }
         // Record that the sentinel belongs to string i
@@ -397,15 +395,19 @@ public class LongestCommonSubstring {
           text[k++] = ((int) str.charAt(j)) + shift;
           if (!(numSentinels <= text[k - 1]
               && text[k - 1] <= (numSentinels + highestAsciiValue - lowestAsciiValue))) {
-            throw new IllegalStateException(String.format(
-                "Unexpected character range. Was: %d, wanted between [%d, %d]", text[k - 1],
-                numSentinels, (numSentinels + highestAsciiValue - lowestAsciiValue)));
+            throw new IllegalStateException(
+                String.format(
+                    "Unexpected character range. Was: %d, wanted between [%d, %d]",
+                    text[k - 1],
+                    numSentinels,
+                    (numSentinels + highestAsciiValue - lowestAsciiValue)));
           }
         }
         text[k++] = sentinel++;
         if (!(0 <= text[k - 1] && text[k - 1] < numSentinels)) {
           throw new IllegalStateException(
-              String.format("Unexpected character range. Was: %d, wanted between [%d, %d)",
+              String.format(
+                  "Unexpected character range. Was: %d, wanted between [%d, %d)",
                   text[k - 1], 0, numSentinels));
         }
       }
@@ -428,8 +430,7 @@ public class LongestCommonSubstring {
     // Retrieves a string from the suffix array given a position and a length.
     private String retrieveString(int i, int len) {
       char[] s = new char[len];
-      for (int j = 0; j < len; j++)
-        s[j] = (char) (text[i + j] - shift);
+      for (int j = 0; j < len; j++) s[j] = (char) (text[i + j] - shift);
       return new String(s);
     }
 
@@ -441,8 +442,10 @@ public class LongestCommonSubstring {
 
     private void addLcs(int lo, int hi, int windowLcp) {
       if (hi - lo + 1 < k) {
-        log(String.format("lo: %d, hi: %d. Too small range. lo: %d, hi: %d, k: %d, hi - lo + 1 < k",
-            lo, hi, lo, hi, k));
+        log(
+            String.format(
+                "lo: %d, hi: %d. Too small range. lo: %d, hi: %d, k: %d, hi - lo + 1 < k",
+                lo, hi, lo, hi, k));
         return;
       }
       if (windowLcp == 0) {
@@ -450,8 +453,9 @@ public class LongestCommonSubstring {
         return;
       }
       if (!enoughUniqueColorsInWindow(lo, hi)) {
-        log(String.format("lo: %d, hi: %d. Not enough unique colors in range [%d, %d]", lo, hi, lo,
-            hi));
+        log(
+            String.format(
+                "lo: %d, hi: %d. Not enough unique colors in range [%d, %d]", lo, hi, lo, hi));
         return;
       }
       if (windowLcp > lcsLen) {
@@ -464,8 +468,7 @@ public class LongestCommonSubstring {
     }
 
     public TreeSet<String> getLongestCommonSubstrings(int k) {
-      if (k < 2)
-        throw new IllegalArgumentException("k must be greater than or equal to 2");
+      if (k < 2) throw new IllegalArgumentException("k must be greater than or equal to 2");
       this.k = k;
       solve();
       return lcss;
@@ -495,13 +498,11 @@ public class LongestCommonSubstring {
           hi++;
         }
 
-        if (lo == textLength - 1)
-          break;
+        if (lo == textLength - 1) break;
 
         // Segment tree queries are right endpoint exclusive: [l, r)
         // so we must be careful to avoid the empty interval case.
-        if (lo == hi)
-          continue;
+        if (lo == hi) continue;
 
         int windowLcp = tree.query(lo + 1, hi + 1);
         addLcs(lo, hi, windowLcp);
@@ -516,8 +517,7 @@ public class LongestCommonSubstring {
     Deque<Integer> deque = new ArrayDeque<>();
 
     public SlidingWindowMinimum(int[] values) {
-      if (values == null)
-        throw new IllegalArgumentException();
+      if (values == null) throw new IllegalArgumentException();
       this.values = values;
       N = values.length;
     }
@@ -525,8 +525,7 @@ public class LongestCommonSubstring {
     // Advances the front of the window by one unit
     public void advance() {
       // Remove all the worse values in the back of the deque
-      while (!deque.isEmpty() && values[deque.peekLast()] > values[hi])
-        deque.removeLast();
+      while (!deque.isEmpty() && values[deque.peekLast()] > values[hi]) deque.removeLast();
 
       // Add the next index to the back of the deque
       deque.addLast(hi);
@@ -542,14 +541,12 @@ public class LongestCommonSubstring {
 
       // Remove elements in the front of the queue whom are no longer
       // valid in the reduced window.
-      while (!deque.isEmpty() && deque.peekFirst() < lo)
-        deque.removeFirst();
+      while (!deque.isEmpty() && deque.peekFirst() < lo) deque.removeFirst();
     }
 
     // Query the current minimum value in the window
     public int getMin() {
-      if (lo >= hi)
-        throw new IllegalStateException("Make sure lo < hi");
+      if (lo >= hi) throw new IllegalStateException("Make sure lo < hi");
       return values[deque.peekFirst()];
     }
   }
@@ -570,16 +567,13 @@ public class LongestCommonSubstring {
 
     public CompactMinSegmentTree(int[] values) {
       this(values.length);
-      for (int i = 0; i < n; i++)
-        modify(i, values[i]);
+      for (int i = 0; i < n; i++) modify(i, values[i]);
     }
 
     // The segment tree function used for queries.
     private int function(int a, int b) {
-      if (a == UNIQUE)
-        return b;
-      else if (b == UNIQUE)
-        return a;
+      if (a == UNIQUE) return b;
+      else if (b == UNIQUE) return a;
       return (a < b) ? a : b; // minimum value over a range
     }
 
@@ -595,10 +589,8 @@ public class LongestCommonSubstring {
     public int query(int l, int r) {
       int res = UNIQUE;
       for (l += n, r += n; l < r; l >>= 1, r >>= 1) {
-        if ((l & 1) != 0)
-          res = function(res, tree[l++]);
-        if ((r & 1) != 0)
-          res = function(res, tree[--r]);
+        if ((l & 1) != 0) res = function(res, tree[l++]);
+        if ((r & 1) != 0) res = function(res, tree[--r]);
       }
       if (res == UNIQUE) {
         throw new IllegalStateException("UNIQUE should not be the return value.");

@@ -1,23 +1,21 @@
 /**
  * Download the code: $ git clone https://github.com/williamfiset/Algorithms
  *
- * <p>
- * Change directory to the root of the Algorithms directory: $ cd Algorithms
+ * <p>Change directory to the root of the Algorithms directory: $ cd Algorithms
  *
- * <p>
- * Build: $ javac -d src/main/java
+ * <p>Build: $ javac -d src/main/java
  * src/main/java/com/williamfiset/algorithms/graphtheory/networkflow/examples/MiceAndOwls.java
  *
- * <p>
- * Run: $ java -cp src/main/java
+ * <p>Run: $ java -cp src/main/java
  * com/williamfiset/algorithms/graphtheory/networkflow/examples/MiceAndOwls
  */
 package com.williamfiset.algorithms.graphtheory.networkflow.examples;
 
 import static java.lang.Math.min;
 
-import java.awt.geom.*;
-import java.util.*;
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MiceAndOwls {
 
@@ -40,8 +38,14 @@ public class MiceAndOwls {
   }
 
   public static void main(String[] args) {
-    Mouse[] mice = {new Mouse(1, 0), new Mouse(0, 1), new Mouse(8, 1), new Mouse(12, 0),
-        new Mouse(12, 4), new Mouse(15, 5)};
+    Mouse[] mice = {
+      new Mouse(1, 0),
+      new Mouse(0, 1),
+      new Mouse(8, 1),
+      new Mouse(12, 0),
+      new Mouse(12, 4),
+      new Mouse(15, 5)
+    };
     Hole[] holes = {new Hole(1, 1, 1), new Hole(10, 2, 2), new Hole(14, 5, 1)};
     solve(mice, holes, /* radius= */ 3);
   }
@@ -113,8 +117,9 @@ public class MiceAndOwls {
     public String toString(int s, int t) {
       String u = (from == s) ? "s" : ((from == t) ? "t" : String.valueOf(from));
       String v = (to == s) ? "s" : ((to == t) ? "t" : String.valueOf(to));
-      return String.format("Edge %s -> %s | flow = %3d | capacity = %3d | is residual: %s", u, v,
-          flow, capacity, isResidual());
+      return String.format(
+          "Edge %s -> %s | flow = %3d | capacity = %3d | is residual: %s",
+          u, v, flow, capacity, isResidual());
     }
   }
 
@@ -163,8 +168,7 @@ public class MiceAndOwls {
     @SuppressWarnings("unchecked")
     private void initializeEmptyFlowGraph() {
       graph = new List[n];
-      for (int i = 0; i < n; i++)
-        graph[i] = new ArrayList<Edge>();
+      for (int i = 0; i < n; i++) graph[i] = new ArrayList<Edge>();
     }
 
     /**
@@ -175,8 +179,7 @@ public class MiceAndOwls {
      * @param capacity - The capacity of the edge
      */
     public void addEdge(int from, int to, long capacity) {
-      if (capacity <= 0)
-        throw new IllegalArgumentException("Forward edge capacity <= 0");
+      if (capacity <= 0) throw new IllegalArgumentException("Forward edge capacity <= 0");
       Edge e1 = new Edge(from, to, capacity);
       Edge e2 = new Edge(to, from, 0);
       e1.residual = e2;
@@ -203,8 +206,7 @@ public class MiceAndOwls {
 
     // Wrapper method that ensures we only call solve() once
     private void execute() {
-      if (solved)
-        return;
+      if (solved) return;
       solved = true;
       solve();
     }
@@ -240,8 +242,7 @@ public class MiceAndOwls {
 
     private long dfs(int node, long flow) {
       // At sink node, return augmented path flow.
-      if (node == t)
-        return flow;
+      if (node == t) return flow;
 
       // Mark the current node as visited.
       visited[node] = visitedToken;

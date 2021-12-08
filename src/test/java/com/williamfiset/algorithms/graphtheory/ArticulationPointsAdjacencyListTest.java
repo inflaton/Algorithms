@@ -2,16 +2,16 @@ package com.williamfiset.algorithms.graphtheory;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import java.util.*;
-import org.junit.*;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.Test;
 
 public class ArticulationPointsAdjacencyListTest {
 
   // Initialize graph with 'n' nodes.
   public static List<List<Integer>> createGraph(int n) {
     List<List<Integer>> graph = new ArrayList<>();
-    for (int i = 0; i < n; i++)
-      graph.add(new ArrayList<>());
+    for (int i = 0; i < n; i++) graph.add(new ArrayList<>());
     return graph;
   }
 

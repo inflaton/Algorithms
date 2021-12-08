@@ -11,13 +11,13 @@ import java.util.Scanner;
 /**
  * Standard Splay Tree Implementation, supports generic data(must implement Comparable)
  *
- * <p>
- * The Basic Concept of SplayTree is to keep frequently used nodes close to the root of the tree It
- * performs basic operations such as insertion,search,delete,findMin,findMax in O(log n) amortized
- * time Having frequently-used nodes near to the root can be useful in implementing many algorithms.
- * e.g: Implementing caches, garbage collection algorithms etc Primary disadvantage of the splay
- * tree can be the fact that its height can go linear. This causes the worst case running times to
- * go O(n) However, the amortized costs of this worst case situation is logarithmic, O(log n)
+ * <p>The Basic Concept of SplayTree is to keep frequently used nodes close to the root of the tree
+ * It performs basic operations such as insertion,search,delete,findMin,findMax in O(log n)
+ * amortized time Having frequently-used nodes near to the root can be useful in implementing many
+ * algorithms. e.g: Implementing caches, garbage collection algorithms etc Primary disadvantage of
+ * the splay tree can be the fact that its height can go linear. This causes the worst case running
+ * times to go O(n) However, the amortized costs of this worst case situation is logarithmic, O(log
+ * n)
  *
  * @author Ashiqur Rahman,https://github.com/ashiqursuperfly
  */
@@ -36,8 +36,7 @@ public class SplayTree<T extends Comparable<T>> {
         } catch (Exception e) {
           e.printStackTrace();
         }
-      } else
-        this.data = data;
+      } else this.data = data;
     }
 
     @Override
@@ -74,8 +73,7 @@ public class SplayTree<T extends Comparable<T>> {
         } catch (Exception e) {
           e.printStackTrace();
         }
-      } else
-        this.data = data;
+      } else this.data = data;
     }
 
     @Override
@@ -100,8 +98,7 @@ public class SplayTree<T extends Comparable<T>> {
 
   /** Searches a node and splays it on top,returns the new root * */
   public BinaryTree<T> search(T node) {
-    if (root == null)
-      return null;
+    if (root == null) return null;
 
     this.root = splayUtil(root, node);
 
@@ -130,13 +127,11 @@ public class SplayTree<T extends Comparable<T>> {
 
   /** Deletes a node,returns the new root * */
   public BinaryTree<T> delete(T node) {
-    if (root == null)
-      return null;
+    if (root == null) return null;
 
     BinaryTree<T> searchResult = splay(node);
 
-    if (searchResult.getData().compareTo(node) != 0)
-      return null;
+    if (searchResult.getData().compareTo(node) != 0) return null;
 
     BinaryTree<T> leftSubtree = root.getLeft();
     BinaryTree<T> rightSubtree = root.getRight();
@@ -153,32 +148,28 @@ public class SplayTree<T extends Comparable<T>> {
   /** To FindMax Of Entire Tree * */
   public T findMax() {
     BinaryTree<T> temp = root;
-    while (temp.getRight() != null)
-      temp = temp.getRight();
+    while (temp.getRight() != null) temp = temp.getRight();
     return temp.getData();
   }
 
   /** To FindMin Of Entire Tree * */
   public T findMin() {
     BinaryTree<T> temp = root;
-    while (temp.getLeft() != null)
-      temp = temp.getLeft();
+    while (temp.getLeft() != null) temp = temp.getLeft();
     return temp.getData();
   }
 
   /** * To FindMax Of Tree with specified root * */
   public T findMax(BinaryTree<T> root) {
     BinaryTree<T> temp = root;
-    while (temp.getRight() != null)
-      temp = temp.getRight();
+    while (temp.getRight() != null) temp = temp.getRight();
     return temp.getData();
   }
 
   /** * To FindMin Of Tree with specified root * */
   public T findMin(BinaryTree<T> root) {
     BinaryTree<T> temp = root;
-    while (temp.getLeft() != null)
-      temp = temp.getLeft();
+    while (temp.getLeft() != null) temp = temp.getLeft();
     return temp.getData();
   }
 
@@ -205,12 +196,10 @@ public class SplayTree<T extends Comparable<T>> {
   }
 
   private BinaryTree<T> splayUtil(BinaryTree<T> root, T key) {
-    if (root == null || root.getData() == key)
-      return root;
+    if (root == null || root.getData() == key) return root;
 
     if (root.getData().compareTo(key) > 0) {
-      if (root.getLeft() == null)
-        return root;
+      if (root.getLeft() == null) return root;
 
       if (root.getLeft().getData().compareTo(key) > 0) {
 
@@ -221,18 +210,15 @@ public class SplayTree<T extends Comparable<T>> {
 
         root.getLeft().setRight(splayUtil(root.getLeft().getRight(), key));
 
-        if (root.getLeft().getRight() != null)
-          root.setLeft(leftRotate(root.getLeft()));
+        if (root.getLeft().getRight() != null) root.setLeft(leftRotate(root.getLeft()));
       }
       return (root.getLeft() == null) ? root : rightRotate(root);
     } else {
-      if (root.getRight() == null)
-        return root;
+      if (root.getRight() == null) return root;
 
       if (root.getRight().getData().compareTo(key) > 0) {
         root.getRight().setLeft(splayUtil(root.getRight().getLeft(), key));
-        if (root.getRight().getLeft() != null)
-          root.setRight(rightRotate(root.getRight()));
+        if (root.getRight().getLeft() != null) root.setRight(rightRotate(root.getRight()));
       } else if (root.getRight().getData().compareTo(key) < 0) // Zag-Zag (Right Right)
       {
         root.getRight().setRight(splayUtil(root.getRight().getRight(), key));
@@ -244,8 +230,7 @@ public class SplayTree<T extends Comparable<T>> {
   }
 
   private BinaryTree<T> splay(T node) {
-    if (root == null)
-      return null;
+    if (root == null) return null;
 
     this.root = splayUtil(root, node);
 
@@ -294,7 +279,6 @@ public class SplayTree<T extends Comparable<T>> {
     return sorted;
   }
 }
-
 
 class SplayTreeRun {
 

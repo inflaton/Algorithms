@@ -1,8 +1,7 @@
 /**
  * This algorithm finds the center(s) of a tree.
  *
- * <p>
- * Time complexity: O(V+E)
+ * <p>Time complexity: O(V+E)
  *
  * @author Original author: Jeffrey Xiao, https://github.com/jeffrey-xiao
  * @author Modifications by: William Fiset, william.alexandre.fiset@gmail.com
@@ -57,8 +56,7 @@ public class TreeCenter {
   // Create an empty tree as a adjacency list.
   public static List<List<Integer>> createEmptyTree(int n) {
     List<List<Integer>> tree = new ArrayList<>(n);
-    for (int i = 0; i < n; i++)
-      tree.add(new LinkedList<>());
+    for (int i = 0; i < n; i++) tree.add(new LinkedList<>());
     return tree;
   }
 

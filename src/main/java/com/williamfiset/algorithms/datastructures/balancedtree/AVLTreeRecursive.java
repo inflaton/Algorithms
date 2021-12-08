@@ -55,8 +55,7 @@ public class AVLTreeRecursive<T extends Comparable<T>> implements Iterable<T> {
   // root and its furthest leaf. This means that a tree containing a single
   // node has a height of 0.
   public int height() {
-    if (root == null)
-      return 0;
+    if (root == null) return 0;
     return root.height;
   }
 
@@ -77,19 +76,16 @@ public class AVLTreeRecursive<T extends Comparable<T>> implements Iterable<T> {
 
   // Recursive contains helper method.
   private boolean contains(Node node, T value) {
-    if (node == null)
-      return false;
+    if (node == null) return false;
 
     // Compare current value to the value in the node.
     int cmp = value.compareTo(node.value);
 
     // Dig into left subtree.
-    if (cmp < 0)
-      return contains(node.left, value);
+    if (cmp < 0) return contains(node.left, value);
 
     // Dig into right subtree.
-    if (cmp > 0)
-      return contains(node.right, value);
+    if (cmp > 0) return contains(node.right, value);
 
     // Found value in tree.
     return true;
@@ -97,8 +93,7 @@ public class AVLTreeRecursive<T extends Comparable<T>> implements Iterable<T> {
 
   // Insert/add a value to the AVL tree. The value must not be null, O(log(n))
   public boolean insert(T value) {
-    if (value == null)
-      return false;
+    if (value == null) return false;
     if (!contains(root, value)) {
       root = insert(root, value);
       nodeCount++;
@@ -110,8 +105,7 @@ public class AVLTreeRecursive<T extends Comparable<T>> implements Iterable<T> {
   // Inserts a value inside the AVL tree.
   private Node insert(Node node, T value) {
     // Base case.
-    if (node == null)
-      return new Node(value);
+    if (node == null) return new Node(value);
 
     // Compare current value to the value in the node.
     int cmp = value.compareTo(node.value);
@@ -213,8 +207,7 @@ public class AVLTreeRecursive<T extends Comparable<T>> implements Iterable<T> {
 
   // Remove a value from this binary tree if it exists, O(log(n))
   public boolean remove(T elem) {
-    if (elem == null)
-      return false;
+    if (elem == null) return false;
 
     if (contains(root, elem)) {
       root = remove(root, elem);
@@ -227,8 +220,7 @@ public class AVLTreeRecursive<T extends Comparable<T>> implements Iterable<T> {
 
   // Removes a value from the AVL tree.
   private Node remove(Node node, T elem) {
-    if (node == null)
-      return null;
+    if (node == null) return null;
 
     int cmp = elem.compareTo(node.value);
 
@@ -297,15 +289,13 @@ public class AVLTreeRecursive<T extends Comparable<T>> implements Iterable<T> {
 
   // Helper method to find the leftmost node (which has the smallest value)
   private T findMin(Node node) {
-    while (node.left != null)
-      node = node.left;
+    while (node.left != null) node = node.left;
     return node.value;
   }
 
   // Helper method to find the rightmost node (which has the largest value)
   private T findMax(Node node) {
-    while (node.right != null)
-      node = node.right;
+    while (node.right != null) node = node.right;
     return node.value;
   }
 
@@ -321,16 +311,14 @@ public class AVLTreeRecursive<T extends Comparable<T>> implements Iterable<T> {
 
       @Override
       public boolean hasNext() {
-        if (expectedNodeCount != nodeCount)
-          throw new java.util.ConcurrentModificationException();
+        if (expectedNodeCount != nodeCount) throw new java.util.ConcurrentModificationException();
         return root != null && !stack.isEmpty();
       }
 
       @Override
       public T next() {
 
-        if (expectedNodeCount != nodeCount)
-          throw new java.util.ConcurrentModificationException();
+        if (expectedNodeCount != nodeCount) throw new java.util.ConcurrentModificationException();
 
         while (trav != null && trav.left != null) {
           stack.push(trav.left);
@@ -363,14 +351,11 @@ public class AVLTreeRecursive<T extends Comparable<T>> implements Iterable<T> {
   // make sure all right child nodes are greater in value than their parent.
   // (Used only for testing)
   public boolean validateBSTInvarient(Node node) {
-    if (node == null)
-      return true;
+    if (node == null) return true;
     T val = node.value;
     boolean isValid = true;
-    if (node.left != null)
-      isValid = isValid && node.left.value.compareTo(val) < 0;
-    if (node.right != null)
-      isValid = isValid && node.right.value.compareTo(val) > 0;
+    if (node.left != null) isValid = isValid && node.left.value.compareTo(val) < 0;
+    if (node.right != null) isValid = isValid && node.right.value.compareTo(val) > 0;
     return isValid && validateBSTInvarient(node.left) && validateBSTInvarient(node.right);
   }
 }

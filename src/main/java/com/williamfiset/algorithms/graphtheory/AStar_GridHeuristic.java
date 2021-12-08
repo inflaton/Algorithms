@@ -1,7 +1,15 @@
 /** NOTE: This algorithm is still a work in progress! See issue #18 to track progress. */
 package com.williamfiset.algorithms.graphtheory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Random;
+import java.util.Set;
 
 public class AStar_GridHeuristic {
 
@@ -12,8 +20,7 @@ public class AStar_GridHeuristic {
     int from, to;
 
     public Edge(int from, int to, double cost) {
-      if (cost < 0)
-        throw new IllegalArgumentException("No negative edge weights");
+      if (cost < 0) throw new IllegalArgumentException("No negative edge weights");
       this.from = from;
       this.to = to;
       this.cost = cost;
@@ -44,8 +51,7 @@ public class AStar_GridHeuristic {
     @Override
     public int compareTo(Node other) {
       if (Math.abs(f - other.f) < EPS) {
-        if (Math.abs(h - other.h) < EPS)
-          return 0;
+        if (Math.abs(h - other.h) < EPS) return 0;
         return (h - other.h) > 0 ? +1 : -1;
       }
       return (f - other.f) > 0 ? +1 : -1;
@@ -56,8 +62,8 @@ public class AStar_GridHeuristic {
   // from a starting node to an ending node. If there is no path between the
   // starting node and the destination node the returned value is set to be
   // Double.POSITIVE_INFINITY.
-  public static double astar(double[] X, double[] Y, Map<Integer, List<Edge>> graph, int start,
-      int end, int n) {
+  public static double astar(
+      double[] X, double[] Y, Map<Integer, List<Edge>> graph, int start, int end, int n) {
 
     // In the event that you wish to rebuild the shortest path
     // you can do so using the prev array and starting at some node 'end'
@@ -87,16 +93,14 @@ public class AStar_GridHeuristic {
       openSet.remove(node.id);
       closedSet.add(node.id);
 
-      if (node.id == end)
-        return G[end];
+      if (node.id == end) return G[end];
 
       List<Edge> edges = graph.get(node.id);
       if (edges != null) {
         for (int i = 0; i < edges.size(); i++) {
 
           Edge edge = edges.get(i);
-          if (closedSet.contains(edge.to))
-            continue;
+          if (closedSet.contains(edge.to)) continue;
 
           double g = node.g + edge.cost;
           double h = heuristic(X, Y, edge.to, end);
@@ -135,8 +139,7 @@ public class AStar_GridHeuristic {
 
     int n = 20 * 20;
     Map<Integer, List<Edge>> graph = new HashMap<>();
-    for (int i = 0; i < n; i++)
-      graph.put(i, new ArrayList<>());
+    for (int i = 0; i < n; i++) graph.put(i, new ArrayList<>());
 
     double[] X = new double[n];
     double[] Y = new double[n];
@@ -156,8 +159,7 @@ public class AStar_GridHeuristic {
 
       int node1 = i * N + j;
       int node2 = ii * N + jj;
-      if (m[node1][node2])
-        continue;
+      if (m[node1][node2]) continue;
 
       locations[2 * k] = node1;
       locations[2 * k + 1] = node2;
@@ -190,8 +192,8 @@ public class AStar_GridHeuristic {
     }
   }
 
-  static void addEdge(Map<Integer, List<Edge>> graph, int f, int t, int fx, int fy, int tx,
-      int ty) {
+  static void addEdge(
+      Map<Integer, List<Edge>> graph, int f, int t, int fx, int fy, int tx, int ty) {
     double dx = Math.abs(fx - tx);
     double dy = Math.abs(fy - ty);
     graph.get(f).add(new Edge(f, t, dx + dy));
@@ -210,8 +212,7 @@ public class AStar_GridHeuristic {
 
     @Override
     public int compareTo(DNode other) {
-      if (Math.abs(value - other.value) < EPS)
-        return 0;
+      if (Math.abs(value - other.value) < EPS) return 0;
       return (value - other.value) > 0 ? +1 : -1;
     }
   }
@@ -248,8 +249,7 @@ public class AStar_GridHeuristic {
 
       // We already found a better path before we got to
       // processing this node so we can ignore it.
-      if (node.value > dists[node.id])
-        continue;
+      if (node.value > dists[node.id]) continue;
 
       List<Edge> edges = graph.get(node.id);
       if (edges != null) {
@@ -258,8 +258,7 @@ public class AStar_GridHeuristic {
 
           // You cannot get a shorter path by revisiting
           // a node you have already visited before
-          if (visited[edge.to])
-            continue;
+          if (visited[edge.to]) continue;
 
           // Update minimum cost if applicable
           double newDist = dists[edge.from] + edge.cost;

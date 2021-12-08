@@ -1,61 +1,65 @@
 /*
  * Performs density analysis to figure out whether an adjacency list or an adjacency matrix is
  * better for prims MST algorithm.
- * 
+ *
  * Results seem to indicate that the adjacency matrix is better starting at around ~33% edge
  * percentage density:
- * 
+ *
  * Percentage full: ~0%, Edges included: 0 List: 1168811 nanos Matrix: 300204 nanos
- * 
+ *
  * Percentage full: ~5%, Edges included: 1249282 List: 78032794 nanos Matrix: 160413885 nanos
- * 
+ *
  * Percentage full: ~10%, Edges included: 2499128 List: 53444885 nanos Matrix: 136684636 nanos
- * 
+ *
  * Percentage full: ~15%, Edges included: 3747556 List: 84818677 nanos Matrix: 154946744 nanos
- * 
+ *
  * Percentage full: ~20%, Edges included: 4996636 List: 105822314 nanos Matrix: 167086118 nanos
- * 
+ *
  * Percentage full: ~25%, Edges included: 6246068 List: 117237558 nanos Matrix: 190984980 nanos
- * 
+ *
  * Percentage full: ~30%, Edges included: 7497476 List: 249309754 nanos Matrix: 233969389 nanos
- * 
+ *
  * Percentage full: ~35%, Edges included: 8748710 List: 265593928 nanos Matrix: 235897178 nanos
- * 
+ *
  * Percentage full: ~40%, Edges included: 10000808 List: 317905981 nanos Matrix: 255262713 nanos
- * 
+ *
  * Percentage full: ~45%, Edges included: 11245712 List: 428115402 nanos Matrix: 244939994 nanos
- * 
+ *
  * Percentage full: ~50%, Edges included: 12495078 List: 485647021 nanos Matrix: 241433180 nanos
- * 
+ *
  * Percentage full: ~55%, Edges included: 13744132 List: 523930222 nanos Matrix: 240345667 nanos
- * 
+ *
  * Percentage full: ~60%, Edges included: 14991078 List: 565671594 nanos Matrix: 250618728 nanos
- * 
+ *
  * Percentage full: ~65%, Edges included: 16249278 List: 635804318 nanos Matrix: 247628418 nanos
- * 
+ *
  * Percentage full: ~70%, Edges included: 17492252 List: 448590410 nanos Matrix: 218092040 nanos
- * 
+ *
  * Percentage full: ~75%, Edges included: 18748276 List: 365672497 nanos Matrix: 209152347 nanos
- * 
+ *
  * Percentage full: ~80%, Edges included: 19997560 List: 389878221 nanos Matrix: 197766511 nanos
- * 
+ *
  * Percentage full: ~85%, Edges included: 21243518 List: 360389630 nanos Matrix: 181542371 nanos
- * 
+ *
  * Percentage full: ~90%, Edges included: 22496480 List: 486827671 nanos Matrix: 182686235 nanos
- * 
+ *
  * Percentage full: ~95%, Edges included: 23747794 List: 423884430 nanos Matrix: 159974003 nanos
- * 
+ *
  * Percentage full: ~100%, Edges included: 24995000 List: 436565071 nanos Matrix: 154691124 nanos
- * 
+ *
  */
 
 package com.williamfiset.algorithms.graphtheory.analysis;
 
-import static java.lang.Math.*;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class PrimsGraphRepresentationAnaylsis {
@@ -92,8 +96,7 @@ public class PrimsGraphRepresentationAnaylsis {
     private Edge[] mstEdges;
 
     public PrimsAdjList(List<List<Edge>> graph) {
-      if (graph == null || graph.isEmpty())
-        throw new IllegalArgumentException();
+      if (graph == null || graph.isEmpty()) throw new IllegalArgumentException();
       this.n = graph.size();
       this.graph = graph;
     }
@@ -121,8 +124,7 @@ public class PrimsGraphRepresentationAnaylsis {
         int destNodeIndex = edge.to;
 
         // Skip edges pointing to already visited nodes.
-        if (visited[destNodeIndex])
-          continue;
+        if (visited[destNodeIndex]) continue;
 
         if (ipq.contains(destNodeIndex)) {
           // Try and improve the cheapest edge at destNodeIndex with the current edge in
@@ -137,8 +139,7 @@ public class PrimsGraphRepresentationAnaylsis {
 
     // Computes the minimum spanning tree and minimum spanning tree cost.
     private void solve() {
-      if (solved)
-        return;
+      if (solved) return;
       solved = true;
 
       int m = n - 1, edgeCount = 0;
@@ -175,8 +176,7 @@ public class PrimsGraphRepresentationAnaylsis {
     // Creates an empty adjacency list graph with n nodes.
     static List<List<Edge>> createEmptyGraph(int n) {
       List<List<Edge>> g = new ArrayList<>();
-      for (int i = 0; i < n; i++)
-        g.add(new ArrayList<>());
+      for (int i = 0; i < n; i++) g.add(new ArrayList<>());
       return g;
     }
 
@@ -231,12 +231,10 @@ public class PrimsGraphRepresentationAnaylsis {
       for (int to = 0; to < n; to++) {
         Integer cost = graph[currentNodeIndex][to];
         // Edge doesn't exist.
-        if (cost == null)
-          continue;
+        if (cost == null) continue;
 
         // Skip edges pointing to already visited nodes.
-        if (visited[to])
-          continue;
+        if (visited[to]) continue;
 
         if (ipq.contains(to)) {
           // Try and improve the cheapest edge at to with the current edge in the IPQ.
@@ -250,8 +248,7 @@ public class PrimsGraphRepresentationAnaylsis {
 
     // Computes the minimum spanning tree and minimum spanning tree cost.
     private void solve() {
-      if (solved)
-        return;
+      if (solved) return;
       solved = true;
 
       int m = n - 1, edgeCount = 0;
@@ -323,8 +320,7 @@ public class PrimsGraphRepresentationAnaylsis {
       for (int i = 0; i < n; i++) {
         for (int j = i + 1; j < n; j++) {
           int r = Math.abs(random.nextInt()) % 100;
-          if (r >= percentage)
-            continue;
+          if (r >= percentage) continue;
           PrimsAdjList.addUndirectedEdge(g1, i, j, r);
           PrimsAdjMatrix.addUndirectedEdge(g2, i, j, r);
           numEdgesIncluded += 2;
@@ -334,8 +330,8 @@ public class PrimsGraphRepresentationAnaylsis {
       PrimsAdjList adjListSolver = new PrimsAdjList(g1);
       PrimsAdjMatrix matrixSolver = new PrimsAdjMatrix(g2);
 
-      System.out
-          .println("\nPercentage full: ~" + percentage + "%, Edges included: " + numEdgesIncluded);
+      System.out.println(
+          "\nPercentage full: ~" + percentage + "%, Edges included: " + numEdgesIncluded);
 
       Instant start = Instant.now();
       Long listCost = adjListSolver.getMstCost();
@@ -389,8 +385,7 @@ public class PrimsGraphRepresentationAnaylsis {
 
     // Initializes a D-ary heap with a maximum capacity of maxSize.
     public MinIndexedDHeap(int degree, int maxSize) {
-      if (maxSize <= 0)
-        throw new IllegalArgumentException("maxSize <= 0");
+      if (maxSize <= 0) throw new IllegalArgumentException("maxSize <= 0");
 
       D = max(2, degree);
       N = max(D + 1, maxSize);
@@ -445,8 +440,7 @@ public class PrimsGraphRepresentationAnaylsis {
     }
 
     public void insert(int ki, T value) {
-      if (contains(ki))
-        throw new IllegalArgumentException("index already exists; received: " + ki);
+      if (contains(ki)) throw new IllegalArgumentException("index already exists; received: " + ki);
       valueNotNullOrThrow(value);
       pm[ki] = sz;
       im[sz] = ki;
@@ -506,7 +500,7 @@ public class PrimsGraphRepresentationAnaylsis {
     /* Helper functions */
 
     private void sink(int i) {
-      for (int j = minChild(i); j != -1;) {
+      for (int j = minChild(i); j != -1; ) {
         swap(i, j);
         i = j;
         j = minChild(i);
@@ -523,9 +517,7 @@ public class PrimsGraphRepresentationAnaylsis {
     // From the parent node at index i find the minimum child below it
     private int minChild(int i) {
       int index = -1, from = child[i], to = min(sz, from + D);
-      for (int j = from; j < to; j++)
-        if (less(j, i))
-          index = i = j;
+      for (int j = from; j < to; j++) if (less(j, i)) index = i = j;
       return index;
     }
 
@@ -551,16 +543,14 @@ public class PrimsGraphRepresentationAnaylsis {
     @Override
     public String toString() {
       List<Integer> lst = new ArrayList<>(sz);
-      for (int i = 0; i < sz; i++)
-        lst.add(im[i]);
+      for (int i = 0; i < sz; i++) lst.add(im[i]);
       return lst.toString();
     }
 
     /* Helper functions to make the code more readable. */
 
     private void isNotEmptyOrThrow() {
-      if (isEmpty())
-        throw new NoSuchElementException("Priority queue underflow");
+      if (isEmpty()) throw new NoSuchElementException("Priority queue underflow");
     }
 
     private void keyExistsAndValueNotNullOrThrow(int ki, Object value) {
@@ -569,13 +559,11 @@ public class PrimsGraphRepresentationAnaylsis {
     }
 
     private void keyExistsOrThrow(int ki) {
-      if (!contains(ki))
-        throw new NoSuchElementException("Index does not exist; received: " + ki);
+      if (!contains(ki)) throw new NoSuchElementException("Index does not exist; received: " + ki);
     }
 
     private void valueNotNullOrThrow(Object value) {
-      if (value == null)
-        throw new IllegalArgumentException("value cannot be null");
+      if (value == null) throw new IllegalArgumentException("value cannot be null");
     }
 
     private void keyInBoundsOrThrow(int ki) {
@@ -594,10 +582,8 @@ public class PrimsGraphRepresentationAnaylsis {
     private boolean isMinHeap(int i) {
       int from = child[i], to = min(sz, from + D);
       for (int j = from; j < to; j++) {
-        if (!less(i, j))
-          return false;
-        if (!isMinHeap(j))
-          return false;
+        if (!less(i, j)) return false;
+        if (!isMinHeap(j)) return false;
       }
       return true;
     }

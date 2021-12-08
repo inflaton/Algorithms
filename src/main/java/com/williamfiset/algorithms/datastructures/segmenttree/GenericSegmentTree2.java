@@ -2,15 +2,12 @@
  * A generic segment tree implementation that supports several range update and aggregation
  * functions.
  *
- * <p>
- * Run with: ./gradlew run -Palgorithm=datastructures.segmenttree.GenericSegmentTree2
+ * <p>Run with: ./gradlew run -Palgorithm=datastructures.segmenttree.GenericSegmentTree2
  *
- * <p>
- * Several thanks to cp-algorithms for their great article on segment trees:
+ * <p>Several thanks to cp-algorithms for their great article on segment trees:
  * https://cp-algorithms.com/data_structures/segment_tree.html
  *
- * <p>
- * NOTE: This file is still a WIP
+ * <p>NOTE: This file is still a WIP
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -22,7 +19,9 @@ public class GenericSegmentTree2 {
 
   // The type of segment combination function to use
   public static enum SegmentCombinationFn {
-    SUM, MIN, MAX
+    SUM,
+    MIN,
+    MAX
   }
 
   // When updating the value of a specific index position, or a range of values,
@@ -111,34 +110,26 @@ public class GenericSegmentTree2 {
   private Ruf lruf;
 
   private long safeSum(Long a, Long b) {
-    if (a == null)
-      a = 0L;
-    if (b == null)
-      b = 0L;
+    if (a == null) a = 0L;
+    if (b == null) b = 0L;
     return a + b;
   }
 
   private Long safeMul(Long a, Long b) {
-    if (a == null)
-      a = 1L;
-    if (b == null)
-      b = 1L;
+    if (a == null) a = 1L;
+    if (b == null) b = 1L;
     return a * b;
   }
 
   private Long safeMin(Long a, Long b) {
-    if (a == null)
-      return b;
-    if (b == null)
-      return a;
+    if (a == null) return b;
+    if (b == null) return a;
     return Math.min(a, b);
   }
 
   private Long safeMax(Long a, Long b) {
-    if (a == null)
-      return b;
-    if (b == null)
-      return a;
+    if (a == null) return b;
+    if (b == null) return a;
     return Math.max(a, b);
   }
 
@@ -153,20 +144,21 @@ public class GenericSegmentTree2 {
   private Ruf lminQuerySumUpdate = (s, x) -> safeSum(s.lazy, x);
 
   // // TODO(issue/208): support this multiplication update
-  private Ruf minQueryMulUpdate = (s, x) -> {
-    if (x == 0) {
-      return 0L;
-    } else if (x < 0) {
-      // s.min was already calculated
-      if (safeMul(s.value, x) == s.min) {
-        return s.max;
-      } else {
-        return s.min;
-      }
-    } else {
-      return safeMul(s.value, x);
-    }
-  };
+  private Ruf minQueryMulUpdate =
+      (s, x) -> {
+        if (x == 0) {
+          return 0L;
+        } else if (x < 0) {
+          // s.min was already calculated
+          if (safeMul(s.value, x) == s.min) {
+            return s.max;
+          } else {
+            return s.min;
+          }
+        } else {
+          return safeMul(s.value, x);
+        }
+      };
   private Ruf lminQueryMulUpdate = (s, x) -> safeMul(s.lazy, x);
 
   private Ruf minQueryAssignUpdate = (s, x) -> x;
@@ -176,19 +168,20 @@ public class GenericSegmentTree2 {
   private Ruf lmaxQuerySumUpdate = (s, x) -> safeSum(s.lazy, x);
 
   // TODO(issue/208): support this multiplication update
-  private Ruf maxQueryMulUpdate = (s, x) -> {
-    if (x == 0) {
-      return 0L;
-    } else if (x < 0) {
-      if (safeMul(s.value, x) == s.min) {
-        return s.max;
-      } else {
-        return s.min;
-      }
-    } else {
-      return safeMul(s.value, x);
-    }
-  };
+  private Ruf maxQueryMulUpdate =
+      (s, x) -> {
+        if (x == 0) {
+          return 0L;
+        } else if (x < 0) {
+          if (safeMul(s.value, x) == s.min) {
+            return s.max;
+          } else {
+            return s.min;
+          }
+        } else {
+          return safeMul(s.value, x);
+        }
+      };
   private Ruf lmaxQueryMulUpdate = (s, x) -> safeMul(s.lazy, x);
 
   private Ruf maxQueryAssignUpdate = (s, x) -> x;
@@ -203,7 +196,9 @@ public class GenericSegmentTree2 {
   private Ruf sumQueryAssignUpdate = (s, x) -> (s.tr - s.tl + 1) * x;
   private Ruf lsumQueryAssignUpdate = (s, x) -> x;
 
-  public GenericSegmentTree2(long[] values, SegmentCombinationFn segmentCombinationFunction,
+  public GenericSegmentTree2(
+      long[] values,
+      SegmentCombinationFn segmentCombinationFunction,
       RangeUpdateFn rangeUpdateFunction) {
     if (values == null) {
       throw new IllegalArgumentException("Segment tree values cannot be null.");
@@ -329,7 +324,8 @@ public class GenericSegmentTree2 {
     // Instead of checking if [tl, tm] overlaps [l, r] and [tm+1, tr] overlaps
     // [l, r], simply recurse on both segments and let the base case return the
     // default value for invalid intervals.
-    return combinationFn.apply(rangeQuery1(2 * i + 1, tl, tm, l, Math.min(tm, r)),
+    return combinationFn.apply(
+        rangeQuery1(2 * i + 1, tl, tm, l, Math.min(tm, r)),
         rangeQuery1(2 * i + 2, tm + 1, tr, Math.max(l, tm + 1), r));
   }
 
@@ -350,8 +346,7 @@ public class GenericSegmentTree2 {
 
   private void propagateLazy1(int i, int tl, int tr, long delta) {
     // Ignore leaf segments
-    if (tl == tr)
-      return;
+    if (tl == tr) return;
     st[2 * i + 1].lazy = lruf.apply(st[2 * i + 1], delta);
     st[2 * i + 2].lazy = lruf.apply(st[2 * i + 2], delta);
   }
@@ -461,8 +456,7 @@ public class GenericSegmentTree2 {
     int l = 1;
     int r = 3;
     long q = st.rangeQuery1(l, r);
-    if (q != 1)
-      System.out.println("Error");
+    if (q != 1) System.out.println("Error");
     System.out.printf("The min between indeces [%d, %d] is: %d\n", l, r, q);
 
     st.printDebugInfo();
@@ -477,13 +471,11 @@ public class GenericSegmentTree2 {
     int l = 1;
     int r = 3;
     long q = st.rangeQuery1(l, r);
-    if (q != 8)
-      System.out.println("Error");
+    if (q != 8) System.out.println("Error");
     System.out.printf("The sum between indeces [%d, %d] is: %d\n", l, r, q);
     st.rangeUpdate1(1, 3, 3);
     q = st.rangeQuery1(l, r);
-    if (q != 17)
-      System.out.println("Error");
+    if (q != 17) System.out.println("Error");
     System.out.printf("The sum between indeces [%d, %d] is: %d\n", l, r, st.rangeQuery1(l, r));
   }
 
@@ -496,15 +488,13 @@ public class GenericSegmentTree2 {
     int l = 1;
     int r = 3;
     long q = st.rangeQuery1(l, r);
-    if (q != 1)
-      System.out.println("Error");
+    if (q != 1) System.out.println("Error");
     System.out.printf("The min between indeces [%d, %d] is: %d\n", l, r, q);
     st.rangeUpdate1(1, 3, 3);
     l = 0;
     r = 1;
     q = st.rangeQuery1(l, r);
-    if (q != 2)
-      System.out.println("Error");
+    if (q != 2) System.out.println("Error");
     System.out.printf("The min between indeces [%d, %d] is: %d\n", l, r, st.rangeQuery1(l, r));
   }
 }

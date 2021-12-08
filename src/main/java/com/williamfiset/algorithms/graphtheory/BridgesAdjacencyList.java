@@ -1,8 +1,7 @@
 /**
  * Finds all the bridges on an undirected graph.
  *
- * <p>
- * Test against HackerEarth online judge at:
+ * <p>Test against HackerEarth online judge at:
  * https://www.hackerearth.com/practice/algorithms/graphs/articulation-points-and-bridges/tutorial
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
@@ -24,8 +23,7 @@ public class BridgesAdjacencyList {
   private List<Integer> bridges;
 
   public BridgesAdjacencyList(List<List<Integer>> graph, int n) {
-    if (graph == null || n <= 0 || graph.size() != n)
-      throw new IllegalArgumentException();
+    if (graph == null || n <= 0 || graph.size() != n) throw new IllegalArgumentException();
     this.graph = graph;
     this.n = n;
   }
@@ -35,8 +33,7 @@ public class BridgesAdjacencyList {
   // pair. For example, nodes at indexes (0, 1) are a pair, (2, 3) are another
   // pair, etc...
   public List<Integer> findBridges() {
-    if (solved)
-      return bridges;
+    if (solved) return bridges;
 
     id = 0;
     low = new int[n]; // Low link values
@@ -46,9 +43,7 @@ public class BridgesAdjacencyList {
     bridges = new ArrayList<>();
 
     // Finds all bridges in the graph across various connected components.
-    for (int i = 0; i < n; i++)
-      if (!visited[i])
-        dfs(i, -1, bridges);
+    for (int i = 0; i < n; i++) if (!visited[i]) dfs(i, -1, bridges);
 
     solved = true;
     return bridges;
@@ -60,8 +55,7 @@ public class BridgesAdjacencyList {
     low[at] = ids[at] = ++id;
 
     for (Integer to : graph.get(at)) {
-      if (to == parent)
-        continue;
+      if (to == parent) continue;
       if (!visited[to]) {
         dfs(to, at, bridges);
         low[at] = min(low[at], low[to]);
@@ -110,8 +104,7 @@ public class BridgesAdjacencyList {
   // Initialize graph with 'n' nodes.
   public static List<List<Integer>> createGraph(int n) {
     List<List<Integer>> graph = new ArrayList<>();
-    for (int i = 0; i < n; i++)
-      graph.add(new ArrayList<>());
+    for (int i = 0; i < n; i++) graph.add(new ArrayList<>());
     return graph;
   }
 

@@ -43,21 +43,17 @@ public class TreePrinter {
         } else {
           String aa = n.getText();
           line.add(aa);
-          if (aa.length() > widest)
-            widest = aa.length();
+          if (aa.length() > widest) widest = aa.length();
 
           next.add(n.getLeft());
           next.add(n.getRight());
 
-          if (n.getLeft() != null)
-            nn++;
-          if (n.getRight() != null)
-            nn++;
+          if (n.getLeft() != null) nn++;
+          if (n.getRight() != null) nn++;
         }
       }
 
-      if (widest % 2 == 1)
-        widest++;
+      if (widest % 2 == 1) widest++;
 
       lines.add(line);
 
@@ -80,8 +76,7 @@ public class TreePrinter {
             if (line.get(j - 1) != null) {
               c = (line.get(j) != null) ? '#' : '#';
             } else {
-              if (j < line.size() && line.get(j) != null)
-                c = '#';
+              if (j < line.size() && line.get(j) != null) c = '#';
             }
           }
           sb.append(c);
@@ -105,8 +100,7 @@ public class TreePrinter {
       }
       for (int j = 0; j < line.size(); j++) {
         String f = line.get(j);
-        if (f == null)
-          f = "";
+        if (f == null) f = "";
         int gap1 = (int) Math.ceil(perpiece / 2f - f.length() / 2f);
         int gap2 = (int) Math.floor(perpiece / 2f - f.length() / 2f);
 

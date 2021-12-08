@@ -2,7 +2,7 @@ package com.williamfiset.algorithms.datastructures.trie;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import org.junit.*;
+import org.junit.Test;
 
 public class TrieTest {
 
@@ -392,15 +392,13 @@ public class TrieTest {
     assertThat(t.count("\0\0")).isEqualTo(0);
     assertThat(t.count("\0\0\0")).isEqualTo(0);
 
-    for (char c = 0; c < 128; c++)
-      assertThat(t.count("" + c)).isEqualTo(0);
+    for (char c = 0; c < 128; c++) assertThat(t.count("" + c)).isEqualTo(0);
 
     assertThat(t.contains("")).isFalse();
     assertThat(t.contains("\0")).isFalse();
     assertThat(t.contains("\0\0")).isFalse();
     assertThat(t.contains("\0\0\0")).isFalse();
 
-    for (char c = 0; c < 128; c++)
-      assertThat(t.contains("" + c)).isFalse();
+    for (char c = 0; c < 128; c++) assertThat(t.contains("" + c)).isFalse();
   }
 }

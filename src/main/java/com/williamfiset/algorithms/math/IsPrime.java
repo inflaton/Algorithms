@@ -8,12 +8,9 @@ package com.williamfiset.algorithms.math;
 public class IsPrime {
 
   public static boolean isPrime(final long n) {
-    if (n < 2)
-      return false;
-    if (n == 2 || n == 3)
-      return true;
-    if (n % 2 == 0 || n % 3 == 0)
-      return false;
+    if (n < 2) return false;
+    if (n == 2 || n == 3) return true;
+    if (n % 2 == 0 || n % 3 == 0) return false;
 
     long limit = (long) Math.sqrt(n);
 

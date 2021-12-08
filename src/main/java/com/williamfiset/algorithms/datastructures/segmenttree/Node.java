@@ -19,8 +19,7 @@ public class Node {
   int minPos, maxPos, min = 0, sum = 0, lazy = 0;
 
   public Node(int[] values) {
-    if (values == null)
-      throw new IllegalArgumentException("Null input to segment tree.");
+    if (values == null) throw new IllegalArgumentException("Null input to segment tree.");
     buildTree(0, values.length);
     for (int i = 0; i < values.length; i++) {
       update(i, i + 1, values[i]);
@@ -69,10 +68,8 @@ public class Node {
       min += change;
 
       // Lazily propagate update to children
-      if (left != null)
-        left.lazy += change;
-      if (right != null)
-        right.lazy += change;
+      if (left != null) left.lazy += change;
+      if (right != null) right.lazy += change;
 
       // Ranges do not overlap
     } else if (r <= minPos || l >= maxPos) {
@@ -82,10 +79,8 @@ public class Node {
       // Ranges partially overlap
     } else {
 
-      if (left != null)
-        left.update(l, r, change);
-      if (right != null)
-        right.update(l, r, change);
+      if (left != null) left.update(l, r, change);
+      if (right != null) right.update(l, r, change);
       sum = (left == null ? 0 : left.sum) + (right == null ? 0 : right.sum);
       min = Math.min((left == null ? INF : left.min), (right == null ? INF : right.min));
     }
@@ -98,16 +93,13 @@ public class Node {
     propagate();
 
     // Node's range fits inside query range
-    if (l <= minPos && maxPos <= r)
-      return sum;
+    if (l <= minPos && maxPos <= r) return sum;
 
     // Ranges do not overlap
-    else if (r <= minPos || l >= maxPos)
-      return 0;
+    else if (r <= minPos || l >= maxPos) return 0;
 
     // Ranges partially overlap
-    else
-      return (left == null ? 0 : left.sum(l, r)) + (right == null ? 0 : right.sum(l, r));
+    else return (left == null ? 0 : left.sum(l, r)) + (right == null ? 0 : right.sum(l, r));
   }
 
   // Get the minimum value in the interval [l, r)
@@ -117,17 +109,15 @@ public class Node {
     propagate();
 
     // Node's range fits inside query range
-    if (l <= minPos && maxPos <= r)
-      return min;
+    if (l <= minPos && maxPos <= r) return min;
 
     // Ranges do not overlap
-    else if (r <= minPos || l >= maxPos)
-      return INF;
+    else if (r <= minPos || l >= maxPos) return INF;
 
     // Ranges partially overlap
     else
-      return Math.min((left == null ? INF : left.min(l, r)),
-          (right == null ? INF : right.min(l, r)));
+      return Math.min(
+          (left == null ? INF : left.min(l, r)), (right == null ? INF : right.min(l, r)));
   }
 
   // Does any updates to this node that haven't been done yet, and lazily updates
@@ -141,10 +131,8 @@ public class Node {
       min += lazy;
 
       // Lazily propagate updates to children
-      if (left != null)
-        left.lazy += lazy;
-      if (right != null)
-        right.lazy += lazy;
+      if (left != null) left.lazy += lazy;
+      if (right != null) right.lazy += lazy;
 
       lazy = 0;
     }

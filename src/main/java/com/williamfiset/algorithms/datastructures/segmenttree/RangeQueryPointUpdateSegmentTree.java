@@ -2,11 +2,10 @@
  * Simple segment tree implementation that supports a few range query operations (sum, min and max)
  * along with point updates on individual elements.
  *
- * <p>
- * Run with: ./gradlew run -Palgorithm=datastructures.segmenttree.RangeQueryPointUpdateSegmentTree
+ * <p>Run with: ./gradlew run
+ * -Palgorithm=datastructures.segmenttree.RangeQueryPointUpdateSegmentTree
  *
- * <p>
- * Several thanks to cp-algorithms for their great article on segment trees:
+ * <p>Several thanks to cp-algorithms for their great article on segment trees:
  * https://cp-algorithms.com/data_structures/segment_tree.html
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
@@ -20,7 +19,9 @@ public class RangeQueryPointUpdateSegmentTree {
 
   // The type of segment combination function to use
   public static enum SegmentCombinationFn {
-    SUM, MIN, MAX
+    SUM,
+    MIN,
+    MAX
   }
 
   // When updating the value of a specific index position, or a range of values,
@@ -58,14 +59,16 @@ public class RangeQueryPointUpdateSegmentTree {
   private BinaryOperator<Long> minFn = (a, b) -> Math.min(a, b);
   private BinaryOperator<Long> maxFn = (a, b) -> Math.max(a, b);
 
-  public RangeQueryPointUpdateSegmentTree(long[] values,
-      SegmentCombinationFn segmentCombinationFunction) {
+  public RangeQueryPointUpdateSegmentTree(
+      long[] values, SegmentCombinationFn segmentCombinationFunction) {
     // By default, specify ADDITION as the range update function.
     this(values, segmentCombinationFunction, RangeUpdateFn.ADDITION);
   }
 
-  public RangeQueryPointUpdateSegmentTree(long[] values,
-      SegmentCombinationFn segmentCombinationFunction, RangeUpdateFn rangeUpdateFunction) {
+  public RangeQueryPointUpdateSegmentTree(
+      long[] values,
+      SegmentCombinationFn segmentCombinationFunction,
+      RangeUpdateFn rangeUpdateFunction) {
     if (values == null) {
       throw new IllegalArgumentException("Segment tree values cannot be null.");
     }
@@ -178,20 +181,19 @@ public class RangeQueryPointUpdateSegmentTree {
     // Instead of checking if [tl, tm] overlaps [l, r] and [tm+1, tr] overlaps
     // [l, r], simply recurse on both segments and let the base case return the
     // default value for invalid intervals.
-    return combinationFn.apply(rangeQuery(2 * i + 1, tl, tm, l, Math.min(tm, r)),
+    return combinationFn.apply(
+        rangeQuery(2 * i + 1, tl, tm, l, Math.min(tm, r)),
         rangeQuery(2 * i + 2, tm + 1, tr, Math.max(l, tm + 1), r));
   }
 
   /**
    * Returns the range query value of the range [l, r]
    *
-   * <p>
-   * An alternative implementation of the range query function that intelligently only digs into the
-   * branches of the segment tree which overlap with the query [l, r].
+   * <p>An alternative implementation of the range query function that intelligently only digs into
+   * the branches of the segment tree which overlap with the query [l, r].
    *
-   * <p>
-   * This version of the range query implementation has the advantage that it doesn't need to know
-   * the explicit base case value for each range query type.
+   * <p>This version of the range query implementation has the advantage that it doesn't need to
+   * know the explicit base case value for each range query type.
    *
    * @param i the index of the current segment in the tree
    * @param tl the left endpoint (inclusive) of the current segment
@@ -209,7 +211,8 @@ public class RangeQueryPointUpdateSegmentTree {
     boolean overlapsLeftSegment = (l <= tm);
     boolean overlapsRightSegment = (r > tm);
     if (overlapsLeftSegment && overlapsRightSegment) {
-      return combinationFn.apply(rangeQuery2(2 * i + 1, tl, tm, l, Math.min(tm, r)),
+      return combinationFn.apply(
+          rangeQuery2(2 * i + 1, tl, tm, l, Math.min(tm, r)),
           rangeQuery2(2 * i + 2, tm + 1, tr, Math.max(l, tm + 1), r));
     } else if (overlapsLeftSegment) {
       return rangeQuery2(2 * i + 1, tl, tm, l, Math.min(tm, r));
@@ -227,8 +230,7 @@ public class RangeQueryPointUpdateSegmentTree {
   /**
    * Update a point value to a new value and update all affected segments, O(log(n))
    *
-   * <p>
-   * Do this by performing a binary search to find the interval containing the point, then update
+   * <p>Do this by performing a binary search to find the interval containing the point, then update
    * the leaf segment with the new value, and re-compute all affected segment values on the
    * callback.
    *

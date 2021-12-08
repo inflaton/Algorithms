@@ -2,8 +2,7 @@
  * This file contains an implementation of finding the Longest Common Subsequence (LCS) between two
  * strings using dynamic programming.
  *
- * <p>
- * Time Complexity: O(nm)
+ * <p>Time Complexity: O(nm)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -15,14 +14,12 @@ public class LongestCommonSubsequence {
   // between the strings str1 and str2 in O(nm)
   public static String lcs(char[] A, char[] B) {
 
-    if (A == null || B == null)
-      return null;
+    if (A == null || B == null) return null;
 
     final int n = A.length;
     final int m = B.length;
 
-    if (n == 0 || m == 0)
-      return null;
+    if (n == 0 || m == 0) return null;
 
     int[][] dp = new int[n + 1][m + 1];
 
@@ -32,13 +29,11 @@ public class LongestCommonSubsequence {
 
         // If ends match the LCS(a1a2..an-1an, b1b2..bn-1bn) = LCS(a1a2..an-1,
         // b1b2..bn-1) + 1
-        if (A[i - 1] == B[j - 1])
-          dp[i][j] = dp[i - 1][j - 1] + 1;
+        if (A[i - 1] == B[j - 1]) dp[i][j] = dp[i - 1][j - 1] + 1;
 
         // If the ends do not match the LCS of a1a2..an-1an and b1b2..bn-1bn is
         // max( LCS(a1a2..an-1, b1b2..bn-1bn), LCS(a1a2..an-1an, b1b2..bn-1) )
-        else
-          dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+        else dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
       }
     }
 
@@ -55,14 +50,11 @@ public class LongestCommonSubsequence {
       int v = dp[i][j];
 
       // The order of these may output different LCSs
-      while (i > 1 && dp[i - 1][j] == v)
-        i--;
-      while (j > 1 && dp[i][j - 1] == v)
-        j--;
+      while (i > 1 && dp[i - 1][j] == v) i--;
+      while (j > 1 && dp[i][j - 1] == v) j--;
 
       // Make sure there is a match before adding
-      if (v > 0)
-        lcs[lcsLen - index++ - 1] = A[i - 1]; // or B[j-1];
+      if (v > 0) lcs[lcsLen - index++ - 1] = A[i - 1]; // or B[j-1];
 
       i--;
       j--;

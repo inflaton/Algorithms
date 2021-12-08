@@ -1,20 +1,16 @@
 /**
  * An implementation of Radix Sort.
  *
- * <p>
- * See https://en.wikipedia.org/wiki/Radix_sort for details on runtime and complexity Radix sorts
+ * <p>See https://en.wikipedia.org/wiki/Radix_sort for details on runtime and complexity Radix sorts
  * operates in O(nw) time, where n is the number of keys, and w is the key length where w is
  * constant on primitive types like Integer which gives it a better performance than other
  * compare-based sort algorithms, like i.e. QuickSort
  *
- * <p>
- * Time Complexity: O(nw)
+ * <p>Time Complexity: O(nw)
  *
- * <p>
- * Run with:
+ * <p>Run with:
  *
- * <p>
- * $ ./gradlew run -Palgorithm=sorting.RadixSort
+ * <p>$ ./gradlew run -Palgorithm=sorting.RadixSort
  *
  * @author EAlexa
  */

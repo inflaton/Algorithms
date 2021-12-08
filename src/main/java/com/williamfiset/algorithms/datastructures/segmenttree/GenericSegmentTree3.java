@@ -2,15 +2,12 @@
  * A generic segment tree implementation that supports several range update and aggregation
  * functions.
  *
- * <p>
- * Run with: ./gradlew run -Palgorithm=datastructures.segmenttree.GenericSegmentTree3
+ * <p>Run with: ./gradlew run -Palgorithm=datastructures.segmenttree.GenericSegmentTree3
  *
- * <p>
- * Several thanks to cp-algorithms for their great article on segment trees:
+ * <p>Several thanks to cp-algorithms for their great article on segment trees:
  * https://cp-algorithms.com/data_structures/segment_tree.html
  *
- * <p>
- * NOTE: This file is still a WIP
+ * <p>NOTE: This file is still a WIP
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */

@@ -2,8 +2,7 @@
  * This file contain an implementation of the maximum sliding window problem. This code has been
  * tested against the judge data on:
  *
- * <p>
- * https://leetcode.com/problems/sliding-window-maximum/description/
+ * <p>https://leetcode.com/problems/sliding-window-maximum/description/
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -20,8 +19,7 @@ public class SlidingWindowMaximum {
   Deque<Integer> deque = new ArrayDeque<>();
 
   public SlidingWindowMaximum(int[] values) {
-    if (values == null)
-      throw new IllegalArgumentException();
+    if (values == null) throw new IllegalArgumentException();
     this.values = values;
     N = values.length;
   }
@@ -48,14 +46,12 @@ public class SlidingWindowMaximum {
 
     // Remove elements in the front of the queue whom are no longer
     // valid in the reduced window.
-    while (!deque.isEmpty() && deque.peekFirst() < lo)
-      deque.removeFirst();
+    while (!deque.isEmpty() && deque.peekFirst() < lo) deque.removeFirst();
   }
 
   // Query the current maximum value in the window
   public int getMax() {
-    if (lo >= hi)
-      throw new IllegalStateException("Make sure lo < hi");
+    if (lo >= hi) throw new IllegalStateException("Make sure lo < hi");
     return values[deque.peekFirst()];
   }
 }

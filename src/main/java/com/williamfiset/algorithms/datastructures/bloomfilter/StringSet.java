@@ -128,8 +128,7 @@ public class StringSet {
     int N = str.length();
     int[] values = new int[N];
 
-    for (int i = 0; i < N; i++)
-      values[i] = ALPHABET[str.charAt(i)];
+    for (int i = 0; i < N; i++) values[i] = ALPHABET[str.charAt(i)];
 
     for (int i = 0; i < N; i++) {
 

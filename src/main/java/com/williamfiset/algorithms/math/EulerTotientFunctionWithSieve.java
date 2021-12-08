@@ -20,30 +20,25 @@ public class EulerTotientFunctionWithSieve {
   // prime to n less than or equal to n
   public static int totient(int n) {
 
-    if (n >= MAX - 1)
-      throw new IllegalStateException("MAX not large enough!");
+    if (n >= MAX - 1) throw new IllegalStateException("MAX not large enough!");
     int ans = n;
 
     for (int i = 1, p = PRIMES[0]; p * p <= n; i++) {
 
-      if (n % p == 0)
-        ans -= ans / p;
-      while (n % p == 0)
-        n /= p;
+      if (n % p == 0) ans -= ans / p;
+      while (n % p == 0) n /= p;
       p = PRIMES[i];
     }
 
     // Last factor
-    if (n != 1)
-      ans -= ans / n;
+    if (n != 1) ans -= ans / n;
     return ans;
   }
 
   // Gets all primes up to, but NOT including limit (returned as a list of primes)
   private static int[] sieve(int limit) {
 
-    if (limit <= 2)
-      return new int[0];
+    if (limit <= 2) return new int[0];
 
     // Find an upper bound on the number of primes below our limit.
     // https://en.wikipedia.org/wiki/Prime-counting_function#Inequalities
@@ -56,13 +51,10 @@ public class EulerTotientFunctionWithSieve {
     for (int i = 2; i <= sqrtLimit; i++) {
       if (!isComposite[i]) {
         primes[index++] = i;
-        for (int j = i * i; j < limit; j += i)
-          isComposite[j] = true;
+        for (int j = i * i; j < limit; j += i) isComposite[j] = true;
       }
     }
-    for (int i = sqrtLimit + 1; i < limit; i++)
-      if (!isComposite[i])
-        primes[index++] = i;
+    for (int i = sqrtLimit + 1; i < limit; i++) if (!isComposite[i]) primes[index++] = i;
     return java.util.Arrays.copyOf(primes, index);
   }
 

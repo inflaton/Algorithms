@@ -1,15 +1,16 @@
 /**
  * A working implementation of the GrahamScan convex hull algorithm
  *
- * <p>
- * Time Complexity: O(nlogn)
+ * <p>Time Complexity: O(nlogn)
  *
  * @author Micah Stairs, William Fiset
  */
 package com.williamfiset.algorithms.geometry;
 
 import java.awt.geom.Point2D;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Stack;
 
 public class ConvexHullGrahamScan {
 
@@ -25,8 +26,7 @@ public class ConvexHullGrahamScan {
         break;
       }
     }
-    if (k1 == N)
-      return null;
+    if (k1 == N) return null;
     for (k2 = k1 + 1; k2 < N; k2++) {
       if (collinear(pts[0], pts[k1], pts[k2]) != 0) {
         break;
@@ -57,19 +57,13 @@ public class ConvexHullGrahamScan {
     public int compare(Point2D q1, Point2D q2) {
       double dx1 = q1.getX() - pt.getX(), dy1 = q1.getY() - pt.getY();
       double dx2 = q2.getX() - pt.getX(), dy2 = q2.getY() - pt.getY();
-      if (dy1 >= 0 && dy2 < 0)
-        return -1;
-      else if (dy2 >= 0 && dy1 < 0)
-        return +1;
+      if (dy1 >= 0 && dy2 < 0) return -1;
+      else if (dy2 >= 0 && dy1 < 0) return +1;
       else if (dy1 == 0 && dy2 == 0) {
-        if (dx1 >= 0 && dx2 < 0)
-          return -1;
-        else if (dx2 >= 0 && dx1 < 0)
-          return +1;
-        else
-          return 0;
-      } else
-        return -collinear(pt, q1, q2);
+        if (dx1 >= 0 && dx2 < 0) return -1;
+        else if (dx2 >= 0 && dx1 < 0) return +1;
+        else return 0;
+      } else return -collinear(pt, q1, q2);
     }
   }
 
@@ -77,15 +71,11 @@ public class ConvexHullGrahamScan {
   private static class PointOrder implements Comparator<Point2D> {
     @Override
     public int compare(Point2D q1, Point2D q2) {
-      if (q1.getY() < q2.getY())
-        return -1;
+      if (q1.getY() < q2.getY()) return -1;
       if (q1.getY() == q2.getY()) {
-        if (q1.getX() < q2.getX())
-          return -1;
-        else if (q1.getX() > q2.getX())
-          return 1;
-        else
-          return 0;
+        if (q1.getX() < q2.getX()) return -1;
+        else if (q1.getX() > q2.getX()) return 1;
+        else return 0;
       }
       return 1;
     }
@@ -95,8 +85,9 @@ public class ConvexHullGrahamScan {
   // indicates that
   // they are collinear)
   private static int collinear(Point2D a, Point2D b, Point2D c) {
-    double area = (b.getX() - a.getX()) * (c.getY() - a.getY())
-        - (b.getY() - a.getY()) * (c.getX() - a.getX());
+    double area =
+        (b.getX() - a.getX()) * (c.getY() - a.getY())
+            - (b.getY() - a.getY()) * (c.getX() - a.getX());
     return (int) Math.signum(area);
   }
 
@@ -121,7 +112,6 @@ public class ConvexHullGrahamScan {
     Stack<Point2D> hull = createConvexHull(pts);
 
     // Print the points in the hull
-    while (!hull.isEmpty())
-      System.out.println(hull.pop());
+    while (!hull.isEmpty()) System.out.println(hull.pop());
   }
 }

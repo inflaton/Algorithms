@@ -1,16 +1,18 @@
 /**
  * This file contains code to find the closest pair of points given a list of points.
  *
- * <p>
- * Time Complexity: O(nlog(n))
+ * <p>Time Complexity: O(nlog(n))
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.geometry;
 
-import static java.lang.Math.*;
+import static java.lang.Math.abs;
+import static java.lang.Math.sqrt;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.TreeSet;
 
 public class ClosestPairOfPoints {
 
@@ -34,8 +36,7 @@ public class ClosestPairOfPoints {
   private static class X_Sort implements Comparator<PT> {
     @Override
     public int compare(PT pt1, PT pt2) {
-      if (abs(pt1.x - pt2.x) < EPS)
-        return 0;
+      if (abs(pt1.x - pt2.x) < EPS) return 0;
       return (pt1.x < pt2.x) ? -1 : +1;
     }
   }
@@ -45,8 +46,7 @@ public class ClosestPairOfPoints {
     @Override
     public int compare(PT pt1, PT pt2) {
       if (abs(pt1.y - pt2.y) < EPS) {
-        if (abs(pt1.x - pt2.x) < EPS)
-          return 0;
+        if (abs(pt1.x - pt2.x) < EPS) return 0;
         return (pt1.x < pt2.x) ? -1 : +1;
       }
       return (pt1.y < pt2.y) ? -1 : +1;
@@ -56,8 +56,7 @@ public class ClosestPairOfPoints {
   // Finds the closest pair of points in a list of points
   public static PT[] closestPair(PT[] points) {
 
-    if (points == null || points.length < 2)
-      return new PT[] {};
+    if (points == null || points.length < 2) return new PT[] {};
 
     final int n = points.length;
     int xQueueFront = 0, xQueueBack = 0;

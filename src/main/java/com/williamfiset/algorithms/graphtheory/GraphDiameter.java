@@ -2,17 +2,19 @@
  * Given a graph as a adjacency list this file shows you how to find the diameter/radius of the
  * graph.
  *
- * <p>
- * Time Complexity: O(V(V + E)) = O(V^2 + VE))= O(VE)
+ * <p>Time Complexity: O(V(V + E)) = O(V^2 + VE))= O(VE)
  *
- * <p>
- * NOTE: This file could use some tests.
+ * <p>NOTE: This file could use some tests.
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.graphtheory;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class GraphDiameter {
 
@@ -57,8 +59,7 @@ public class GraphDiameter {
       if (id == DEPTH_TOKEN) {
 
         // No more nodes to process
-        if (queue.isEmpty())
-          break;
+        if (queue.isEmpty()) break;
 
         // Add another DEPTH_TOKEN
         queue.offer(DEPTH_TOKEN);
@@ -87,8 +88,7 @@ public class GraphDiameter {
   // NOTE: The input graph should be undirected
   public static int graphDiameter(Map<Integer, List<Edge>> graph) {
 
-    if (graph == null)
-      return 0;
+    if (graph == null) return 0;
 
     int diameter = 0;
     int radius = Integer.MAX_VALUE;
@@ -118,14 +118,12 @@ public class GraphDiameter {
     addUndirectedEdge(graph, 1, 3);
 
     int diameter = graphDiameter(graph);
-    if (diameter != 3)
-      System.out.println("Wrong diameter!");
+    if (diameter != 3) System.out.println("Wrong diameter!");
 
     // No edges
     graph = createGraph(5);
     diameter = graphDiameter(graph);
-    if (diameter != 0)
-      System.out.println("Wrong diameter!");
+    if (diameter != 0) System.out.println("Wrong diameter!");
 
     graph = createGraph(8);
     addUndirectedEdge(graph, 0, 5);
@@ -136,8 +134,7 @@ public class GraphDiameter {
     addUndirectedEdge(graph, 6, 5);
     addUndirectedEdge(graph, 7, 5);
     diameter = graphDiameter(graph);
-    if (diameter != 2)
-      System.out.println("Wrong diameter!");
+    if (diameter != 2) System.out.println("Wrong diameter!");
 
     graph = createGraph(9);
     addUndirectedEdge(graph, 0, 5);
@@ -149,14 +146,12 @@ public class GraphDiameter {
     addUndirectedEdge(graph, 7, 5);
     addUndirectedEdge(graph, 3, 8);
     diameter = graphDiameter(graph);
-    if (diameter != 3)
-      System.out.println("Wrong diameter!");
+    if (diameter != 3) System.out.println("Wrong diameter!");
   }
 
   private static Map<Integer, List<Edge>> createGraph(int numNodes) {
     Map<Integer, List<Edge>> graph = new HashMap<>();
-    for (int i = 0; i < numNodes; i++)
-      graph.put(i, new ArrayList<Edge>());
+    for (int i = 0; i < numNodes; i++) graph.put(i, new ArrayList<Edge>());
     return graph;
   }
 

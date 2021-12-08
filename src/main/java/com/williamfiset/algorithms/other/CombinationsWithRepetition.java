@@ -2,8 +2,7 @@
  * Here I show how you can generate all the combinations of a sequence of size r which are repeated
  * at most k times.
  *
- * <p>
- * Time Complexity: O(n+r-1 choose r) = O((n+r-1)!/(r!(n-1)!))
+ * <p>Time Complexity: O(n+r-1 choose r) = O((n+r-1)!/(r!(n-1)!))
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -21,8 +20,8 @@ public class CombinationsWithRepetition {
    * @param r - The number of elements we're choosing
    * @param k - The maximum number of times each element is allowed to be picked
    */
-  private static void combinationsWithRepetition(int[] sequence, int[] usedCount, int at, int r,
-      int k) {
+  private static void combinationsWithRepetition(
+      int[] sequence, int[] usedCount, int at, int r, int k) {
 
     final int N = sequence.length;
 
@@ -35,8 +34,7 @@ public class CombinationsWithRepetition {
         // Print combination
         System.out.print("{ ");
         for (int i = 0; i < N; i++)
-          for (int j = 0; j < usedCount[i]; j++)
-            System.out.print(sequence[i] + " ");
+          for (int j = 0; j < usedCount[i]; j++) System.out.print(sequence[i] + " ");
         System.out.println("}");
       }
 
@@ -59,13 +57,10 @@ public class CombinationsWithRepetition {
   // 'r' in a given sequence which has each element repeated at most 'k' times
   public static void printCombinationsWithRepetition(int[] sequence, int r, int k) {
 
-    if (sequence == null)
-      return;
+    if (sequence == null) return;
     final int n = sequence.length;
-    if (r > n)
-      throw new IllegalArgumentException("r must be <= n");
-    if (k > r)
-      throw new IllegalArgumentException("k must be <= r");
+    if (r > n) throw new IllegalArgumentException("r must be <= n");
+    if (k > r) throw new IllegalArgumentException("k must be <= r");
 
     int[] usedCount = new int[sequence.length];
     combinationsWithRepetition(sequence, usedCount, 0, r, k);

@@ -4,7 +4,8 @@ import static com.google.common.truth.Truth.assertThat;
 
 import java.security.SecureRandom;
 import java.util.Random;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 
 public class SuffixArrayTest {
 

@@ -2,8 +2,7 @@
  * Min Cost Max Flow algorithm implemented with Bellman-Ford as a means of finding augmenting paths
  * to support negative edge weights.
  *
- * <p>
- * Time Complexity: O(E²V²)
+ * <p>Time Complexity: O(E²V²)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -18,8 +17,8 @@ import java.util.List;
 public class MinCostMaxFlowWithBellmanFord extends NetworkFlowSolverBase {
 
   /**
-   * Creates a min-cost maximum flow network solver. To construct the flow network use the
-   * {@link NetworkFlowSolverBase#addEdge} method to add edges to the graph.
+   * Creates a min-cost maximum flow network solver. To construct the flow network use the {@link
+   * NetworkFlowSolverBase#addEdge} method to add edges to the graph.
    *
    * @param n - The number of nodes in the graph including source and sink nodes.
    * @param s - The index of the source node, 0 <= s < n
@@ -39,8 +38,7 @@ public class MinCostMaxFlowWithBellmanFord extends NetworkFlowSolverBase {
 
       // Find bottle neck edge value along path.
       long bottleNeck = Long.MAX_VALUE;
-      for (Edge edge : path)
-        bottleNeck = min(bottleNeck, edge.remainingCapacity());
+      for (Edge edge : path) bottleNeck = min(bottleNeck, edge.remainingCapacity());
 
       // Retrace path while augmenting the flow
       for (Edge edge : path) {
@@ -78,8 +76,7 @@ public class MinCostMaxFlowWithBellmanFord extends NetworkFlowSolverBase {
 
     // Retrace augmenting path from sink back to the source.
     LinkedList<Edge> path = new LinkedList<>();
-    for (Edge edge = prev[t]; edge != null; edge = prev[edge.from])
-      path.addFirst(edge);
+    for (Edge edge = prev[t]; edge != null; edge = prev[edge.from]) path.addFirst(edge);
     return path;
   }
 

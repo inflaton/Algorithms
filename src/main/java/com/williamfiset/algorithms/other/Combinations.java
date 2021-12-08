@@ -2,8 +2,7 @@
  * Here we present two methods (recursive and iterative) of generating all the combinations of a set
  * by choosing only r of n elements.
  *
- * <p>
- * Time Complexity: O( n choose r )
+ * <p>Time Complexity: O( n choose r )
  *
  * @author William Fiset, Micah Stairs
  */
@@ -14,10 +13,8 @@ public class Combinations {
   // This method finds all the combinations of size r in a set
   public static void combinationsChooseR(int[] set, int r) {
 
-    if (r < 0)
-      return;
-    if (set == null)
-      return;
+    if (r < 0) return;
+    if (set == null) return;
 
     boolean[] used = new boolean[set.length];
     combinations(set, r, 0, used);
@@ -33,16 +30,13 @@ public class Combinations {
     // Return early if there are more elements left to select than what is
     // available.
     int elementsLeftToPick = N - at;
-    if (elementsLeftToPick < r)
-      return;
+    if (elementsLeftToPick < r) return;
 
     // We selected 'r' elements so we found a valid subset!
     if (r == 0) {
 
       System.out.print("{ ");
-      for (int i = 0; i < N; i++)
-        if (used[i])
-          System.out.print(set[i] + " ");
+      for (int i = 0; i < N; i++) if (used[i]) System.out.print(set[i] + " ");
       System.out.println("}");
 
     } else {
@@ -66,15 +60,11 @@ public class Combinations {
   // false once the last combination has been generated.
   // NOTE: Originally the selection needs to be initialized to {0,1,2,3 ... r-1}
   public static boolean nextCombination(int[] selection, int N, int r) {
-    if (r > N)
-      throw new IllegalArgumentException("r must be <= N");
+    if (r > N) throw new IllegalArgumentException("r must be <= N");
     int i = r - 1;
-    while (selection[i] == N - r + i)
-      if (--i < 0)
-        return false;
+    while (selection[i] == N - r + i) if (--i < 0) return false;
     selection[i]++;
-    for (int j = i + 1; j < r; j++)
-      selection[j] = selection[i] + j - i;
+    for (int j = i + 1; j < r; j++) selection[j] = selection[i] + j - i;
     return true;
   }
 
@@ -105,8 +95,7 @@ public class Combinations {
     do {
 
       // Print each combination
-      for (int index : selection)
-        System.out.print(colors[index] + " ");
+      for (int index : selection) System.out.print(colors[index] + " ");
       System.out.println();
 
     } while (nextCombination(selection, colors.length, R));

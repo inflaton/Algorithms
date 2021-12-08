@@ -1,11 +1,9 @@
 /**
  * Quicksort implementation using Hoare partitioning
  *
- * <p>
- * Run with:
+ * <p>Run with:
  *
- * <p>
- * $ ./gradlew run -Palgorithm=sorting.QuickSort
+ * <p>$ ./gradlew run -Palgorithm=sorting.QuickSort
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -19,8 +17,7 @@ public class QuickSort implements InplaceSort {
   }
 
   public static void quicksort(int[] ar) {
-    if (ar == null)
-      return;
+    if (ar == null) return;
     quicksort(ar, 0, ar.length - 1);
   }
 
@@ -44,10 +41,8 @@ public class QuickSort implements InplaceSort {
       do {
         j--;
       } while (ar[j] > pivot);
-      if (i < j)
-        swap(ar, i, j);
-      else
-        return j;
+      if (i < j) swap(ar, i, j);
+      else return j;
     }
   }
 

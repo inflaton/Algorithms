@@ -10,8 +10,7 @@ public class ExtendedEuclideanAlgorithm {
   // and can be used for several things such as finding modular inverses and
   // solutions to linear Diophantine equations.
   public static long[] egcd(long a, long b) {
-    if (b == 0)
-      return new long[] {a, 1, 0};
+    if (b == 0) return new long[] {a, 1, 0};
     else {
       long[] ret = egcd(b, a % b);
       long tmp = ret[1] - ret[2] * (a / b);

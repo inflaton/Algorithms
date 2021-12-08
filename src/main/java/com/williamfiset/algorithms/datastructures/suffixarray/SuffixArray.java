@@ -23,8 +23,7 @@ public abstract class SuffixArray {
   private boolean constructedLcpArray = false;
 
   public SuffixArray(int[] text) {
-    if (text == null)
-      throw new IllegalArgumentException("Text cannot be null.");
+    if (text == null) throw new IllegalArgumentException("Text cannot be null.");
     this.T = text;
     this.N = text.length;
   }
@@ -47,8 +46,7 @@ public abstract class SuffixArray {
 
   // Builds the suffix array by calling the construct() method.
   protected void buildSuffixArray() {
-    if (constructedSa)
-      return;
+    if (constructedSa) return;
     construct();
     constructedSa = true;
   }
@@ -56,19 +54,16 @@ public abstract class SuffixArray {
   // Builds the LCP array by first creating the SA and then running the kasai
   // algorithm.
   protected void buildLcpArray() {
-    if (constructedLcpArray)
-      return;
+    if (constructedLcpArray) return;
     buildSuffixArray();
     kasai();
     constructedLcpArray = true;
   }
 
   protected static int[] toIntArray(String s) {
-    if (s == null)
-      return null;
+    if (s == null) return null;
     int[] t = new int[s.length()];
-    for (int i = 0; i < s.length(); i++)
-      t[i] = s.charAt(i);
+    for (int i = 0; i < s.length(); i++) t[i] = s.charAt(i);
     return t;
   }
 
@@ -81,16 +76,13 @@ public abstract class SuffixArray {
   private void kasai() {
     lcp = new int[N];
     int[] inv = new int[N];
-    for (int i = 0; i < N; i++)
-      inv[sa[i]] = i;
+    for (int i = 0; i < N; i++) inv[sa[i]] = i;
     for (int i = 0, len = 0; i < N; i++) {
       if (inv[i] > 0) {
         int k = sa[inv[i] - 1];
-        while ((i + len < N) && (k + len < N) && T[i + len] == T[k + len])
-          len++;
+        while ((i + len < N) && (k + len < N) && T[i + len] == T[k + len]) len++;
         lcp[inv[i]] = len;
-        if (len > 0)
-          len--;
+        if (len > 0) len--;
       }
     }
   }
@@ -103,8 +95,7 @@ public abstract class SuffixArray {
     for (int i = 0; i < N; i++) {
       int suffixLen = N - sa[i];
       char[] suffixArray = new char[suffixLen];
-      for (int j = sa[i], k = 0; j < N; j++, k++)
-        suffixArray[k] = (char) T[j];
+      for (int j = sa[i], k = 0; j < N; j++, k++) suffixArray[k] = (char) T[j];
       String suffix = new String(suffixArray);
       String formattedStr = String.format("% 7d % 7d % 7d %s\n", i, sa[i], lcp[i], suffix);
       sb.append(formattedStr);

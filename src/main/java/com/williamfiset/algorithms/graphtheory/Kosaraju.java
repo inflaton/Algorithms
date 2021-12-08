@@ -1,20 +1,23 @@
 /**
  * Implementation of Kosaraju's SCC algorithm
  *
- * <p>
- * Verified against:
+ * <p>Verified against:
  *
  * <ul>
- * <li>https://open.kattis.com/problems/equivalences
- * <li>https://open.kattis.com/problems/runningmom
+ *   <li>https://open.kattis.com/problems/equivalences
+ *   <li>https://open.kattis.com/problems/runningmom
  * </ul>
  *
- * <p>
- * ./gradlew run -Palgorithm=graphtheory.Kosaraju
+ * <p>./gradlew run -Palgorithm=graphtheory.Kosaraju
  */
 package com.williamfiset.algorithms.graphtheory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Kosaraju {
 
@@ -32,24 +35,21 @@ public class Kosaraju {
   private List<List<Integer>> transposeGraph;
 
   public Kosaraju(List<List<Integer>> graph) {
-    if (graph == null)
-      throw new IllegalArgumentException("Graph cannot be null.");
+    if (graph == null) throw new IllegalArgumentException("Graph cannot be null.");
     this.graph = graph;
     n = graph.size();
   }
 
   // Returns the number of strongly connected components in the graph.
   public int sccCount() {
-    if (!solved)
-      solve();
+    if (!solved) solve();
     return sccCount;
   }
 
   // Get the connected components of this graph. If two indexes
   // have the same value then they're in the same SCC.
   public int[] getSccs() {
-    if (!solved)
-      solve();
+    if (!solved) solve();
     return sccs;
   }
 
@@ -118,8 +118,7 @@ public class Kosaraju {
   // Initializes adjacency list with n nodes.
   public static List<List<Integer>> createGraph(int n) {
     List<List<Integer>> graph = new ArrayList<>(n);
-    for (int i = 0; i < n; i++)
-      graph.add(new ArrayList<>());
+    for (int i = 0; i < n; i++) graph.add(new ArrayList<>());
     return graph;
   }
 
@@ -245,8 +244,7 @@ public class Kosaraju {
     int[] sccs = solver.getSccs();
     Map<Integer, List<Integer>> multimap = new HashMap<>();
     for (int i = 0; i < n; i++) {
-      if (!multimap.containsKey(sccs[i]))
-        multimap.put(sccs[i], new ArrayList<>());
+      if (!multimap.containsKey(sccs[i])) multimap.put(sccs[i], new ArrayList<>());
       multimap.get(sccs[i]).add(i);
     }
 

@@ -2,8 +2,16 @@ package com.williamfiset.algorithms.datastructures.hashtable;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import java.util.*;
-import org.junit.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+import org.junit.Before;
+import org.junit.Test;
 
 public class HashTableQuadraticProbingTest {
 
@@ -85,8 +93,7 @@ public class HashTableQuadraticProbingTest {
 
   private void assertCapacityIsPowerOfTwo(HashTableQuadraticProbing<Integer, Integer> ht) {
     int sz = ht.getCapacity();
-    if (sz == 0)
-      return;
+    if (sz == 0) return;
     assertThat((sz & (sz - 1))).isEqualTo(0);
   }
 
@@ -119,8 +126,7 @@ public class HashTableQuadraticProbingTest {
       map = new HashTableQuadraticProbing<>();
 
       List<Integer> rand_nums = genRandList(MAX_SIZE);
-      for (Integer key : rand_nums)
-        assertThat(map.add(key, key)).isEqualTo(map2.put(key, key));
+      for (Integer key : rand_nums) assertThat(map.add(key, key)).isEqualTo(map2.put(key, key));
 
       int count = 0;
       for (Integer key : map) {
@@ -136,8 +142,7 @@ public class HashTableQuadraticProbingTest {
       }
 
       Set<Integer> set = new HashSet<>();
-      for (int n : rand_nums)
-        set.add(n);
+      for (int n : rand_nums) set.add(n);
 
       assertThat(set.size()).isEqualTo(count);
       assertThat(map2.size()).isEqualTo(count);
@@ -149,8 +154,7 @@ public class HashTableQuadraticProbingTest {
     map.add(1, 1);
     map.add(2, 1);
     map.add(3, 1);
-    for (Integer key : map)
-      map.add(4, 4);
+    for (Integer key : map) map.add(4, 4);
   }
 
   @Test(expected = java.util.ConcurrentModificationException.class)
@@ -158,8 +162,7 @@ public class HashTableQuadraticProbingTest {
     map.add(1, 1);
     map.add(2, 1);
     map.add(3, 1);
-    for (Integer key : map)
-      map.remove(2);
+    for (Integer key : map) map.remove(2);
   }
 
   @Test
@@ -183,8 +186,7 @@ public class HashTableQuadraticProbingTest {
       assertThat(map.size()).isEqualTo(keys_set.size());
 
       List<Integer> keys = map.keys();
-      for (Integer key : keys)
-        map.remove(key);
+      for (Integer key : keys) map.remove(key);
 
       assertThat(map.isEmpty()).isTrue();
     }
@@ -202,13 +204,11 @@ public class HashTableQuadraticProbingTest {
     assertThat(map.size()).isEqualTo(3);
 
     // Add ten more
-    for (int i = 1; i <= 10; i++)
-      map.put(i, 0);
+    for (int i = 1; i <= 10; i++) map.put(i, 0);
     assertThat(map.size()).isEqualTo(13);
 
     // Remove ten
-    for (int i = 1; i <= 10; i++)
-      map.remove(i);
+    for (int i = 1; i <= 10; i++) map.remove(i);
     assertThat(map.size()).isEqualTo(3);
 
     // remove three
@@ -265,15 +265,13 @@ public class HashTableQuadraticProbingTest {
         int key = nums.get(i);
         int val = i;
 
-        if (r < probability1)
-          assertThat(jmap.put(key, val)).isEqualTo(map.put(key, val));
+        if (r < probability1) assertThat(jmap.put(key, val)).isEqualTo(map.put(key, val));
 
         assertThat(jmap.get(key)).isEqualTo(map.get(key));
         assertThat(jmap.containsKey(key)).isEqualTo(map.containsKey(key));
         assertThat(jmap.size()).isEqualTo(map.size());
 
-        if (r > probability2)
-          assertThat(map.remove(key)).isEqualTo(jmap.remove(key));
+        if (r > probability2) assertThat(map.remove(key)).isEqualTo(jmap.remove(key));
 
         assertThat(jmap.get(key)).isEqualTo(map.get(key));
         assertThat(jmap.containsKey(key)).isEqualTo(map.containsKey(key));
@@ -340,8 +338,7 @@ public class HashTableQuadraticProbingTest {
   static List<Integer> genRandList(int sz) {
 
     List<Integer> lst = new ArrayList<>(sz);
-    for (int i = 0; i < sz; i++)
-      lst.add(randInt(-MAX_RAND_NUM, MAX_RAND_NUM));
+    for (int i = 0; i < sz; i++) lst.add(randInt(-MAX_RAND_NUM, MAX_RAND_NUM));
     Collections.shuffle(lst);
     return lst;
   }
@@ -349,8 +346,7 @@ public class HashTableQuadraticProbingTest {
   // Generate a list of unique random numbers
   static List<Integer> genUniqueRandList(int sz) {
     List<Integer> lst = new ArrayList<>(sz);
-    for (int i = 0; i < sz; i++)
-      lst.add(i);
+    for (int i = 0; i < sz; i++) lst.add(i);
     Collections.shuffle(lst);
     return lst;
   }

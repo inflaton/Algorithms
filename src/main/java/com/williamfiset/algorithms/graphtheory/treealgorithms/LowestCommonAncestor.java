@@ -1,6 +1,8 @@
 package com.williamfiset.algorithms.graphtheory.treealgorithms;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class LowestCommonAncestor {
 
@@ -121,8 +123,7 @@ public class LowestCommonAncestor {
   // Create a graph as a adjacency list with 'n' nodes.
   public static List<List<Integer>> createEmptyGraph(int n) {
     List<List<Integer>> graph = new ArrayList<>(n);
-    for (int i = 0; i < n; i++)
-      graph.add(new LinkedList<>());
+    for (int i = 0; i < n; i++) graph.add(new LinkedList<>());
     return graph;
   }
 

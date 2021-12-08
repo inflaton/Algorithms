@@ -32,28 +32,22 @@ public class GeneralKDTree<T extends Comparable<T>> {
   public void insert(T[] toAdd) {
     // Create the new node and make it the root if the root is null
     KDNode<T> newNode = new KDNode<T>(toAdd);
-    if (root == null)
-      root = newNode;
+    if (root == null) root = newNode;
     // Otherwise, insert the node recursively
-    else
-      insertRecursive(newNode, root, 0);
+    else insertRecursive(newNode, root, 0);
   }
 
   private void insertRecursive(KDNode<T> toAdd, KDNode<T> curr, int axis) {
     // If the new point should go to the left, go left and insert where a spot is
     // available
     if ((toAdd.point[axis]).compareTo(curr.point[axis]) < 0) {
-      if (curr.left == null)
-        curr.left = toAdd;
-      else
-        insertRecursive(toAdd, curr.left, (++axis) % k);
+      if (curr.left == null) curr.left = toAdd;
+      else insertRecursive(toAdd, curr.left, (++axis) % k);
     }
     // Otherwise, go right and insert where a spot is available
     else {
-      if (curr.right == null)
-        curr.right = toAdd;
-      else
-        insertRecursive(toAdd, curr.right, (++axis) % k);
+      if (curr.right == null) curr.right = toAdd;
+      else insertRecursive(toAdd, curr.right, (++axis) % k);
     }
   }
 
@@ -65,11 +59,9 @@ public class GeneralKDTree<T extends Comparable<T>> {
 
   private boolean searchRecursive(KDNode<T> toSearch, KDNode<T> curr, int axis) {
     // If the search fails, the point is not in the tree
-    if (curr == null)
-      return false;
+    if (curr == null) return false;
     // If the search succeeds, the point is in the tree
-    if ((curr.point).equals(toSearch.point))
-      return true;
+    if ((curr.point).equals(toSearch.point)) return true;
     // Otherwise, go where the point would go if it was inserted into the tree
     KDNode<T> nextNode =
         ((toSearch.point[axis]).compareTo(curr.point[axis]) < 0) ? curr.left : curr.right;
@@ -78,24 +70,20 @@ public class GeneralKDTree<T extends Comparable<T>> {
 
   // FindMin Method
   public T[] findMin(int dim) {
-    if (dim < 0 || dim >= k)
-      throw new IllegalArgumentException("Error: Dimension out of bounds");
+    if (dim < 0 || dim >= k) throw new IllegalArgumentException("Error: Dimension out of bounds");
     return findMinRecursive(dim, root, 0);
   }
 
   private T[] findMinRecursive(int dim, KDNode<T> curr, int axis) {
     // If nothing is found, return nothing
-    if (curr == null)
-      return null;
+    if (curr == null) return null;
     // If the axis and dimension match, follow typical search procedure
     if (dim == axis) {
-      if (curr.left == null)
-        return curr.point;
+      if (curr.left == null) return curr.point;
       return findMinRecursive(dim, curr.left, (axis + 1) % k);
     }
     // If there are no children, return what you have
-    if (curr.left == null && curr.right == null)
-      return curr.point;
+    if (curr.left == null && curr.right == null) return curr.point;
     // If there is at least one child, search the children of the current node
     T[] leftSubTree = findMinRecursive(dim, curr.left, (axis + 1) % k);
     T[] rightSubTree = findMinRecursive(dim, curr.right, (axis + 1) % k);
@@ -119,11 +107,9 @@ public class GeneralKDTree<T extends Comparable<T>> {
   // Remove Method
   public T[] delete(T[] toRemove) {
     // Return nothing if the point is not present
-    if (!search(toRemove))
-      return null;
+    if (!search(toRemove)) return null;
     // Delete and return root if it should be removed
-    if (toRemove.equals(root.point))
-      return deleteRecursiveRoot();
+    if (toRemove.equals(root.point)) return deleteRecursiveRoot();
     // Create the comparison point to delete and remove recursively
     KDNode<T> removeElem = new KDNode<T>(toRemove);
     return deleteRecursiveSearch(removeElem, root, 0);
@@ -158,13 +144,11 @@ public class GeneralKDTree<T extends Comparable<T>> {
     // If the node to remove is a direct child, extract it and remove it
     if (curr.right != null && (toRemove.point).equals(curr.right.point)) {
       T[] removed = deleteRecursiveExtract(toRemove, curr.right, (axis + 1) % k);
-      if (removed == null)
-        curr.right = null;
+      if (removed == null) curr.right = null;
       return toRemove.point;
     } else if (curr.left != null && (toRemove.point).equals(curr.left.point)) {
       T[] removed = deleteRecursiveExtract(toRemove, curr.left, (axis + 1) % k);
-      if (removed == null)
-        curr.left = null;
+      if (removed == null) curr.left = null;
       return toRemove.point;
     }
     // Otherwise, search again at the child that the node would be a child of
@@ -179,8 +163,7 @@ public class GeneralKDTree<T extends Comparable<T>> {
     // Store the point to remove
     T[] replacedPoint = curr.point;
     // Set the node to null if it has no children
-    if (curr.left == null && curr.right == null)
-      return null;
+    if (curr.left == null && curr.right == null) return null;
     // If a right child exists, find a minimum to replace the root point
     else if (curr.right != null) {
       curr.point = findMinRecursive(axis, curr.right, (axis + 1) % k);
@@ -206,8 +189,7 @@ public class GeneralKDTree<T extends Comparable<T>> {
     private KDNode<E> right;
 
     public KDNode(E[] coords) {
-      if (coords == null)
-        throw new IllegalArgumentException("Error: Null coordinate set passed");
+      if (coords == null) throw new IllegalArgumentException("Error: Null coordinate set passed");
       if (coords.length != k)
         throw new IllegalArgumentException(
             "Error: Expected " + k + "dimensions, but given " + coords.length);

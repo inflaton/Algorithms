@@ -3,8 +3,8 @@ package com.williamfiset.algorithms.geometry;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.collect.ImmutableList;
-import java.awt.geom.*;
-import org.junit.*;
+import java.awt.geom.Point2D;
+import org.junit.Test;
 
 public class ConvexHullMonotoneChainsAlgorithmTest {
 

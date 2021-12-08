@@ -1,8 +1,7 @@
 /**
  * Finds all the bridges on an undirected graph.
  *
- * <p>
- * Test against HackerEarth online judge at:
+ * <p>Test against HackerEarth online judge at:
  * https://www.hackerearth.com/practice/algorithms/graphs/articulation-points-and-bridges/tutorial
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
@@ -11,7 +10,10 @@ package com.williamfiset.algorithms.graphtheory;
 
 import static java.lang.Math.min;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.List;
 
 public class BridgesAdjacencyListIterative {
 
@@ -25,8 +27,7 @@ public class BridgesAdjacencyListIterative {
   private static int CALLBACK_TOKEN = -2;
 
   public BridgesAdjacencyListIterative(List<List<Integer>> graph, int n) {
-    if (graph == null || n <= 0 || graph.size() != n)
-      throw new IllegalArgumentException();
+    if (graph == null || n <= 0 || graph.size() != n) throw new IllegalArgumentException();
     this.graph = graph;
     this.n = n;
   }
@@ -36,8 +37,7 @@ public class BridgesAdjacencyListIterative {
   // pair. For example, nodes are indexes (0, 1) are a pair, (2, 3) are another
   // pair, etc...
   public List<Integer> findBridges() {
-    if (solved)
-      return bridges;
+    if (solved) return bridges;
 
     id = 0;
     low = new int[n]; // Low link values
@@ -48,8 +48,7 @@ public class BridgesAdjacencyListIterative {
 
     // Finds all bridges even if the graph is not one single connected component.
     for (int i = 0; i < n; i++) {
-      if (visited[i])
-        continue;
+      if (visited[i]) continue;
 
       Deque<Integer> stack = new ArrayDeque<>();
       Deque<Integer> parentStack = new ArrayDeque<>();
@@ -77,8 +76,7 @@ public class BridgesAdjacencyListIterative {
 
           List<Integer> edges = graph.get(at);
           for (Integer to : edges) {
-            if (to == parent)
-              continue;
+            if (to == parent) continue;
             if (!visited[to]) {
               stack.push(to);
               stack.push(at);
@@ -129,8 +127,7 @@ public class BridgesAdjacencyListIterative {
   // Initialize graph with 'n' nodes.
   public static List<List<Integer>> createGraph(int n) {
     List<List<Integer>> graph = new ArrayList<>();
-    for (int i = 0; i < n; i++)
-      graph.add(new ArrayList<>());
+    for (int i = 0; i < n; i++) graph.add(new ArrayList<>());
     return graph;
   }
 

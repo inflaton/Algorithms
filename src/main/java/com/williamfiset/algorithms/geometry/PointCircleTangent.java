@@ -3,14 +3,18 @@
  * of the lines from the point which are tangent to the circle. For an animation see here:
  * http://jsfiddle.net/zxqCw/1/
  *
- * <p>
- * Time Complexity: O(1)
+ * <p>Time Complexity: O(1)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.geometry;
 
-import static java.lang.Math.*;
+import static java.lang.Math.PI;
+import static java.lang.Math.asin;
+import static java.lang.Math.atan2;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+import static java.lang.Math.sqrt;
 
 import java.awt.geom.Point2D;
 
@@ -23,10 +27,8 @@ public class PointCircleTangent {
   // function may be outside its domain of [-1, +1] which would return
   // the value Double.NaN which we do not want.
   private static double arcsinSafe(double x) {
-    if (x <= -1.0)
-      return -PI / 2.0;
-    if (x >= +1.0)
-      return +PI / 2.0;
+    if (x <= -1.0) return -PI / 2.0;
+    if (x >= +1.0) return +PI / 2.0;
     return asin(x);
   }
 
@@ -44,8 +46,7 @@ public class PointCircleTangent {
     double dist = sqrt(dx * dx + dy * dy);
 
     // Point is strictly contained within the circle
-    if (dist < radius)
-      return new Point2D[] {};
+    if (dist < radius) return new Point2D[] {};
 
     double angle, angle1, angle2;
 
@@ -60,8 +61,7 @@ public class PointCircleTangent {
 
     // Points are sufficiently close to be considered the same point
     // (i.e the original point is on the circle circumference)
-    if (p1.distance(p2) < EPS)
-      return new Point2D[] {pt};
+    if (p1.distance(p2) < EPS) return new Point2D[] {pt};
     return new Point2D[] {p1, p2};
   }
 

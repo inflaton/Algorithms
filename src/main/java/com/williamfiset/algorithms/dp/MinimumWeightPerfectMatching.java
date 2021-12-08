@@ -3,21 +3,20 @@
  * given a distance matrix which gives the distance from each node to every other node, and you want
  * to pair up all the nodes to one another minimizing the overall cost.
  *
- * <p>
- * Tested against: UVA 10911 - Forming Quiz Teams
+ * <p>Tested against: UVA 10911 - Forming Quiz Teams
  *
- * <p>
- * To Run: ./gradlew run -Palgorithm=dp.MinimumWeightPerfectMatching
+ * <p>To Run: ./gradlew run -Palgorithm=dp.MinimumWeightPerfectMatching
  *
- * <p>
- * Time Complexity: O(n * 2^n)
+ * <p>Time Complexity: O(n * 2^n)
  *
  * @author William Fiset
  */
 package com.williamfiset.algorithms.dp;
 
-import java.awt.geom.*;
-import java.util.*;
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class MinimumWeightPerfectMatching {
 
@@ -35,11 +34,9 @@ public class MinimumWeightPerfectMatching {
 
   // The cost matrix should be a symmetric (i.e cost[i][j] = cost[j][i])
   public MinimumWeightPerfectMatching(double[][] cost) {
-    if (cost == null)
-      throw new IllegalArgumentException("Input cannot be null");
+    if (cost == null) throw new IllegalArgumentException("Input cannot be null");
     n = cost.length;
-    if (n == 0)
-      throw new IllegalArgumentException("Matrix size is zero");
+    if (n == 0) throw new IllegalArgumentException("Matrix size is zero");
     if (n % 2 != 0)
       throw new IllegalArgumentException("Matrix has an odd size, no perfect matching exists.");
     if (n > 32)
@@ -60,11 +57,9 @@ public class MinimumWeightPerfectMatching {
    * index 2*i and 2*i+1 form a matched pair. For example, nodes at indexes (0, 1) are a pair, (2,
    * 3) are another pair, etc...
    *
-   * <p>
-   * How to iterate over the pairs:
+   * <p>How to iterate over the pairs:
    *
-   * <pre>
-   * {@code
+   * <pre>{@code
    * MinimumWeightPerfectMatching mwpm = ...
    * int[] matching = mwpm.getMinWeightCostMatching();
    * for (int i = 0; i < matching.length / 2; i++) {
@@ -72,8 +67,7 @@ public class MinimumWeightPerfectMatching {
    *   int node2 = matching[2*i+1];
    *   // Do something with the matched pair (node1, node2)
    * }
-   * }
-   * </pre>
+   * }</pre>
    */
   public int[] getMinWeightCostMatching() {
     solveRecursive();
@@ -83,8 +77,7 @@ public class MinimumWeightPerfectMatching {
   // Recursive impl
   // TODO(william): move to another file?
   public void solveRecursive() {
-    if (solved)
-      return;
+    if (solved) return;
     Double[] dp = new Double[1 << n];
     int[] history = new int[1 << n];
     minWeightCost = f(END_STATE, dp, history);
@@ -125,8 +118,7 @@ public class MinimumWeightPerfectMatching {
   }
 
   public void solve() {
-    if (solved)
-      return;
+    if (solved) return;
 
     // The DP state is encoded as a bitmask where the i'th bit is flipped on if the
     // i'th node is
@@ -178,8 +170,7 @@ public class MinimumWeightPerfectMatching {
       for (int i = 0; i < numPairs; i++) { // O(n^2)
         int pair = pairStates[i];
         // Ignore states which overlap
-        if ((state & pair) != 0)
-          continue;
+        if ((state & pair) != 0) continue;
 
         int newState = state | pair;
         double newCost = dp[state] + pairCost[i];
@@ -294,13 +285,19 @@ public class MinimumWeightPerfectMatching {
     for (int i = 0; i < matching.length / 2; i++) {
       int ii = matching[2 * i];
       int jj = matching[2 * i + 1];
-      System.out.printf("(%d, %d) <-> (%d, %d)\n", (int) pts.get(ii).getX(),
-          (int) pts.get(ii).getY(), (int) pts.get(jj).getX(), (int) pts.get(jj).getY());
+      System.out.printf(
+          "(%d, %d) <-> (%d, %d)\n",
+          (int) pts.get(ii).getX(),
+          (int) pts.get(ii).getY(),
+          (int) pts.get(jj).getX(),
+          (int) pts.get(jj).getY());
     }
   }
 
   private static void test2() {
-    double[][] costMatrix = {{0, 2, 1, 2}, {2, 0, 2, 1}, {1, 2, 0, 2}, {2, 1, 2, 0},};
+    double[][] costMatrix = {
+      {0, 2, 1, 2}, {2, 0, 2, 1}, {1, 2, 0, 2}, {2, 1, 2, 0},
+    };
 
     MinimumWeightPerfectMatching mwpm = new MinimumWeightPerfectMatching(costMatrix);
     double cost = mwpm.getMinWeightCost();

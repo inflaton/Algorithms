@@ -1,12 +1,10 @@
 /**
  * Run with: ./gradlew run -Palgorithm=datastructures.segmenttree.SumQuerySumUpdateSegmentTree
  *
- * <p>
- * Several thanks to cp-algorithms for their great article on segment trees:
+ * <p>Several thanks to cp-algorithms for their great article on segment trees:
  * https://cp-algorithms.com/data_structures/segment_tree.html
  *
- * <p>
- * NOTE: This file is still a WIP
+ * <p>NOTE: This file is still a WIP
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -27,10 +25,8 @@ public class SumQueryMultiplicationUpdateSegmentTree {
 
   // Sum sumFunction
   private Long sumFunction(Long a, Long b) {
-    if (a == null)
-      a = 0L;
-    if (b == null)
-      b = 0L;
+    if (a == null) a = 0L;
+    if (b == null) b = 0L;
     return a + b;
   }
 
@@ -38,10 +34,8 @@ public class SumQueryMultiplicationUpdateSegmentTree {
   private Long multRuf(Long base, int tl, int tr, Long delta) {
     // When we hit a null value, multiply by 1 since this is the
     // multiplication identity, i.e: 1*x = x
-    if (base == null)
-      base = 1L;
-    if (delta == null)
-      delta = 1L;
+    if (base == null) base = 1L;
+    if (delta == null) delta = 1L;
     return base * delta;
   }
 
@@ -49,10 +43,8 @@ public class SumQueryMultiplicationUpdateSegmentTree {
   private long multLruf(Long delta1, Long delta2) {
     // When we hit a null value, multiply by 1 since this is the
     // multiplication identity, i.e: 1*x = x
-    if (delta1 == null)
-      delta1 = 1L;
-    if (delta2 == null)
-      delta2 = 1L;
+    if (delta1 == null) delta1 = 1L;
+    if (delta2 == null) delta2 = 1L;
     // Multiply together the existing delta and the new delta to properly
     // propagate the changes.
     return delta1 * delta2;
@@ -130,7 +122,8 @@ public class SumQueryMultiplicationUpdateSegmentTree {
     // Instead of checking if [tl, tm] overlaps [l, r] and [tm+1, tr] overlaps
     // [l, r], simply recurse on both segments and let the base case return the
     // default value for invalid intervals.
-    return sumFunction(rangeQuery1(2 * i + 1, tl, tm, l, Math.min(tm, r)),
+    return sumFunction(
+        rangeQuery1(2 * i + 1, tl, tm, l, Math.min(tm, r)),
         rangeQuery1(2 * i + 2, tm + 1, tr, Math.max(l, tm + 1), r));
   }
 
@@ -140,8 +133,7 @@ public class SumQueryMultiplicationUpdateSegmentTree {
 
   private void propagateLazy(int i, int tl, int tr, long val) {
     // Ignore leaf segments
-    if (tl == tr)
-      return;
+    if (tl == tr) return;
     lazy[2 * i + 1] = multLruf(lazy[2 * i + 1], val);
     lazy[2 * i + 2] = multLruf(lazy[2 * i + 2], val);
   }

@@ -31,8 +31,7 @@ public class HashTableDoubleHashing<K extends SecondaryHash, V>
     hash = normalizeIndex(key.hashCode2());
 
     // Fail safe to avoid infinite loop.
-    if (hash == 0)
-      hash = 1;
+    if (hash == 0) hash = 1;
   }
 
   @Override

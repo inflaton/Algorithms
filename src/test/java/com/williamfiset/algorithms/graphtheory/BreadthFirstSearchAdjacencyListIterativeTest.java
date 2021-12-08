@@ -92,8 +92,7 @@ public class BreadthFirstSearchAdjacencyListIterativeTest {
   public static double[][] generateRandomGraph(List<List<Edge>> graph1, int n) {
     boolean[][] edgeMatrix = new boolean[n][n];
     double[][] graph2 = new double[n][n];
-    for (double[] r : graph2)
-      Arrays.fill(r, Double.POSITIVE_INFINITY);
+    for (double[] r : graph2) Arrays.fill(r, Double.POSITIVE_INFINITY);
 
     int numEdges = max(1, (int) (random() * n * n));
     for (int i = 0; i < numEdges; i++) {

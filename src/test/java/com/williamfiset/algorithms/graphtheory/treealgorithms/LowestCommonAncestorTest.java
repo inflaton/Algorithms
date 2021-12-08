@@ -5,8 +5,8 @@ import static com.williamfiset.algorithms.graphtheory.treealgorithms.LowestCommo
 import static com.williamfiset.algorithms.graphtheory.treealgorithms.LowestCommonAncestor.createEmptyGraph;
 
 import com.williamfiset.algorithms.graphtheory.treealgorithms.LowestCommonAncestor.TreeNode;
-import java.util.*;
-import org.junit.*;
+import java.util.List;
+import org.junit.Test;
 
 public class LowestCommonAncestorTest {
 

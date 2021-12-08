@@ -1,8 +1,7 @@
 /**
  * Performs Boyer-Moore search on a given string with a given pattern
  *
- * <p>
- * ./gradlew run -Palgorithm=strings.BoyerMooreStringSearch
+ * <p>./gradlew run -Palgorithm=strings.BoyerMooreStringSearch
  */
 package com.williamfiset.algorithms.strings;
 
@@ -25,7 +24,9 @@ public class BoyerMooreStringSearch {
    * @return List of indexes where the pattern occurs
    */
   public List<Integer> findOccurrences(String text, String pattern) {
-    if (isNull(text) || isNull(pattern) || pattern.length() > text.length()
+    if (isNull(text)
+        || isNull(pattern)
+        || pattern.length() > text.length()
         || pattern.length() == 0) {
       return new ArrayList<>();
     }
@@ -33,7 +34,7 @@ public class BoyerMooreStringSearch {
     int[] skipTable = generateSkipTable(pattern);
 
     int n = pattern.length();
-    for (int textIndex = n - 1, patternIndex = n - 1; textIndex < text.length();) {
+    for (int textIndex = n - 1, patternIndex = n - 1; textIndex < text.length(); ) {
       // Found a match!
       if (patternIndex >= 0 && pattern.charAt(patternIndex) == text.charAt(textIndex)) {
         if (patternIndex == 0) {

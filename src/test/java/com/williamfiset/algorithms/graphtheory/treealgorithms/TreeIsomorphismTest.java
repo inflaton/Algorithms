@@ -10,8 +10,9 @@ import static com.williamfiset.algorithms.graphtheory.treealgorithms.TreeIsomorp
 import static com.williamfiset.algorithms.graphtheory.treealgorithms.TreeIsomorphism.createEmptyGraph;
 import static com.williamfiset.algorithms.graphtheory.treealgorithms.TreeIsomorphism.treesAreIsomorphic;
 
-import java.util.*;
-import org.junit.*;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.Test;
 
 public class TreeIsomorphismTest {
 

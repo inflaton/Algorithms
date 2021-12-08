@@ -2,8 +2,7 @@
  * An implementation of the traveling salesman problem in Java using dynamic programming to improve
  * the time complexity from O(n!) to O(n^2 * 2^n).
  *
- * <p>
- * Time Complexity: O(n^2 * 2^n) Space Complexity: O(n * 2^n)
+ * <p>Time Complexity: O(n^2 * 2^n) Space Complexity: O(n * 2^n)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -28,12 +27,9 @@ public class TspDynamicProgrammingIterative {
   public TspDynamicProgrammingIterative(int start, double[][] distance) {
     N = distance.length;
 
-    if (N <= 2)
-      throw new IllegalStateException("N <= 2 not yet supported.");
-    if (N != distance[0].length)
-      throw new IllegalStateException("Matrix must be square (n x n)");
-    if (start < 0 || start >= N)
-      throw new IllegalArgumentException("Invalid start node.");
+    if (N <= 2) throw new IllegalStateException("N <= 2 not yet supported.");
+    if (N != distance[0].length) throw new IllegalStateException("Matrix must be square (n x n)");
+    if (start < 0 || start >= N) throw new IllegalArgumentException("Invalid start node.");
     if (N > 32)
       throw new IllegalArgumentException(
           "Matrix too large! A matrix that size for the DP TSP problem with a time complexity of"
@@ -45,46 +41,39 @@ public class TspDynamicProgrammingIterative {
 
   // Returns the optimal tour for the traveling salesman problem.
   public List<Integer> getTour() {
-    if (!ranSolver)
-      solve();
+    if (!ranSolver) solve();
     return tour;
   }
 
   // Returns the minimal tour cost.
   public double getTourCost() {
-    if (!ranSolver)
-      solve();
+    if (!ranSolver) solve();
     return minTourCost;
   }
 
   // Solves the traveling salesman problem and caches solution.
   public void solve() {
 
-    if (ranSolver)
-      return;
+    if (ranSolver) return;
 
     final int END_STATE = (1 << N) - 1;
     Double[][] memo = new Double[N][1 << N];
 
     // Add all outgoing edges from the starting node to memo table.
     for (int end = 0; end < N; end++) {
-      if (end == start)
-        continue;
+      if (end == start) continue;
       memo[end][(1 << start) | (1 << end)] = distance[start][end];
     }
 
     for (int r = 3; r <= N; r++) {
       for (int subset : combinations(r, N)) {
-        if (notIn(start, subset))
-          continue;
+        if (notIn(start, subset)) continue;
         for (int next = 0; next < N; next++) {
-          if (next == start || notIn(next, subset))
-            continue;
+          if (next == start || notIn(next, subset)) continue;
           int subsetWithoutNext = subset ^ (1 << next);
           double minDist = Double.POSITIVE_INFINITY;
           for (int end = 0; end < N; end++) {
-            if (end == start || end == next || notIn(end, subset))
-              continue;
+            if (end == start || end == next || notIn(end, subset)) continue;
             double newDistance = memo[end][subsetWithoutNext] + distance[end][next];
             if (newDistance < minDist) {
               minDist = newDistance;
@@ -97,8 +86,7 @@ public class TspDynamicProgrammingIterative {
 
     // Connect tour back to starting node and minimize cost.
     for (int i = 0; i < N; i++) {
-      if (i == start)
-        continue;
+      if (i == start) continue;
       double tourCost = memo[i][END_STATE] + distance[i][start];
       if (tourCost < minTourCost) {
         minTourCost = tourCost;
@@ -115,8 +103,7 @@ public class TspDynamicProgrammingIterative {
       int bestIndex = -1;
       double bestDist = Double.POSITIVE_INFINITY;
       for (int j = 0; j < N; j++) {
-        if (j == start || notIn(j, state))
-          continue;
+        if (j == start || notIn(j, state)) continue;
         double newDist = memo[j][state] + distance[j][lastIndex];
         if (newDist < bestDist) {
           bestIndex = j;
@@ -156,8 +143,7 @@ public class TspDynamicProgrammingIterative {
     // Return early if there are more elements left to select than what is
     // available.
     int elementsLeftToPick = n - at;
-    if (elementsLeftToPick < r)
-      return;
+    if (elementsLeftToPick < r) return;
 
     // We selected 'r' elements so we found a valid subset!
     if (r == 0) {
@@ -179,8 +165,7 @@ public class TspDynamicProgrammingIterative {
     // Create adjacency matrix
     int n = 6;
     double[][] distanceMatrix = new double[n][n];
-    for (double[] row : distanceMatrix)
-      java.util.Arrays.fill(row, 10000);
+    for (double[] row : distanceMatrix) java.util.Arrays.fill(row, 10000);
     distanceMatrix[5][0] = 10;
     distanceMatrix[1][5] = 12;
     distanceMatrix[4][1] = 2;

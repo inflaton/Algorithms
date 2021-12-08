@@ -1,8 +1,7 @@
 /**
  * An implementation of the edit distance algorithm
  *
- * <p>
- * Time Complexity: O(nm)
+ * <p>Time Complexity: O(nm)
  *
  * @author Micah Stairs
  */
@@ -12,8 +11,8 @@ public class EditDistanceIterative {
 
   // Computes the cost to convert a string 'a' into a string 'b' using dynamic
   // programming given the insertionCost, deletionCost and substitutionCost, O(nm)
-  public static int editDistance(String a, String b, int insertionCost, int deletionCost,
-      int substitutionCost) {
+  public static int editDistance(
+      String a, String b, int insertionCost, int deletionCost, int substitutionCost) {
 
     final int AL = a.length(), BL = b.length();
     int[][] dp = new int[AL + 1][BL + 1];
@@ -28,12 +27,10 @@ public class EditDistanceIterative {
           min = dp[i - 1][j - 1] + (a.charAt(i - 1) == b.charAt(j - 1) ? 0 : substitutionCost);
 
         // Deletion
-        if (i > 0)
-          min = Math.min(min, dp[i - 1][j] + deletionCost);
+        if (i > 0) min = Math.min(min, dp[i - 1][j] + deletionCost);
 
         // Insertion
-        if (j > 0)
-          min = Math.min(min, dp[i][j - 1] + insertionCost);
+        if (j > 0) min = Math.min(min, dp[i][j - 1] + insertionCost);
 
         dp[i][j] = min;
       }

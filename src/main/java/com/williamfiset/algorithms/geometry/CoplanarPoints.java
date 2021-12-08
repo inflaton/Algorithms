@@ -1,14 +1,13 @@
 /**
  * This file shows you how to determine if four 3D points lie in the same plane as each other.
  *
- * <p>
- * Time Complexity: O(1)
+ * <p>Time Complexity: O(1)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.geometry;
 
-import static java.lang.Math.*;
+import static java.lang.Math.abs;
 
 public class CoplanarPoints {
 
@@ -27,8 +26,19 @@ public class CoplanarPoints {
 
   // Determine is four points (ax,ay,az), (bx,by,bz), (cx,cy,cz),
   // (dx,dy,dz) all lie in the same plane in 3D space
-  public static boolean coplanar(double ax, double ay, double az, double bx, double by, double bz,
-      double cx, double cy, double cz, double dx, double dy, double dz) {
+  public static boolean coplanar(
+      double ax,
+      double ay,
+      double az,
+      double bx,
+      double by,
+      double bz,
+      double cx,
+      double cy,
+      double cz,
+      double dx,
+      double dy,
+      double dz) {
 
     // The problem of testing if four points are coplanar can be converted
     // into a problem a checking if two vectors are orthogonal which is something
@@ -68,13 +78,16 @@ public class CoplanarPoints {
   // Examples
   public static void main(String[] args) {
 
-    System.out.println("The points (0,0,0), (1,0,1), (0,1,1), (1,1,2) are coplanar: "
-        + coplanar(0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 2));
+    System.out.println(
+        "The points (0,0,0), (1,0,1), (0,1,1), (1,1,2) are coplanar: "
+            + coplanar(0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 2));
 
-    System.out.println("The points (0,0,0), (3,3,3), (3,0,0), (0,4,0) are coplanar: "
-        + coplanar(0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 4, 0));
+    System.out.println(
+        "The points (0,0,0), (3,3,3), (3,0,0), (0,4,0) are coplanar: "
+            + coplanar(0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 4, 0));
 
-    System.out.println("The points (0,0,0), (1,1,1), (2,2,2), (3,3,3) are coplanar: "
-        + coplanar(0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3));
+    System.out.println(
+        "The points (0,0,0), (1,1,1), (2,2,2), (3,3,3) are coplanar: "
+            + coplanar(0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3));
   }
 }

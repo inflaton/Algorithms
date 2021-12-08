@@ -2,14 +2,14 @@
  * Find the intersection of a line in general form with a circle See live demo:
  * http://www.williamfiset.com/circlelineintersection
  *
- * <p>
- * Time Complexity: O(1)
+ * <p>Time Complexity: O(1)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.geometry;
 
-import static java.lang.Math.*;
+import static java.lang.Math.abs;
+import static java.lang.Math.sqrt;
 
 import java.awt.geom.Point2D;
 
@@ -20,8 +20,8 @@ public class LineCircleIntersection {
   // Given a line in the form ax + by = c (NOTE: this is not ax + by + c = 0)
   // Given a circle with a center at (x,y) of radius r
   // This method finds the intersection of this line and this circle
-  public static Point2D[] lineCircleIntersection(double a, double b, double c, double x, double y,
-      double r) {
+  public static Point2D[] lineCircleIntersection(
+      double a, double b, double c, double x, double y, double r) {
 
     // Set ax + by = c equal to (x - X)^2 + (y - Y)^2 = r^2 and expand:
     // (a^2 + b^2)x^2 + (2abY - 2ac + - 2b^2X)x + b^2X^2 + b^2Y^2 - 2bcY + c^2 -
@@ -44,8 +44,7 @@ public class LineCircleIntersection {
       double vx = c / a;
 
       // No intersection
-      if (abs(x - vx) > r)
-        return new Point2D[] {};
+      if (abs(x - vx) > r) return new Point2D[] {};
 
       // Vertical line is tangent to circle
       if (abs((vx - r) - x) < EPS || abs((vx + r) - x) < EPS)
@@ -96,14 +95,10 @@ public class LineCircleIntersection {
   }
 
   private static void display(Point2D[] pts) {
-    if (pts == null)
-      System.out.println("null");
+    if (pts == null) System.out.println("null");
     else {
-      if (pts.length == 0)
-        System.out.println("[]");
-      else
-        for (Point2D p : pts)
-          System.out.println(p);
+      if (pts.length == 0) System.out.println("[]");
+      else for (Point2D p : pts) System.out.println(p);
     }
   }
 }

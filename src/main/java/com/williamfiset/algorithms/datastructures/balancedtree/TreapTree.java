@@ -7,9 +7,8 @@
  */
 package com.williamfiset.algorithms.datastructures.balancedtree;
 
-import java.util.Random;
-
 import com.williamfiset.algorithms.datastructures.utils.TreePrinter;
+import java.util.Random;
 
 public class TreapTree<T extends Comparable<T>> {
 
@@ -78,17 +77,13 @@ public class TreapTree<T extends Comparable<T>> {
   }
 
   private boolean contains(Node node, T value) {
-    if (node == null)
-      return false;
+    if (node == null) return false;
 
     int cmp = value.compareTo(node.getValue());
 
-    if (cmp < 0)
-      return contains(node.left, value);
-    else if (cmp > 0)
-      return contains(node.right, value);
-    else
-      return true;
+    if (cmp < 0) return contains(node.left, value);
+    else if (cmp > 0) return contains(node.right, value);
+    else return true;
   }
 
   public boolean isEmpty() {
@@ -147,8 +142,7 @@ public class TreapTree<T extends Comparable<T>> {
   }
 
   public boolean remove(T elem) {
-    if (elem == null)
-      return false;
+    if (elem == null) return false;
     if (contains(root, elem)) {
       root = remove(root, elem);
       nodeCount--;
@@ -163,15 +157,11 @@ public class TreapTree<T extends Comparable<T>> {
     }
 
     int cmp = x.compareTo(t.value);
-    if (cmp < 0)
-      t.left = remove(t.left, x);
-    else if (cmp > 0)
-      t.right = remove(t.right, x);
+    if (cmp < 0) t.left = remove(t.left, x);
+    else if (cmp > 0) t.right = remove(t.right, x);
     else {
-      if (t.left == null)
-        return t.right;
-      if (t.right == null)
-        return t.left;
+      if (t.left == null) return t.right;
+      if (t.right == null) return t.left;
 
       if (t.left.priority > t.right.priority) {
         t = rightRotation(t);

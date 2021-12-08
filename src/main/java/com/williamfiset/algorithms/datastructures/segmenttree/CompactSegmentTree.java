@@ -25,8 +25,7 @@ public class CompactSegmentTree {
   public CompactSegmentTree(long[] values) {
     this(values.length);
     // TODO(william): Implement smarter construction.
-    for (int i = 0; i < N; i++)
-      modify(i, values[i]);
+    for (int i = 0; i < N; i++) modify(i, values[i]);
   }
 
   // This is the segment tree function we are using for queries.
@@ -35,10 +34,8 @@ public class CompactSegmentTree {
   // Common associative functions used with segment trees
   // include: min, max, sum, product, GCD, and etc...
   private long function(long a, long b) {
-    if (a == UNIQUE)
-      return b;
-    else if (b == UNIQUE)
-      return a;
+    if (a == UNIQUE) return b;
+    else if (b == UNIQUE) return a;
 
     return a + b; // sum over a range
     // return (a > b) ? a : b; // maximum value over a range
@@ -58,10 +55,8 @@ public class CompactSegmentTree {
   public long query(int l, int r) {
     long res = UNIQUE;
     for (l += N, r += N; l < r; l >>= 1, r >>= 1) {
-      if ((l & 1) != 0)
-        res = function(res, tree[l++]);
-      if ((r & 1) != 0)
-        res = function(res, tree[--r]);
+      if ((l & 1) != 0) res = function(res, tree[l++]);
+      if ((r & 1) != 0) res = function(res, tree[--r]);
     }
     if (res == UNIQUE) {
       throw new IllegalStateException("UNIQUE should not be the return value.");

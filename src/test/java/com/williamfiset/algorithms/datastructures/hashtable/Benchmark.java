@@ -5,7 +5,8 @@
  */
 package com.williamfiset.algorithms.datastructures.hashtable;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Random;
 
 public class Benchmark {
 
@@ -41,8 +42,7 @@ public class Benchmark {
     for (int i = 0; i < N; i++) {
       hashtable.insert(keys[i], values[i]);
       int val = hashtable.get(keys[i]);
-      if (val != values[i])
-        System.out.println("Not good..");
+      if (val != values[i]) System.out.println("Not good..");
     }
     long end = System.nanoTime();
     System.out.println("Linear probing: " + (end - start) / 1e9);
@@ -56,8 +56,7 @@ public class Benchmark {
     for (int i = 0; i < N; i++) {
       hashtable.insert(keys[i], values[i]);
       int val = hashtable.get(keys[i]);
-      if (val != values[i])
-        System.out.println("Not good..");
+      if (val != values[i]) System.out.println("Not good..");
     }
     long end = System.nanoTime();
     System.out.println("Quadratic probing: " + (end - start) / 1e9);
@@ -73,8 +72,7 @@ public class Benchmark {
 
       hashtable.insert(doubleHashKeys[i], values[i]);
       int val = hashtable.get(doubleHashKeys[i]);
-      if (val != values[i])
-        System.out.println("Not good..");
+      if (val != values[i]) System.out.println("Not good..");
     }
     long end = System.nanoTime();
     System.out.println("Double hashing: " + (end - start) / 1e9);
@@ -88,8 +86,7 @@ public class Benchmark {
     for (int i = 0; i < N; i++) {
       jmap.put(keys[i], values[i]);
       int val = jmap.get(keys[i]);
-      if (val != values[i])
-        System.out.println("Not good..");
+      if (val != values[i]) System.out.println("Not good..");
     }
     long end = System.nanoTime();
     System.out.println("HashMap: " + (end - start) / 1e9);

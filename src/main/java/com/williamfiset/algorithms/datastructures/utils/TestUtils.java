@@ -1,6 +1,8 @@
 package com.williamfiset.algorithms.datastructures.utils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public final class TestUtils {
 
@@ -8,8 +10,7 @@ public final class TestUtils {
   // [min, max) and there are possible repeats.
   public static List<Integer> randomIntegerList(int sz, int min, int max) {
     List<Integer> lst = new ArrayList<>(sz);
-    for (int i = 0; i < sz; i++)
-      lst.add(randInt(min, max));
+    for (int i = 0; i < sz; i++) lst.add(randInt(min, max));
     return lst;
   }
 
@@ -17,16 +18,14 @@ public final class TestUtils {
   // is in the range of [0, sz)
   public static List<Integer> randomUniformUniqueIntegerList(int sz) {
     List<Integer> lst = new ArrayList<>(sz);
-    for (int i = 0; i < sz; i++)
-      lst.add(i);
+    for (int i = 0; i < sz; i++) lst.add(i);
     Collections.shuffle(lst);
     return lst;
   }
 
   public static List<Integer> randomUniformUniqueIntegerList(int min, int max) {
     List<Integer> lst = new ArrayList<>(max - min);
-    for (int i = min; i < max; i++)
-      lst.add(i);
+    for (int i = min; i < max; i++) lst.add(i);
     Collections.shuffle(lst);
     return lst;
   }
@@ -44,8 +43,7 @@ public final class TestUtils {
   // Generates sorted data in the range of [min,max[
   public static List<Integer> sortedIntegerList(int min, int max) {
     List<Integer> lst = new ArrayList<>(max - min);
-    for (int i = min; i < max; i++)
-      lst.add(i);
+    for (int i = min; i < max; i++) lst.add(i);
     return lst;
   }
 }

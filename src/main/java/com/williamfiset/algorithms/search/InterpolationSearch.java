@@ -1,8 +1,7 @@
 /**
  * An implementation of interpolation search
  *
- * <p>
- * Time Complexity: O(log(log(n))) if data is uniform O(n) in worst case
+ * <p>Time Complexity: O(log(log(n))) if data is uniform O(n) in worst case
  */
 package com.williamfiset.algorithms.search;
 
@@ -23,11 +22,9 @@ public class InterpolationSearch {
         lo = mid + 1;
       } else if (nums[mid] > val) {
         hi = mid - 1;
-      } else
-        return mid;
+      } else return mid;
     }
-    if (nums[lo] == val)
-      return lo;
+    if (nums[lo] == val) return lo;
     return -1;
   }
 

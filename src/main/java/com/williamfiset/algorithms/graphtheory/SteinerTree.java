@@ -4,14 +4,13 @@
  * graph. These nodes may be either directly or indirectly connected, possibly connecting to
  * intermediate nodes which are not terminal nodes.
  *
- * <p>
- * Time Complexity: O(V^3 + V^2 * 2^T + V * 3^T)
+ * <p>Time Complexity: O(V^3 + V^2 * 2^T + V * 3^T)
  *
  * @author Matt Fontaine, Micah Stairs Source: https://www.youtube.com/watch?v=BG4vAoV5kWw
  */
 package com.williamfiset.algorithms.graphtheory;
 
-import java.util.*;
+import java.util.Arrays;
 
 public class SteinerTree {
 
@@ -86,8 +85,7 @@ public class SteinerTree {
    * order to give the shortest distance between all pairs of nodes. Double.NEGATIVE_INFINITY is
    * used to indicate that the edge between node i and node j is part of a negative cycle.
    *
-   * <p>
-   * NOTE: Usually the diagonal of the adjacency matrix is all zeros (i.e. distance[i][i] = 0 for
+   * <p>NOTE: Usually the diagonal of the adjacency matrix is all zeros (i.e. distance[i][i] = 0 for
    * all i) since there is typically no cost to go from a node to itself, but this may depend on
    * your graph and the problem you are trying to solve.
    */
@@ -119,11 +117,16 @@ public class SteinerTree {
     /**
      * Visualization of the graph:
      *
-     * <p>
-     * [O] / \ 3 4 / \ [1] [2] | | 5 6 | | [3] [4]
+     * <p>[O] / \ 3 4 / \ [1] [2] | | 5 6 | | [3] [4]
      */
-    double[][] matrix1 = new double[][] {{0, 3, 4, INF, INF}, {3, 0, INF, 5, INF},
-        {4, INF, 0, INF, 6}, {INF, 5, INF, 0, INF}, {INF, INF, 6, INF, 0}};
+    double[][] matrix1 =
+        new double[][] {
+          {0, 3, 4, INF, INF},
+          {3, 0, INF, 5, INF},
+          {4, INF, 0, INF, 6},
+          {INF, 5, INF, 0, INF},
+          {INF, INF, 6, INF, 0}
+        };
 
     System.out.println(minLengthSteinerTree(matrix1, new int[] {})); // Expected answer: 0.0
     System.out.println(minLengthSteinerTree(matrix1, new int[] {2})); // Expected answer: 0.0
@@ -133,17 +136,22 @@ public class SteinerTree {
     System.out.println(minLengthSteinerTree(matrix1, new int[] {4, 1, 2})); // Expected answer: 13.0
     System.out.println(minLengthSteinerTree(matrix1, new int[] {3, 0, 4})); // Expected answer: 18.0
     System.out.println(minLengthSteinerTree(matrix1, new int[] {0, 1, 2, 3, 4})); // Expected
-                                                                                  // answer: 18.0
+    // answer: 18.0
 
     /**
      * Visualization of the graph:
      *
-     * <p>
-     * [0]-3-[1] | | 5 4 | | [2] [3] | \ | 7 8 1 | \ | [4]-2-[5]
+     * <p>[0]-3-[1] | | 5 4 | | [2] [3] | \ | 7 8 1 | \ | [4]-2-[5]
      */
     double[][] matrix2 =
-        new double[][] {{0, 3, 5, INF, INF, INF}, {3, 0, INF, 4, INF, INF}, {5, INF, 0, INF, 7, 8},
-            {INF, 4, INF, 0, INF, 1}, {INF, INF, 7, INF, 0, 2}, {INF, INF, 8, 1, 2, 0}};
+        new double[][] {
+          {0, 3, 5, INF, INF, INF},
+          {3, 0, INF, 4, INF, INF},
+          {5, INF, 0, INF, 7, 8},
+          {INF, 4, INF, 0, INF, 1},
+          {INF, INF, 7, INF, 0, 2},
+          {INF, INF, 8, 1, 2, 0}
+        };
 
     System.out.println(minLengthSteinerTree(matrix2, new int[] {})); // Expected answer: 0.0
     System.out.println(minLengthSteinerTree(matrix2, new int[] {4})); // Expected answer: 0.0

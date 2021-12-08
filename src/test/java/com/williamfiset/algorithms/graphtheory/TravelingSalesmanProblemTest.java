@@ -2,8 +2,8 @@ package com.williamfiset.algorithms.graphtheory;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import java.util.*;
-import org.junit.*;
+import java.util.List;
+import org.junit.Test;
 
 public class TravelingSalesmanProblemTest {
 
@@ -49,8 +49,7 @@ public class TravelingSalesmanProblemTest {
   public void testTsp_small1() {
     int n = 5;
     double[][] dist = new double[n][n];
-    for (double[] row : dist)
-      java.util.Arrays.fill(row, 100);
+    for (double[] row : dist) java.util.Arrays.fill(row, 100);
 
     // Assume matrix is symmetric for simplicity.
     dist[1][3] = dist[3][1] = 1;
@@ -167,23 +166,19 @@ public class TravelingSalesmanProblemTest {
   public void randomFillDistMatrix(double[][] dist) {
     for (int i = 0; i < dist.length; i++) {
       for (int j = 0; j < dist.length; j++) {
-        if (i == j)
-          continue;
+        if (i == j) continue;
 
         // Add a random edge value (possibly negative)
         double val = (int) (Math.random() * 1000);
-        if (Math.random() < 0.8)
-          dist[i][j] = val;
-        else
-          dist[i][j] = -val;
+        if (Math.random() < 0.8) dist[i][j] = val;
+        else dist[i][j] = -val;
       }
     }
   }
 
   private double getTourCost(double[][] dist, List<Integer> tour) {
     double total = 0;
-    for (int i = 1; i < tour.size(); i++)
-      total += dist[tour.get(i - 1)][tour.get(i)];
+    for (int i = 1; i < tour.size(); i++) total += dist[tour.get(i - 1)][tour.get(i)];
     return total;
   }
 }

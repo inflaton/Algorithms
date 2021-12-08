@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.TreeSet;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -154,8 +153,7 @@ public class TreapTreeTest {
 
   static List<Integer> genRandList(int sz) {
     List<Integer> lst = new ArrayList<>(sz);
-    for (int i = 0; i < sz; i++)
-      lst.add(i); // unique values.
+    for (int i = 0; i < sz; i++) lst.add(i); // unique values.
     Collections.shuffle(lst);
     return lst;
   }

@@ -26,8 +26,7 @@ public class BoardTilingsSolver {
     dp[0] = 1;
     for (int i = 1; i <= n; i++) {
       for (int tile : tileFrequency.keySet()) {
-        if (i - tile < 0)
-          continue;
+        if (i - tile < 0) continue;
         dp[i] += dp[i - tile] * tileFrequency.get(tile);
       }
     }
@@ -55,8 +54,7 @@ public class BoardTilingsSolver {
     }
     count = 0L;
     for (int tile : tileFrequency.keySet()) {
-      if (n - tile < 0)
-        continue;
+      if (n - tile < 0) continue;
       count += f(n - tile, dp) * tileFrequency.get(tile);
     }
     // Cache (memorize) the solution

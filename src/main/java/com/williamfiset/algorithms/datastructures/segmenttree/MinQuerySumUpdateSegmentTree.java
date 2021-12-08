@@ -1,12 +1,10 @@
 /**
  * Run with: ./gradlew run -Palgorithm=datastructures.segmenttree.MinQuerySumUpdateSegmentTree
  *
- * <p>
- * Several thanks to cp-algorithms for their great article on segment trees:
+ * <p>Several thanks to cp-algorithms for their great article on segment trees:
  * https://cp-algorithms.com/data_structures/segment_tree.html
  *
- * <p>
- * NOTE: This file is still a WIP
+ * <p>NOTE: This file is still a WIP
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -27,20 +25,15 @@ public class MinQuerySumUpdateSegmentTree {
 
   // Min function
   private Long minFunction(Long a, Long b) {
-    if (a == null && b == null)
-      return null;
-    if (a == null)
-      return b;
-    if (b == null)
-      return a;
+    if (a == null && b == null) return null;
+    if (a == null) return b;
+    if (b == null) return a;
     return Math.min(a, b);
   }
 
   private Long sumFunction(Long a, Long b) {
-    if (a == null)
-      a = 0L;
-    if (b == null)
-      b = 0L;
+    if (a == null) a = 0L;
+    if (b == null) b = 0L;
     return a + b;
   }
 
@@ -120,7 +113,8 @@ public class MinQuerySumUpdateSegmentTree {
     // Instead of checking if [tl, tm] overlaps [l, r] and [tm+1, tr] overlaps
     // [l, r], simply recurse on both segments and let the base case return the
     // default value for invalid intervals.
-    return minFunction(rangeQuery1(2 * i + 1, tl, tm, l, Math.min(tm, r)),
+    return minFunction(
+        rangeQuery1(2 * i + 1, tl, tm, l, Math.min(tm, r)),
         rangeQuery1(2 * i + 2, tm + 1, tr, Math.max(l, tm + 1), r));
   }
 
@@ -130,8 +124,7 @@ public class MinQuerySumUpdateSegmentTree {
 
   private void propagateLazy(int i, int tl, int tr, long delta) {
     // Ignore leaf segments
-    if (tl == tr)
-      return;
+    if (tl == tr) return;
     // TODO(william): should this also used the minSegmentUpdateFn
     lazy[2 * i + 1] = sumFunction(lazy[2 * i + 1], delta);
     lazy[2 * i + 2] = sumFunction(lazy[2 * i + 2], delta);

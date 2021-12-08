@@ -4,8 +4,8 @@ import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.primitives.Ints;
 import com.williamfiset.algorithms.utils.TestUtils;
-import java.util.*;
-import org.junit.*;
+import java.util.List;
+import org.junit.Test;
 
 public class CoinChangeTest {
 

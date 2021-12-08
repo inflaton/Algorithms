@@ -2,14 +2,15 @@
  * This file shows you how to rotate a point clockwise relative to a fixed point a certain number of
  * radians.
  *
- * <p>
- * Time Complexity: O(1)
+ * <p>Time Complexity: O(1)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.geometry;
 
-import static java.lang.Math.*;
+import static java.lang.Math.PI;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
 
 import java.awt.geom.Point2D;
 

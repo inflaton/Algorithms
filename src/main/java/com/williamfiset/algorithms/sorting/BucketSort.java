@@ -1,17 +1,17 @@
 /**
  * Bucket sort implementation
  *
- * <p>
- * Run with:
+ * <p>Run with:
  *
- * <p>
- * $ ./gradlew run -Palgorithm=sorting.BucketSort
+ * <p>$ ./gradlew run -Palgorithm=sorting.BucketSort
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.sorting;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class BucketSort implements InplaceSort {
 
@@ -20,10 +20,8 @@ public class BucketSort implements InplaceSort {
     int minValue = Integer.MAX_VALUE;
     int maxValue = Integer.MIN_VALUE;
     for (int i = 0; i < values.length; i++) {
-      if (values[i] < minValue)
-        minValue = values[i];
-      if (values[i] > maxValue)
-        maxValue = values[i];
+      if (values[i] < minValue) minValue = values[i];
+      if (values[i] > maxValue) maxValue = values[i];
     }
     BucketSort.bucketSort(values, minValue, maxValue);
   }
@@ -32,14 +30,12 @@ public class BucketSort implements InplaceSort {
   // bounded in the range [minValue, maxValue]. For bucket sort to give linear
   // performance the elements need to be uniformly distributed
   private static void bucketSort(int[] ar, int minValue, int maxValue) {
-    if (ar == null || ar.length == 0 || minValue == maxValue)
-      return;
+    if (ar == null || ar.length == 0 || minValue == maxValue) return;
 
     // N is number elements and M is the range of values
     final int N = ar.length, M = maxValue - minValue + 1, numBuckets = M / N + 1;
     List<List<Integer>> buckets = new ArrayList<>(numBuckets);
-    for (int i = 0; i < numBuckets; i++)
-      buckets.add(new ArrayList<>());
+    for (int i = 0; i < numBuckets; i++) buckets.add(new ArrayList<>());
 
     // Place each element in a bucket
     for (int i = 0; i < N; i++) {

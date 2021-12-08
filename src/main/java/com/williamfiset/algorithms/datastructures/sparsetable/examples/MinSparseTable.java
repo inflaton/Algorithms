@@ -1,16 +1,13 @@
 /**
  * Min sparse table example
  *
- * <p>
- * Download the code: <br>
+ * <p>Download the code: <br>
  * $ git clone https://github.com/williamfiset/algorithms
  *
- * <p>
- * Run: <br>
+ * <p>Run: <br>
  * $ ./gradlew run -Palgorithm=datastructures.sparsetable.examples.MinSparseTable
  *
- * <p>
- * Construction complexity: O(nlogn), query complexity: O(1)
+ * <p>Construction complexity: O(nlogn), query complexity: O(1)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */

@@ -5,15 +5,12 @@
  * each long I use I can represent a range of 128 numbers (even numbers are omitted because they are
  * not prime, with the exception of 2 which is handled as a special case).
  *
- * <p>
- * Time Complexity: ~O(nloglogn)
+ * <p>Time Complexity: ~O(nloglogn)
  *
- * <p>
- * Compile: javac -d src/main/java
+ * <p>Compile: javac -d src/main/java
  * src/main/java/com/williamfiset/algorithms/math/CompressedPrimeSieve.java
  *
- * <p>
- * Run: java -cp src/main/java com/williamfiset/algorithms/math/CompressedPrimeSieve
+ * <p>Run: java -cp src/main/java com/williamfiset/algorithms/math/CompressedPrimeSieve
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -25,20 +22,16 @@ public class CompressedPrimeSieve {
 
   // Sets the bit representing n to 1 indicating this number is not prime
   private static void setBit(long[] arr, int n) {
-    if ((n & 1) == 0)
-      return; // n is even
+    if ((n & 1) == 0) return; // n is even
     arr[n >> NUM_BITS_SHIFT] |= 1L << ((n - 1) >> 1);
   }
 
   // Returns true if the bit for n is off (meaning n is a prime).
   // Note: do use this method to access numbers outside your prime sieve range!
   private static boolean isNotSet(long[] arr, int n) {
-    if (n < 2)
-      return false; // n is not prime
-    if (n == 2)
-      return true; // two is prime
-    if ((n & 1) == 0)
-      return false; // n is even
+    if (n < 2) return false; // n is not prime
+    if (n == 2) return true; // two is prime
+    if ((n & 1) == 0) return false; // n is even
     long chunk = arr[n >> NUM_BITS_SHIFT];
     long mask = 1L << ((n - 1) >> 1);
     return (chunk & mask) != mask;

@@ -3,7 +3,10 @@ package com.williamfiset.algorithms.datastructures.binarysearchtree;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.williamfiset.algorithms.datastructures.utils.TestUtils;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import org.junit.Test;
 
 public class SplayTreeTest {
@@ -24,9 +27,9 @@ public class SplayTreeTest {
   public void splayInsertDeleteSearch() {
     SplayTree<Integer> splayTree = new SplayTree<>();
     List<Integer> data = TestUtils.randomUniformUniqueIntegerList(100); // Note : we dont want
-                                                                        // duplicate values here
-                                                                        // to test "search" after
-                                                                        // "delete"
+    // duplicate values here
+    // to test "search" after
+    // "delete"
     // should assertNull
     for (int i : data) {
       splayTree.insert(i);

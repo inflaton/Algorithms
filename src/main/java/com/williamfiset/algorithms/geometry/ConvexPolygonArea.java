@@ -2,8 +2,7 @@
  * This file contains code that can find the area of a convex polygon if the points are given in CW
  * or CCW order.
  *
- * <p>
- * Time Complexity: O(n)
+ * <p>Time Complexity: O(n)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */

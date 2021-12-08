@@ -3,8 +3,7 @@
  * paths. FF allows you to find the max flow through a directed graph as well as the min cut as a
  * byproduct.
  *
- * <p>
- * Time Complexity: O(fV^2), where f is the max flow
+ * <p>Time Complexity: O(fV^2), where f is the max flow
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -20,7 +19,7 @@ public class FordFulkersonDFSAdjacencyMatrix {
     int[] visited = new int[n];
     boolean[] minCut = new boolean[n];
 
-    for (int maxFlow = 0;;) {
+    for (int maxFlow = 0; ; ) {
 
       // Try to find an augmenting path from source to sink
       int flow = dfs(caps, visited, source, sink, Integer.MAX_VALUE);
@@ -48,8 +47,7 @@ public class FordFulkersonDFSAdjacencyMatrix {
   private static int dfs(int[][] caps, int[] visited, int node, int sink, int flow) {
 
     // Found sink node, return flow thus far
-    if (node == sink)
-      return flow;
+    if (node == sink) return flow;
 
     int[] cap = caps[node];
     visited[node] = visitedToken;
@@ -57,8 +55,7 @@ public class FordFulkersonDFSAdjacencyMatrix {
     for (int i = 0; i < cap.length; i++) {
       if (visited[i] != visitedToken && cap[i] > 0) {
 
-        if (cap[i] < flow)
-          flow = cap[i];
+        if (cap[i] < flow) flow = cap[i];
         int dfsFlow = dfs(caps, visited, i, sink, flow);
 
         if (dfsFlow > 0) {

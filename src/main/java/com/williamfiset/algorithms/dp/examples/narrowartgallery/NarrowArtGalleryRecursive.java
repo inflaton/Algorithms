@@ -3,14 +3,11 @@ package com.williamfiset.algorithms.dp.examples.narrowartgallery;
 /**
  * Solution to the Narrow Art Gallery problem from the 2014 ICPC North America Qualifier
  *
- * <p>
- * Problem: https://open.kattis.com/problems/narrowartgallery
+ * <p>Problem: https://open.kattis.com/problems/narrowartgallery
  *
- * <p>
- * Problem Author: Robert Hochberg
+ * <p>Problem Author: Robert Hochberg
  *
- * <p>
- * Solution by: William Fiset
+ * <p>Solution by: William Fiset
  */
 import java.util.Scanner;
 
@@ -27,9 +24,7 @@ public class NarrowArtGalleryRecursive {
 
   static int min(int... values) {
     int m = Integer.MAX_VALUE;
-    for (int v : values)
-      if (v < m)
-        m = v;
+    for (int v : values) if (v < m) m = v;
     return m;
   }
 
@@ -59,13 +54,14 @@ public class NarrowArtGalleryRecursive {
     // }
     // Get the value of the current room at row `r` and column `c`.
     int roomValue = gallery[r][c];
-    return dp[k][r][c] = min(
-        // Close the current room, and take the best value from the partial
-        // state directly below the current room.
-        f(k - 1, r - 1, c) + roomValue,
-        // Don't include the current room. Instead, take the last best value from
-        // the previously calculated partial state which includes `k` rooms closed.
-        f(k, r - 1));
+    return dp[k][r][c] =
+        min(
+            // Close the current room, and take the best value from the partial
+            // state directly below the current room.
+            f(k - 1, r - 1, c) + roomValue,
+            // Don't include the current room. Instead, take the last best value from
+            // the previously calculated partial state which includes `k` rooms closed.
+            f(k, r - 1));
   }
 
   static void mainProgram() {
@@ -74,8 +70,7 @@ public class NarrowArtGalleryRecursive {
       int N = sc.nextInt();
       int K = sc.nextInt();
 
-      if (N == 0 && K == 0)
-        break;
+      if (N == 0 && K == 0) break;
 
       gallery = new int[N][2];
       dp = new Integer[K + 1][N][2];
@@ -112,7 +107,10 @@ public class NarrowArtGalleryRecursive {
     // 8, 10
     //
     // Gallery has been flipped like it would when inputted:
-    gallery = new int[][] {{8, 10}, {4, 3}, {0, 1}, {5, 9}, {3, 2},};
+    gallery =
+        new int[][] {
+          {8, 10}, {4, 3}, {0, 1}, {5, 9}, {3, 2},
+        };
     System.out.println(f(4, 3, LEFT));
     System.out.println(f(4, 3, RIGHT));
     System.out.println(f(3, 3, LEFT));
@@ -132,7 +130,10 @@ public class NarrowArtGalleryRecursive {
     // 1, 0
     //
     // Gallery has been flipped like it would when inputted:
-    gallery = new int[][] {{1, 0}, {3, 3}, {1, 3}, {1, 2}, {2, 1}, {3, 1},};
+    gallery =
+        new int[][] {
+          {1, 0}, {3, 3}, {1, 3}, {1, 2}, {2, 1}, {3, 1},
+        };
     f(N - 1, K);
 
     ok(f(0, 4, LEFT), INF);

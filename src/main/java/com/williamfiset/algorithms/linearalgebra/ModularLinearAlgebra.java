@@ -28,15 +28,12 @@ class ModularLinearAlgebra {
         continue;
       }
       int inverse = inv[arr[r][i]];
-      for (int k = i; k < m; k++)
-        arr[r][k] = (arr[r][k] * inverse) % prime;
+      for (int k = i; k < m; k++) arr[r][k] = (arr[r][k] * inverse) % prime;
       for (int j = 0; j < n; j++) {
         int c = arr[j][i];
-        if (j == r || c == 0)
-          continue;
+        if (j == r || c == 0) continue;
         arr[j][i] = 0;
-        for (int k = i + 1; k < m; k++)
-          arr[j][k] = (arr[j][k] - c * arr[r][k] + c * prime) % prime;
+        for (int k = i + 1; k < m; k++) arr[j][k] = (arr[j][k] - c * arr[r][k] + c * prime) % prime;
       }
       r++;
     }
@@ -45,8 +42,7 @@ class ModularLinearAlgebra {
   // Finds the inverse of a non-augmented matrix in the finite field
   // with order equal to the given prime.
   static int[][] inverse(int[][] arr, int prime, int[] modInv) {
-    if (arr.length != arr[0].length)
-      return null;
+    if (arr.length != arr[0].length) return null;
     int n = arr.length;
     int[][] augmented = new int[n][n * 2];
     for (int i = 0; i < n; i++) {
@@ -59,10 +55,8 @@ class ModularLinearAlgebra {
     int[][] inv = new int[n][n];
     for (int i = 0; i < n; i++) {
       for (int j = 0; j < n; j++) {
-        if (i == j && augmented[i][j] != 1)
-          return null;
-        else if (augmented[i][j] != 0)
-          return null;
+        if (i == j && augmented[i][j] != 1) return null;
+        else if (augmented[i][j] != 0) return null;
         inv[i][j] = augmented[i][j + n];
       }
     }
@@ -73,11 +67,11 @@ class ModularLinearAlgebra {
   // row reduced to reduced row echelon form
   static boolean isInconsistent(int[][] arr) {
     int nCols = arr[0].length;
-    outer: for (int y = 0; y < arr.length; y++) {
+    outer:
+    for (int y = 0; y < arr.length; y++) {
       if (arr[y][nCols - 1] != 0) {
         for (int x = 0; x < nCols - 1; x++) {
-          if (arr[y][x] != 0)
-            continue outer;
+          if (arr[y][x] != 0) continue outer;
         }
         return true;
       }
@@ -91,10 +85,10 @@ class ModularLinearAlgebra {
   static boolean hasMultipleSolutions(int[][] arr) {
     int nCols = arr[0].length;
     int nEmptyRows = 0;
-    outer: for (int y = 0; y < arr.length; y++) {
+    outer:
+    for (int y = 0; y < arr.length; y++) {
       for (int x = 0; x < nCols; x++) {
-        if (arr[y][x] != 0)
-          continue outer;
+        if (arr[y][x] != 0) continue outer;
       }
       nEmptyRows++;
     }
@@ -103,8 +97,7 @@ class ModularLinearAlgebra {
 
   // Returns {gcd(a,b), x, y} such that ax+by=gcd(a,b)
   static int[] egcd(int a, int b) {
-    if (b == 0)
-      return new int[] {a, 1, 0};
+    if (b == 0) return new int[] {a, 1, 0};
     int[] ret = egcd(b, a % b);
     int tmp = ret[1] - ret[2] * (a / b);
     ret[1] = ret[2];

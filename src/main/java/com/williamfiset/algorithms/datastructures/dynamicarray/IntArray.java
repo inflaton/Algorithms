@@ -22,16 +22,14 @@ public class IntArray implements Iterable<Integer> {
 
   // Initialize the array with a certain capacity
   public IntArray(int capacity) {
-    if (capacity < 0)
-      throw new IllegalArgumentException("Illegal Capacity: " + capacity);
+    if (capacity < 0) throw new IllegalArgumentException("Illegal Capacity: " + capacity);
     this.capacity = capacity;
     arr = new int[capacity];
   }
 
   // Given an array make it a dynamic array!
   public IntArray(int[] array) {
-    if (array == null)
-      throw new IllegalArgumentException("Array cannot be null");
+    if (array == null) throw new IllegalArgumentException("Array cannot be null");
     arr = java.util.Arrays.copyOf(array, array.length);
     capacity = len = array.length;
   }
@@ -59,10 +57,8 @@ public class IntArray implements Iterable<Integer> {
   // Add an element to this dynamic array
   public void add(int elem) {
     if (len + 1 >= capacity) {
-      if (capacity == 0)
-        capacity = 1;
-      else
-        capacity *= 2; // double the size
+      if (capacity == 0) capacity = 1;
+      else capacity *= 2; // double the size
       arr = java.util.Arrays.copyOf(arr, capacity); // pads with extra 0/null elements
     }
     arr[len++] = elem;
@@ -134,12 +130,10 @@ public class IntArray implements Iterable<Integer> {
 
   @Override
   public String toString() {
-    if (len == 0)
-      return "[]";
+    if (len == 0) return "[]";
     else {
       StringBuilder sb = new StringBuilder(len).append("[");
-      for (int i = 0; i < len - 1; i++)
-        sb.append(arr[i] + ", ");
+      for (int i = 0; i < len - 1; i++) sb.append(arr[i] + ", ");
       return sb.append(arr[len - 1] + "]").toString();
     }
   }
@@ -156,8 +150,7 @@ public class IntArray implements Iterable<Integer> {
     ar.sort(); // [-2, 3, 6, 7]
 
     // Prints [-2, 3, 6, 7]
-    for (int i = 0; i < ar.size(); i++)
-      System.out.println(ar.get(i));
+    for (int i = 0; i < ar.size(); i++) System.out.println(ar.get(i));
 
     // Prints [-2, 3, 6, 7]
     System.out.println(ar);

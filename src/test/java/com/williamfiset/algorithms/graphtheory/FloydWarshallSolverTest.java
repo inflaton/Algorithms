@@ -2,7 +2,7 @@ package com.williamfiset.algorithms.graphtheory;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import java.util.*;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,12 +15,30 @@ public class FloydWarshallSolverTest {
 
   @Before
   public void setup() {
-    matrix1 = new double[][] {{0, INF, INF, INF, INF}, {1, 0, 7, INF, INF}, {INF, 3, 0, INF, INF},
-        {13, INF, 4, 0, INF}, {INF, INF, 3, 0, 0}};
-    matrix2 = new double[][] {{0, 3, 1, 8, INF}, {2, 0, 9, 4, INF}, {INF, INF, 0, INF, -2},
-        {INF, INF, 1, 0, INF}, {INF, INF, INF, 0, 0}};
-    matrix3 = new double[][] {{0, 6, INF, 25, 3}, {1, 0, 6, 1, 3}, {INF, 1, 0, 2, 3},
-        {4, 4, 4, 0, INF}, {4, 3, 5, INF, 0}};
+    matrix1 =
+        new double[][] {
+          {0, INF, INF, INF, INF},
+          {1, 0, 7, INF, INF},
+          {INF, 3, 0, INF, INF},
+          {13, INF, 4, 0, INF},
+          {INF, INF, 3, 0, 0}
+        };
+    matrix2 =
+        new double[][] {
+          {0, 3, 1, 8, INF},
+          {2, 0, 9, 4, INF},
+          {INF, INF, 0, INF, -2},
+          {INF, INF, 1, 0, INF},
+          {INF, INF, INF, 0, 0}
+        };
+    matrix3 =
+        new double[][] {
+          {0, 6, INF, 25, 3},
+          {1, 0, 6, 1, 3},
+          {INF, 1, 0, 2, 3},
+          {4, 4, 4, 0, INF},
+          {4, 3, 5, INF, 0}
+        };
   }
 
   private static double[][] createMatrix(int n) {
@@ -39,13 +57,11 @@ public class FloydWarshallSolverTest {
     while (count-- > 0) {
       int i = (int) (Math.random() * n);
       int j = (int) (Math.random() * n);
-      if (i == j)
-        continue;
+      if (i == j) continue;
       int v = (int) (Math.random() * 100);
       // Allow negative edges but only very rarely since even one
       // negative edge can start an avalanche of negative cycles.
-      if (allowNegativeEdges)
-        v = (Math.random() > 0.005) ? v : -v;
+      if (allowNegativeEdges) v = (Math.random() > 0.005) ? v : -v;
       matrix[i][j] = v;
     }
   }
@@ -184,8 +200,7 @@ public class FloydWarshallSolverTest {
   public void testNegativeCyclePropagation() {
     int n = 100, s = 0, e = n - 1;
     double[][] m = createMatrix(n);
-    for (int i = 1; i < n; i++)
-      m[i - 1][i] = 10;
+    for (int i = 1; i < n; i++) m[i - 1][i] = 10;
     m[1][0] = -11;
     FloydWarshallSolver fw = new FloydWarshallSolver(m);
     List<Integer> fwPath = fw.reconstructShortestPath(s, e);

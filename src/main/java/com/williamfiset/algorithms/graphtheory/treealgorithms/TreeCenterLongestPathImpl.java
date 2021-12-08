@@ -1,15 +1,17 @@
 /**
  * Finds the center(s) of a tree by finding the longest path through the tree.
  *
- * <p>
- * ./gradlew run
+ * <p>./gradlew run
  * -Pmain=com.williamfiset.algorithms.graphtheory.treealgorithms.TreeCenterLongestPathImpl
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.graphtheory.treealgorithms;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class TreeCenterLongestPathImpl {
 
@@ -26,12 +28,11 @@ public class TreeCenterLongestPathImpl {
     }
   }
 
-  private static DfsResult dfs(List<List<Integer>> graph, boolean[] visited, int[] prev, int at,
-      int parent) {
+  private static DfsResult dfs(
+      List<List<Integer>> graph, boolean[] visited, int[] prev, int at, int parent) {
 
     // Already visited this node
-    if (visited[at])
-      return new DfsResult(0, parent);
+    if (visited[at]) return new DfsResult(0, parent);
 
     // Visit this node
     visited[at] = true;
@@ -56,8 +57,7 @@ public class TreeCenterLongestPathImpl {
 
   public static List<Integer> findTreeCenters(List<List<Integer>> graph) {
     List<Integer> centers = new ArrayList<>();
-    if (graph == null)
-      return centers;
+    if (graph == null) return centers;
 
     int n = graph.size();
     boolean[] visited = new boolean[n];
@@ -97,8 +97,7 @@ public class TreeCenterLongestPathImpl {
   // Create an empty tree as a adjacency list.
   public static List<List<Integer>> createEmptyTree(int n) {
     List<List<Integer>> tree = new ArrayList<>(n);
-    for (int i = 0; i < n; i++)
-      tree.add(new LinkedList<>());
+    for (int i = 0; i < n; i++) tree.add(new LinkedList<>());
     return tree;
   }
 

@@ -16,11 +16,16 @@ import org.junit.Test;
 public class SortingTest {
 
   enum SortingAlgorithm {
-    BUBBLE_SORT(new BubbleSort()), BUCKET_SORT(new BucketSort()), COUNTING_SORT(
-        new CountingSort()), HEAP_SORT(new Heapsort()), INSERTION_SORT(
-            new InsertionSort()), MERGE_SORT(new MergeSort()), QUICK_SORT(
-                new QuickSort()), QUICK_SORT3(new QuickSort3()), RADIX_SORT(
-                    new RadixSort()), SELECTION_SORT(new SelectionSort());
+    BUBBLE_SORT(new BubbleSort()),
+    BUCKET_SORT(new BucketSort()),
+    COUNTING_SORT(new CountingSort()),
+    HEAP_SORT(new Heapsort()),
+    INSERTION_SORT(new InsertionSort()),
+    MERGE_SORT(new MergeSort()),
+    QUICK_SORT(new QuickSort()),
+    QUICK_SORT3(new QuickSort3()),
+    RADIX_SORT(new RadixSort()),
+    SELECTION_SORT(new SelectionSort());
 
     private InplaceSort algorithm;
 
@@ -33,11 +38,18 @@ public class SortingTest {
     }
   }
 
-  private static final EnumSet<SortingAlgorithm> sortingAlgorithms = EnumSet.of(
-      SortingAlgorithm.BUBBLE_SORT, SortingAlgorithm.BUCKET_SORT, SortingAlgorithm.COUNTING_SORT,
-      SortingAlgorithm.HEAP_SORT, SortingAlgorithm.INSERTION_SORT, SortingAlgorithm.MERGE_SORT,
-      SortingAlgorithm.QUICK_SORT, SortingAlgorithm.QUICK_SORT3, SortingAlgorithm.RADIX_SORT,
-      SortingAlgorithm.SELECTION_SORT);
+  private static final EnumSet<SortingAlgorithm> sortingAlgorithms =
+      EnumSet.of(
+          SortingAlgorithm.BUBBLE_SORT,
+          SortingAlgorithm.BUCKET_SORT,
+          SortingAlgorithm.COUNTING_SORT,
+          SortingAlgorithm.HEAP_SORT,
+          SortingAlgorithm.INSERTION_SORT,
+          SortingAlgorithm.MERGE_SORT,
+          SortingAlgorithm.QUICK_SORT,
+          SortingAlgorithm.QUICK_SORT3,
+          SortingAlgorithm.RADIX_SORT,
+          SortingAlgorithm.SELECTION_SORT);
 
   @Test
   public void verifySortingAlgorithms_smallPositiveIntegersOnly() {

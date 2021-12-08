@@ -1,16 +1,13 @@
 /**
  * Tree height example
  *
- * <p>
- * Download the code: <br>
+ * <p>Download the code: <br>
  * $ git clone https://github.com/williamfiset/Algorithms
  *
- * <p>
- * Run: <br>
+ * <p>Run: <br>
  * $ ./gradlew run -Palgorithm=graphtheory.treealgorithms.examples.TreeHeight
  *
- * <p>
- * Time Complexity: O(n)
+ * <p>Time Complexity: O(n)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -34,8 +31,7 @@ public class TreeHeight {
   // Returns the height of the binary tree which is the number of edges from the
   // root to the deepest leaf node, or -1 if the input is an empty tree.
   public static int treeHeight1(TreeNode node) {
-    if (node == null)
-      return -1;
+    if (node == null) return -1;
     return Math.max(treeHeight1(node.left), treeHeight1(node.right)) + 1;
   }
 
@@ -43,10 +39,8 @@ public class TreeHeight {
   // root to the deepest leaf node, or -1 if the input is an empty tree.
   public static int treeHeight2(TreeNode node) {
     // Handle empty tree edge case.
-    if (node == null)
-      return -1;
-    if (isLeafNode(node))
-      return 0;
+    if (node == null) return -1;
+    if (isLeafNode(node)) return 0;
     return Math.max(treeHeight2(node.left), treeHeight2(node.right)) + 1;
   }
 

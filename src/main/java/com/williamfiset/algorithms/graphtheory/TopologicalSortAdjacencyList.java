@@ -5,14 +5,16 @@
  * ordering of its vertices such that for every directed edge uv from vertex u to vertex v, u comes
  * before v in the ordering.
  *
- * <p>
- * Time Complexity: O(V + E)
+ * <p>Time Complexity: O(V + E)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.graphtheory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class TopologicalSortAdjacencyList {
 
@@ -31,17 +33,15 @@ public class TopologicalSortAdjacencyList {
   // us the topological ordering we want. Instead of maintaining a stack
   // of the nodes we see we simply place them inside the ordering array
   // in reverse order for simplicity.
-  private static int dfs(int i, int at, boolean[] visited, int[] ordering,
-      Map<Integer, List<Edge>> graph) {
+  private static int dfs(
+      int i, int at, boolean[] visited, int[] ordering, Map<Integer, List<Edge>> graph) {
 
     visited[at] = true;
 
     List<Edge> edges = graph.get(at);
 
     if (edges != null)
-      for (Edge edge : edges)
-        if (!visited[edge.to])
-          i = dfs(i, edge.to, visited, ordering, graph);
+      for (Edge edge : edges) if (!visited[edge.to]) i = dfs(i, edge.to, visited, ordering, graph);
 
     ordering[i] = at;
     return i - 1;
@@ -62,8 +62,7 @@ public class TopologicalSortAdjacencyList {
 
     int i = numNodes - 1;
     for (int at = 0; at < numNodes; at++)
-      if (!visited[at])
-        i = dfs(i, at, visited, ordering, graph);
+      if (!visited[at]) i = dfs(i, at, visited, ordering, graph);
 
     return ordering;
   }
@@ -91,10 +90,8 @@ public class TopologicalSortAdjacencyList {
           for (Edge edge : adjacentEdges) {
 
             int newDist = dist[nodeIndex] + edge.weight;
-            if (dist[edge.to] == null)
-              dist[edge.to] = newDist;
-            else
-              dist[edge.to] = Math.min(dist[edge.to], newDist);
+            if (dist[edge.to] == null) dist[edge.to] = newDist;
+            else dist[edge.to] = Math.min(dist[edge.to], newDist);
           }
         }
       }
@@ -109,8 +106,7 @@ public class TopologicalSortAdjacencyList {
     // Graph setup
     final int N = 7;
     Map<Integer, List<Edge>> graph = new HashMap<>();
-    for (int i = 0; i < N; i++)
-      graph.put(i, new ArrayList<>());
+    for (int i = 0; i < N; i++) graph.put(i, new ArrayList<>());
     graph.get(0).add(new Edge(0, 1, 3));
     graph.get(0).add(new Edge(0, 2, 2));
     graph.get(0).add(new Edge(0, 5, 3));

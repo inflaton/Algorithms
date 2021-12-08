@@ -22,8 +22,7 @@ public class ManachersAlgorithm {
     for (int i = 1; i < n - 1; i++) {
       int invI = 2 * c - i;
       p[i] = r > i ? Math.min(r - i, p[invI]) : 0;
-      while (arr[i + 1 + p[i]] == arr[i - 1 - p[i]])
-        p[i]++;
+      while (arr[i + 1 + p[i]] == arr[i - 1 - p[i]]) p[i]++;
       if (i + p[i] > r) {
         c = i;
         r = i + p[i];

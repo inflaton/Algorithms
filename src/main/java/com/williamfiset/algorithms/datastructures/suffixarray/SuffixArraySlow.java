@@ -1,8 +1,7 @@
 /**
  * Naive suffix array implementation.
  *
- * <p>
- * Time Complexity: O(n^2log(n))
+ * <p>Time Complexity: O(n^2log(n))
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -24,14 +23,11 @@ public class SuffixArraySlow extends SuffixArray {
     // Compare the two suffixes inspired by Robert Sedgewick and Kevin Wayne
     @Override
     public int compareTo(Suffix other) {
-      if (this == other)
-        return 0;
+      if (this == other) return 0;
       int min_len = Math.min(len, other.len);
       for (int i = 0; i < min_len; i++) {
-        if (text[index + i] < other.text[other.index + i])
-          return -1;
-        if (text[index + i] > other.text[other.index + i])
-          return +1;
+        if (text[index + i] < other.text[other.index + i]) return -1;
+        if (text[index + i] > other.text[other.index + i]) return +1;
       }
       return len - other.len;
     }
@@ -61,8 +57,7 @@ public class SuffixArraySlow extends SuffixArray {
     sa = new int[N];
     suffixes = new Suffix[N];
 
-    for (int i = 0; i < N; i++)
-      suffixes[i] = new Suffix(T, i);
+    for (int i = 0; i < N; i++) suffixes[i] = new Suffix(T, i);
 
     java.util.Arrays.sort(suffixes);
 

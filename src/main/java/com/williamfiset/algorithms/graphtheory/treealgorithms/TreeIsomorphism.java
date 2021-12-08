@@ -2,14 +2,16 @@
  * Determines if two unrooted trees are isomorphic. This algorithm can easily be modified to support
  * checking if two rooted trees are isomorphic.
  *
- * <p>
- * Tested code against: https://uva.onlinejudge.org/external/124/p12489.pdf
+ * <p>Tested code against: https://uva.onlinejudge.org/external/124/p12489.pdf
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.graphtheory.treealgorithms;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 public class TreeIsomorphism {
 
@@ -155,8 +157,7 @@ public class TreeIsomorphism {
   // Create a graph as a adjacency list with 'n' nodes.
   public static List<List<Integer>> createEmptyGraph(int n) {
     List<List<Integer>> graph = new ArrayList<>(n);
-    for (int i = 0; i < n; i++)
-      graph.add(new LinkedList<>());
+    for (int i = 0; i < n; i++) graph.add(new LinkedList<>());
     return graph;
   }
 

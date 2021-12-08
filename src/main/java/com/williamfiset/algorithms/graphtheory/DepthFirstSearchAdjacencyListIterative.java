@@ -5,7 +5,11 @@
  */
 package com.williamfiset.algorithms.graphtheory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
 
 public class DepthFirstSearchAdjacencyListIterative {
 
@@ -76,13 +80,11 @@ public class DepthFirstSearchAdjacencyListIterative {
 
     long nodeCount = dfs(graph, 0, numNodes);
     System.out.println("DFS node count starting at node 0: " + nodeCount);
-    if (nodeCount != 4)
-      System.err.println("Error with DFS");
+    if (nodeCount != 4) System.err.println("Error with DFS");
 
     nodeCount = dfs(graph, 4, numNodes);
     System.out.println("DFS node count starting at node 4: " + nodeCount);
-    if (nodeCount != 1)
-      System.err.println("Error with DFS");
+    if (nodeCount != 1) System.err.println("Error with DFS");
   }
 
   // Helper method to setup graph

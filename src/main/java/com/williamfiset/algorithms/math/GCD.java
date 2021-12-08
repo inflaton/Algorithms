@@ -1,8 +1,7 @@
 /**
  * An implementation of finding the GCD of two numbers
  *
- * <p>
- * Time Complexity ~O(log(a + b))
+ * <p>Time Complexity ~O(log(a + b))
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */

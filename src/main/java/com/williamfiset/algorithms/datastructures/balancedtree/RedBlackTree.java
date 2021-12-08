@@ -2,8 +2,7 @@
  * This file contains an implementation of a Red-Black tree. A RB tree is a special type of binary
  * tree which self balances itself to keep operations logarithmic.
  *
- * <p>
- * Great visualization tool: https://www.cs.usfca.edu/~galles/visualization/RedBlack.html
+ * <p>Great visualization tool: https://www.cs.usfca.edu/~galles/visualization/RedBlack.html
  *
  * @author nishantc1527
  * @author William Fiset, william.alexandre.fiset@gmail.com
@@ -123,8 +122,7 @@ public class RedBlackTree<T extends Comparable<T>> implements Iterable<T> {
 
     Node node = root;
 
-    if (node == null || value == null)
-      return false;
+    if (node == null || value == null) return false;
 
     while (node != NIL) {
 
@@ -132,16 +130,13 @@ public class RedBlackTree<T extends Comparable<T>> implements Iterable<T> {
       int cmp = value.compareTo(node.value);
 
       // Dig into left subtree.
-      if (cmp < 0)
-        node = node.left;
+      if (cmp < 0) node = node.left;
 
       // Dig into right subtree.
-      else if (cmp > 0)
-        node = node.right;
+      else if (cmp > 0) node = node.right;
 
       // Found value in tree.
-      else
-        return true;
+      else return true;
     }
 
     return false;
@@ -225,15 +220,11 @@ public class RedBlackTree<T extends Comparable<T>> implements Iterable<T> {
   private void leftRotate(Node x) {
     Node y = x.right;
     x.setRight(y.getLeft());
-    if (y.getLeft() != NIL)
-      y.getLeft().setParent(x);
+    if (y.getLeft() != NIL) y.getLeft().setParent(x);
     y.setParent(x.getParent());
-    if (x.getParent() == NIL)
-      root = y;
-    if (x == x.getParent().getLeft())
-      x.getParent().setLeft(y);
-    else
-      x.getParent().setRight(y);
+    if (x.getParent() == NIL) root = y;
+    if (x == x.getParent().getLeft()) x.getParent().setLeft(y);
+    else x.getParent().setRight(y);
     y.setLeft(x);
     x.setParent(y);
   }
@@ -241,23 +232,18 @@ public class RedBlackTree<T extends Comparable<T>> implements Iterable<T> {
   private void rightRotate(Node y) {
     Node x = y.left;
     y.left = x.right;
-    if (x.right != NIL)
-      x.right.parent = y;
+    if (x.right != NIL) x.right.parent = y;
     x.parent = y.parent;
-    if (y.parent == NIL)
-      root = x;
-    if (y == y.parent.left)
-      y.parent.left = x;
-    else
-      y.parent.right = x;
+    if (y.parent == NIL) root = x;
+    if (y == y.parent.left) y.parent.left = x;
+    else y.parent.right = x;
     x.right = y;
     y.parent = x;
   }
 
   public boolean delete(T key) {
     Node z;
-    if (key == null || (z = (search(key, root))) == NIL)
-      return false;
+    if (key == null || (z = (search(key, root))) == NIL) return false;
     Node x;
     Node y = z; // temporary reference y
     boolean y_original_color = y.getColor();
@@ -272,8 +258,7 @@ public class RedBlackTree<T extends Comparable<T>> implements Iterable<T> {
       y = successor(z.getRight());
       y_original_color = y.getColor();
       x = y.getRight();
-      if (y.getParent() == z)
-        x.setParent(y);
+      if (y.getParent() == z) x.setParent(y);
       else {
         transplant(y, y.getRight());
         y.setRight(z.getRight());
@@ -284,8 +269,7 @@ public class RedBlackTree<T extends Comparable<T>> implements Iterable<T> {
       y.getLeft().setParent(y);
       y.setColor(z.getColor());
     }
-    if (y_original_color == BLACK)
-      deleteFix(x);
+    if (y_original_color == BLACK) deleteFix(x);
     nodeCount--;
     return true;
   }
@@ -348,10 +332,8 @@ public class RedBlackTree<T extends Comparable<T>> implements Iterable<T> {
   }
 
   private Node successor(Node root) {
-    if (root == NIL || root.left == NIL)
-      return root;
-    else
-      return successor(root.left);
+    if (root == NIL || root.left == NIL) return root;
+    else return successor(root.left);
   }
 
   private void transplant(Node u, Node v) {
@@ -359,20 +341,15 @@ public class RedBlackTree<T extends Comparable<T>> implements Iterable<T> {
       root = v;
     } else if (u == u.parent.left) {
       u.parent.left = v;
-    } else
-      u.parent.right = v;
+    } else u.parent.right = v;
     v.parent = u.parent;
   }
 
   private Node search(T val, Node curr) {
-    if (curr == NIL)
-      return NIL;
-    else if (curr.value.equals(val))
-      return curr;
-    else if (curr.value.compareTo(val) < 0)
-      return search(val, curr.right);
-    else
-      return search(val, curr.left);
+    if (curr == NIL) return NIL;
+    else if (curr.value.equals(val)) return curr;
+    else if (curr.value.compareTo(val) < 0) return search(val, curr.right);
+    else return search(val, curr.left);
   }
 
   public int height() {
@@ -403,16 +380,14 @@ public class RedBlackTree<T extends Comparable<T>> implements Iterable<T> {
 
       @Override
       public boolean hasNext() {
-        if (expectedNodeCount != nodeCount)
-          throw new java.util.ConcurrentModificationException();
+        if (expectedNodeCount != nodeCount) throw new java.util.ConcurrentModificationException();
         return root != NIL && !stack.isEmpty();
       }
 
       @Override
       public T next() {
 
-        if (expectedNodeCount != nodeCount)
-          throw new java.util.ConcurrentModificationException();
+        if (expectedNodeCount != nodeCount) throw new java.util.ConcurrentModificationException();
 
         while (trav != NIL && trav.left != NIL) {
           stack.push(trav.left);
@@ -441,8 +416,7 @@ public class RedBlackTree<T extends Comparable<T>> implements Iterable<T> {
 
     int[] values = {5, 8, 1, -4, 6, -2, 0, 7};
     RedBlackTree<Integer> rbTree = new RedBlackTree<>();
-    for (int v : values)
-      rbTree.insert(v);
+    for (int v : values) rbTree.insert(v);
 
     System.out.printf("RB tree contains %d: %s\n", 6, rbTree.contains(6));
     System.out.printf("RB tree contains %d: %s\n", -5, rbTree.contains(-5));

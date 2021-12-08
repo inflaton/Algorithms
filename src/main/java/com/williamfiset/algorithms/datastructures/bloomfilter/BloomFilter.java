@@ -54,8 +54,7 @@ public class BloomFilter {
     for (int i = 0; i < hashes.length; i++) {
       int block = (int) (hashes[i] >> DIV64_SHIFT);
       long MASK = 1L << (hashes[i] & MOD64_MASK);
-      if ((bitsets[i][block] & MASK) != MASK)
-        return false;
+      if ((bitsets[i][block] & MASK) != MASK) return false;
     }
     return true;
   }
@@ -64,12 +63,10 @@ public class BloomFilter {
   public String toString() {
 
     int maxSz = 0;
-    for (int setSize : SET_SIZES)
-      maxSz = Math.max(maxSz, setSize);
+    for (int setSize : SET_SIZES) maxSz = Math.max(maxSz, setSize);
 
     char[][] matrix = new char[N_SETS][maxSz];
-    for (char[] ar : matrix)
-      java.util.Arrays.fill(ar, '0');
+    for (char[] ar : matrix) java.util.Arrays.fill(ar, '0');
 
     for (int k = 0; k < N_SETS; k++) {
       for (int i = 0; i < SET_SIZES[k]; i++) {
@@ -83,8 +80,7 @@ public class BloomFilter {
     }
 
     StringBuilder sb = new StringBuilder();
-    for (char[] row : matrix)
-      sb.append(new String(row) + "\n");
+    for (char[] row : matrix) sb.append(new String(row) + "\n");
     return sb.toString();
   }
 }

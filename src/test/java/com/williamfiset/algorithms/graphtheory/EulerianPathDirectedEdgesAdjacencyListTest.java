@@ -2,8 +2,12 @@ package com.williamfiset.algorithms.graphtheory;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import java.util.*;
-import org.junit.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.junit.Before;
+import org.junit.Test;
 
 public class EulerianPathDirectedEdgesAdjacencyListTest {
 
@@ -17,8 +21,7 @@ public class EulerianPathDirectedEdgesAdjacencyListTest {
   // Initialize graph with 'n' nodes.
   public static List<List<Integer>> initializeEmptyGraph(int n) {
     List<List<Integer>> graph = new ArrayList<>(n);
-    for (int i = 0; i < n; i++)
-      graph.add(new ArrayList<>());
+    for (int i = 0; i < n; i++) graph.add(new ArrayList<>());
     return graph;
   }
 
@@ -51,8 +54,7 @@ public class EulerianPathDirectedEdgesAdjacencyListTest {
       for (int to : graph.get(from)) {
         long hash = ((long) from) << 32 | to;
         Integer count = map.get(hash);
-        if (count == null)
-          count = 0;
+        if (count == null) count = 0;
         map.put(hash, count + 1);
       }
     }

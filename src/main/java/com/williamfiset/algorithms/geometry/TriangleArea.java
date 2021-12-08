@@ -2,16 +2,16 @@
  * There is more than one way to take the area of a triangle, some are faster or more convenient in
  * some situations.
  *
- * <p>
- * Time Complexity: O(1)
+ * <p>Time Complexity: O(1)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.geometry;
 
-import static java.lang.Math.*;
+import static java.lang.Math.abs;
+import static java.lang.Math.sqrt;
 
-import java.awt.geom.*;
+import java.awt.geom.Point2D;
 
 public class TriangleArea {
 
@@ -27,8 +27,8 @@ public class TriangleArea {
   }
 
   // Given three points a, b, c find the area of the triangle
-  public static double triangleArea(double ax, double ay, double bx, double by, double cx,
-      double cy) {
+  public static double triangleArea(
+      double ax, double ay, double bx, double by, double cx, double cy) {
 
     // Let v1 = <bx-ax, by-ay> and v2 = <cx-ax, cy-ay> be vectors
     // Take the determinant of v1 and v2 to find the area of the

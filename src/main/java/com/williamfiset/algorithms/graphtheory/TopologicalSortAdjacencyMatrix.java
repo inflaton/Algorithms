@@ -5,8 +5,7 @@
  * vertices such that for every directed edge uv from vertex u to vertex v, u comes before v in the
  * ordering.
  *
- * <p>
- * Time Complexity: O(V^2)
+ * <p>Time Complexity: O(V^2)
  *
  * @author Micah Stairs
  */
@@ -25,9 +24,7 @@ public class TopologicalSortAdjacencyMatrix {
     int index = n - 1;
 
     // Visit each node
-    for (int u = 0; u < n; u++)
-      if (!visited[u])
-        index = visit(adj, visited, order, index, u);
+    for (int u = 0; u < n; u++) if (!visited[u]) index = visit(adj, visited, order, index, u);
 
     // Return topological sort
     return order;
@@ -35,14 +32,12 @@ public class TopologicalSortAdjacencyMatrix {
 
   private static int visit(Double[][] adj, boolean[] visited, int[] order, int index, int u) {
 
-    if (visited[u])
-      return index;
+    if (visited[u]) return index;
     visited[u] = true;
 
     // Visit all neighbors
     for (int v = 0; v < adj.length; v++)
-      if (adj[u][v] != null && !visited[v])
-        index = visit(adj, visited, order, index, v);
+      if (adj[u][v] != null && !visited[v]) index = visit(adj, visited, order, index, v);
 
     // Place this node at the head of the list
     order[index--] = u;
@@ -68,8 +63,7 @@ public class TopologicalSortAdjacencyMatrix {
       for (int v = 0; v < n; v++) {
         if (adj[u][v] != null) {
           double newDist = dist[u] + adj[u][v];
-          if (newDist < dist[v])
-            dist[v] = newDist;
+          if (newDist < dist[v]) dist[v] = newDist;
         }
       }
 

@@ -2,14 +2,15 @@
  * Often when working with trees we are given them as a graph with undirected edges, however
  * sometimes a better representation is a rooted tree.
  *
- * <p>
- * Time Complexity: O(V+E)
+ * <p>Time Complexity: O(V+E)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.graphtheory.treealgorithms;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class RootingTree {
 
@@ -88,8 +89,7 @@ public class RootingTree {
   // Create a graph as a adjacency list
   private static List<List<Integer>> createGraph(int n) {
     List<List<Integer>> graph = new ArrayList<>(n);
-    for (int i = 0; i < n; i++)
-      graph.add(new LinkedList<>());
+    for (int i = 0; i < n; i++) graph.add(new LinkedList<>());
     return graph;
   }
 
@@ -128,8 +128,10 @@ public class RootingTree {
     System.out.println(root.children.get(0).children);
 
     // Layer 3: [0], [4, 5]
-    System.out.println(root.children.get(0).children.get(0).children + ", "
-        + root.children.get(0).children.get(1).children);
+    System.out.println(
+        root.children.get(0).children.get(0).children
+            + ", "
+            + root.children.get(0).children.get(1).children);
 
     // Rooted at 3 the tree should look like:
     // 3
@@ -149,7 +151,9 @@ public class RootingTree {
     System.out.println(root.children.get(0).children);
 
     // Layer 3: [0], [7, 8]
-    System.out.println(root.children.get(0).children.get(0).children + ", "
-        + root.children.get(0).children.get(1).children);
+    System.out.println(
+        root.children.get(0).children.get(0).children
+            + ", "
+            + root.children.get(0).children.get(1).children);
   }
 }

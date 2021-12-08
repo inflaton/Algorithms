@@ -1,12 +1,10 @@
 /**
  * Run with: ./gradlew run -Palgorithm=datastructures.segmenttree.SumQueryAssignUpdateSegmentTree
  *
- * <p>
- * Several thanks to cp-algorithms for their great article on segment trees:
+ * <p>Several thanks to cp-algorithms for their great article on segment trees:
  * https://cp-algorithms.com/data_structures/segment_tree.html
  *
- * <p>
- * NOTE: This file is still a WIP
+ * <p>NOTE: This file is still a WIP
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -26,12 +24,9 @@ public class SumQueryAssignUpdateSegmentTree {
   private Long[] lazy;
 
   private Long sumCombinationFn(Long a, Long b) {
-    if (a == null && b == null)
-      return null;
-    if (a == null)
-      return b;
-    if (b == null)
-      return a;
+    if (a == null && b == null) return null;
+    if (a == null) return b;
+    if (b == null) return a;
     return a + b;
   }
 
@@ -118,7 +113,8 @@ public class SumQueryAssignUpdateSegmentTree {
     // Instead of checking if [tl, tm] overlaps [l, r] and [tm+1, tr] overlaps
     // [l, r], simply recurse on both segments and let the base case return the
     // default value for invalid intervals.
-    return sumCombinationFn(rangeQuery1(2 * i + 1, tl, tm, l, Math.min(tm, r)),
+    return sumCombinationFn(
+        rangeQuery1(2 * i + 1, tl, tm, l, Math.min(tm, r)),
         rangeQuery1(2 * i + 2, tm + 1, tr, Math.max(l, tm + 1), r));
   }
 
@@ -133,8 +129,7 @@ public class SumQueryAssignUpdateSegmentTree {
 
   private void propagateLazy(int i, int tl, int tr, long val) {
     // Ignore leaf segments
-    if (tl == tr)
-      return;
+    if (tl == tr) return;
     lazy[2 * i + 1] = assignFunction(/* unused */ 0L, val);
     lazy[2 * i + 2] = assignFunction(/* unused */ 0L, val);
   }

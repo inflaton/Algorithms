@@ -1,7 +1,6 @@
 package com.williamfiset.algorithms.datastructures.queue;
 
 import edu.princeton.cs.algs4.StdOut;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -124,8 +123,7 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     public Item next() {
-      if (!hasNext())
-        throw new NoSuchElementException();
+      if (!hasNext()) throw new NoSuchElementException();
       Item item = iterator.item;
       iterator = iterator.next;
       return item;
@@ -168,5 +166,4 @@ public class Deque<Item> implements Iterable<Item> {
       StdOut.println(i);
     }
   }
-
 }

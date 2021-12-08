@@ -23,8 +23,7 @@ public class KruskalsEdgeList {
 
     public int find(int p) {
       int root = p;
-      while (root != id[root])
-        root = id[root];
+      while (root != id[root]) root = id[root];
       while (p != root) { // Do path compression
         int next = id[p];
         id[p] = root;
@@ -44,8 +43,7 @@ public class KruskalsEdgeList {
     public void union(int p, int q) {
       int root1 = find(p);
       int root2 = find(q);
-      if (root1 == root2)
-        return;
+      if (root1 == root2) return;
       if (sz[root1] < sz[root2]) {
         sz[root2] += sz[root1];
         id[root1] = root2;
@@ -76,8 +74,7 @@ public class KruskalsEdgeList {
   // a MST, otherwise it returns null.
   static Long kruskals(Edge[] edges, int n) {
 
-    if (edges == null)
-      return null;
+    if (edges == null) return null;
 
     long sum = 0L;
     java.util.Arrays.sort(edges);
@@ -86,8 +83,7 @@ public class KruskalsEdgeList {
     for (Edge edge : edges) {
 
       // Skip this edge to avoid creating a cycle in MST
-      if (uf.connected(edge.from, edge.to))
-        continue;
+      if (uf.connected(edge.from, edge.to)) continue;
 
       // Include this edge
       uf.union(edge.from, edge.to);
@@ -95,13 +91,11 @@ public class KruskalsEdgeList {
 
       // Optimization to stop early if we found
       // a MST that includes all the nodes
-      if (uf.size(0) == n)
-        break;
+      if (uf.size(0) == n) break;
     }
 
     // Make sure we have a MST that includes all the nodes
-    if (uf.size(0) != n)
-      return null;
+    if (uf.size(0) != n) return null;
 
     return sum;
   }

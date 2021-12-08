@@ -2,14 +2,14 @@
  * In this file I show you how to determine if three points are collinear to each other (on the same
  * line).
  *
- * <p>
- * Time Complexity: O(1)
+ * <p>Time Complexity: O(1)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.geometry;
 
-import static java.lang.Math.*;
+import static java.lang.Math.abs;
+import static java.lang.Math.signum;
 
 import java.awt.geom.Point2D;
 
@@ -25,8 +25,7 @@ public class CollinearPoints {
   // and facing point b.
   public static int collinear(Point2D a, Point2D b, Point2D c) {
 
-    if (a.distance(b) < EPS)
-      throw new IllegalArgumentException("a cannot equal b");
+    if (a.distance(b) < EPS) throw new IllegalArgumentException("a cannot equal b");
 
     // To determine if c is on the line we will use the determinant of
     // the two vectors formed by 'ab' and 'ac' (could also have done 'ba' and 'bc').
@@ -49,8 +48,7 @@ public class CollinearPoints {
     double determinant = (v1_x * v2_y) - (v2_x * v1_y);
 
     // The points a, b, c are collinear
-    if (abs(determinant) < EPS)
-      return 0;
+    if (abs(determinant) < EPS) return 0;
 
     // Return -1 for right and +1 for left
     return (determinant < 0 ? -1 : +1);
@@ -58,10 +56,10 @@ public class CollinearPoints {
 
   // Compressed version of collinear code above
   public static int collinear2(Point2D a, Point2D b, Point2D c) {
-    double area = (b.getX() - a.getX()) * (c.getY() - a.getY())
-        - (b.getY() - a.getY()) * (c.getX() - a.getX());
-    if (abs(area) < EPS)
-      return 0;
+    double area =
+        (b.getX() - a.getX()) * (c.getY() - a.getY())
+            - (b.getY() - a.getY()) * (c.getX() - a.getX());
+    if (abs(area) < EPS) return 0;
     return (int) signum(area);
   }
 

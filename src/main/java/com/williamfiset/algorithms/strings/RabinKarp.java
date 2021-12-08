@@ -5,8 +5,10 @@
  */
 package com.williamfiset.algorithms.strings;
 
-import java.math.*;
-import java.util.*;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class RabinKarp {
 
@@ -35,8 +37,7 @@ public class RabinKarp {
   static {
 
     // Assign a mapping from the printable ASCII characters to the natural numbers
-    for (int i = 32, n = 1; i < ALPHABET.length; i++, n++)
-      ALPHABET[i] = n;
+    for (int i = 32, n = 1; i < ALPHABET.length; i++, n++) ALPHABET[i] = n;
 
     // Compute modular inverses for chosen mod values
     for (int i = 0; i < N_HASHES; i++) {
@@ -78,13 +79,11 @@ public class RabinKarp {
   public static List<Integer> rabinKarp(String text, String pattern) {
 
     List<Integer> matches = new ArrayList<>();
-    if (text == null || pattern == null)
-      return matches;
+    if (text == null || pattern == null) return matches;
 
     // Find pattern length (PL) and text length (TL)
     final int PL = pattern.length(), TL = text.length();
-    if (PL > TL)
-      return matches;
+    if (PL > TL) return matches;
 
     // Compute the initial hash values
     long[] patternHash = computeHash(pattern);
@@ -95,13 +94,12 @@ public class RabinKarp {
     for (int i = 0; i < N_HASHES; i++)
       POWERS[i] = BIG_ALPHA.modPow(BIG_PL, BIG_MODS[i]).longValue();
 
-    for (int i = PL - 1;;) {
+    for (int i = PL - 1; ; ) {
 
       if (Arrays.equals(patternHash, rollingHash)) {
         matches.add(i - PL + 1);
       }
-      if (++i == TL)
-        return matches;
+      if (++i == TL) return matches;
 
       char firstValue = text.charAt(i - PL);
       char lastValue = text.charAt(i);
@@ -120,13 +118,11 @@ public class RabinKarp {
   public static List<Integer> rabinKarpBackwards(String text, String pattern) {
 
     List<Integer> matches = new ArrayList<>();
-    if (text == null || pattern == null)
-      return matches;
+    if (text == null || pattern == null) return matches;
 
     // Find pattern length (PL) and text length (TL)
     final int PL = pattern.length(), TL = text.length();
-    if (PL > TL)
-      return matches;
+    if (PL > TL) return matches;
 
     long[] patternHash = computeHash(pattern);
     long[] rollingHash = computeHash(text.substring(TL - PL, TL));
@@ -136,13 +132,12 @@ public class RabinKarp {
     for (int i = 0; i < N_HASHES; i++)
       POWERS[i] = BIG_ALPHA.modPow(BIG_PL, BIG_MODS[i]).longValue();
 
-    for (int i = TL - PL;;) {
+    for (int i = TL - PL; ; ) {
 
       if (Arrays.equals(patternHash, rollingHash)) {
         matches.add(i);
       }
-      if (--i < 0)
-        return matches;
+      if (--i < 0) return matches;
 
       char firstValue = text.charAt(i);
       char lastValue = text.charAt(i + PL);
@@ -179,8 +174,8 @@ public class RabinKarp {
   //
   // firstValue - This is x_n+1, the first character of this string
   // alphabetBasePower - A^(n+1)
-  private static long addLeft(long rollingHash, long alphabetBasePower, char firstValue,
-      int modIndex) {
+  private static long addLeft(
+      long rollingHash, long alphabetBasePower, char firstValue, int modIndex) {
     rollingHash = (ALPHABET[firstValue] * alphabetBasePower + rollingHash) % MODS[modIndex];
     return (rollingHash + MODS[modIndex]) % MODS[modIndex];
   }
@@ -193,8 +188,8 @@ public class RabinKarp {
   //
   // firstValue - This is x_n, the first character of this string
   // alphabetBasePower - A^n
-  private static long removeLeft(long rollingHash, long alphabetBasePower, char firstValue,
-      int modIndex) {
+  private static long removeLeft(
+      long rollingHash, long alphabetBasePower, char firstValue, int modIndex) {
     rollingHash = (rollingHash - ALPHABET[firstValue] * alphabetBasePower) % MODS[modIndex];
     return (rollingHash + MODS[modIndex]) % MODS[modIndex];
   }

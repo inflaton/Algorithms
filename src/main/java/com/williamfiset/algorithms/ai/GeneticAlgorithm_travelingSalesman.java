@@ -6,7 +6,10 @@
  */
 package com.williamfiset.algorithms.ai;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 public class GeneticAlgorithm_travelingSalesman {
 
@@ -38,8 +41,7 @@ public class GeneticAlgorithm_travelingSalesman {
     // Create initial population
     Individual[] generation = new Individual[P + 1];
     Individual[] nextGeneration = new Individual[P + 1];
-    for (int i = 1; i <= P; i++)
-      generation[i] = new Individual(N);
+    for (int i = 1; i <= P; i++) generation[i] = new Individual(N);
 
     // Stores the ranges of individuals in the selection roulette
     double[] lo = new double[P + 1];
@@ -81,8 +83,7 @@ public class GeneticAlgorithm_travelingSalesman {
 
           bestEpochIndv = in;
           bestEpochFitness = fitness[i];
-          if (fittestIndv == null)
-            fittestIndv = in;
+          if (fittestIndv == null) fittestIndv = in;
 
           // Compute the true tour distance
           double bestEpochTravelCost = trueTravelCost(bestEpochIndv, adjacencyMatrix, N);
@@ -180,12 +181,9 @@ public class GeneticAlgorithm_travelingSalesman {
     int mid, l = 0, h = P - 1;
     while (true) {
       mid = (l + h) >>> 1;
-      if (lo[mid] <= r && r < hi[mid])
-        return generation[mid + 1];
-      if (r < lo[mid])
-        h = mid - 1;
-      else
-        l = mid + 1;
+      if (lo[mid] <= r && r < hi[mid]) return generation[mid + 1];
+      if (r < lo[mid]) h = mid - 1;
+      else l = mid + 1;
     }
   }
 
@@ -230,8 +228,7 @@ public class GeneticAlgorithm_travelingSalesman {
 
     // Construct an optimal path
     List<Integer> path = new ArrayList<>(n);
-    for (int i = 0; i < n; i++)
-      path.add(i);
+    for (int i = 0; i < n; i++) path.add(i);
     for (int i = 1; i < n; i++) {
       int from = path.get(i - 1);
       int to = path.get(i);
@@ -254,8 +251,7 @@ public class GeneticAlgorithm_travelingSalesman {
     // Constructs a random individual
     public Individual(int n) {
       cities = new int[n];
-      for (int i = 0; i < n; i++)
-        cities[i] = i;
+      for (int i = 0; i < n; i++) cities[i] = i;
       shuffleArray(cities);
     }
 

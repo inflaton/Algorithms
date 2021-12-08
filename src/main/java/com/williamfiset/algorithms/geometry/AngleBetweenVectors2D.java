@@ -1,14 +1,15 @@
 /**
  * This file shows you how to find the smaller of the two angles between two vectors in R2
  *
- * <p>
- * Time Complexity: O(1)
+ * <p>Time Complexity: O(1)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.geometry;
 
-import static java.lang.Math.*;
+import static java.lang.Math.PI;
+import static java.lang.Math.acos;
+import static java.lang.Math.sqrt;
 
 public class AngleBetweenVectors2D {
 
@@ -27,10 +28,8 @@ public class AngleBetweenVectors2D {
     // Double value rounding precision may lead to the value we're about to pass
     // into
     // the arccos function to be slightly outside its domain, so do a safety check.
-    if (value <= -1.0)
-      return PI;
-    if (value >= +1.0)
-      return 0;
+    if (value <= -1.0) return PI;
+    if (value >= +1.0) return 0;
     return acos(value);
   }
 

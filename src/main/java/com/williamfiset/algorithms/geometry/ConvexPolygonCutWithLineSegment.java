@@ -2,14 +2,15 @@
  * This algorithm cuts a ordered convex polygon with a line segment and returns the two resulting
  * pieces.
  *
- * <p>
- * Time Complexity: O(nlogn)
+ * <p>Time Complexity: O(nlogn)
  *
  * @author Finn Lidbetter
  */
 package com.williamfiset.algorithms.geometry;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class ConvexPolygonCutWithLineSegment {
 
@@ -44,11 +45,13 @@ public class ConvexPolygonCutWithLineSegment {
     centroidY = centroidY / l;
     Pt center = new Pt(centroidX, centroidY);
 
-    Collections.sort(poly, (a, b) -> {
-      double a1 = (Math.toDegrees(Math.atan2(a.x - center.x, a.y - center.y)) + 360) % 360;
-      double a2 = (Math.toDegrees(Math.atan2(b.x - center.x, b.y - center.y)) + 360) % 360;
-      return (int) (a1 - a2);
-    });
+    Collections.sort(
+        poly,
+        (a, b) -> {
+          double a1 = (Math.toDegrees(Math.atan2(a.x - center.x, a.y - center.y)) + 360) % 360;
+          double a2 = (Math.toDegrees(Math.atan2(b.x - center.x, b.y - center.y)) + 360) % 360;
+          return (int) (a1 - a2);
+        });
     return poly;
   }
 
@@ -61,16 +64,15 @@ public class ConvexPolygonCutWithLineSegment {
     for (int i = 0, j = n - 1; i < n; j = i++) {
       int d1 = orientation(p1.x, p1.y, p2.x, p2.y, poly[j].x, poly[j].y);
       int d2 = orientation(p1.x, p1.y, p2.x, p2.y, poly[i].x, poly[i].y);
-      if (d1 >= 0)
-        res.add(poly[j]);
+      if (d1 >= 0) res.add(poly[j]);
       if (d1 * d2 < 0)
         res.add(intersect(p1.x, p1.y, p2.x, p2.y, poly[j].x, poly[j].y, poly[i].x, poly[i].y));
     }
     return res.toArray(new Pt[res.size()]);
   }
 
-  private static Pt intersect(double x1, double y1, double x2, double y2, double x3, double y3,
-      double x4, double y4) {
+  private static Pt intersect(
+      double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) {
     double a1 = y2 - y1, a2 = y4 - y3, b1 = x1 - x2, b2 = x3 - x4;
     double c1 = -(x1 * y2 - x2 * y1), c2 = -(x3 * y4 - x4 * y3);
     double det = a1 * b2 - a2 * b1;
@@ -121,8 +123,7 @@ public class ConvexPolygonCutWithLineSegment {
     Pt[] poly2 = cut(squarePolygon, p2, p1);
 
     System.out.println("First polygon:");
-    for (Pt pt : poly1)
-      System.out.println(pt);
+    for (Pt pt : poly1) System.out.println(pt);
     // Prints:
     // First polygon:
     // (0.0,4.0)
@@ -131,8 +132,7 @@ public class ConvexPolygonCutWithLineSegment {
     // (0.0,2.0)
 
     System.out.println("\nSecond polygon:");
-    for (Pt pt : poly2)
-      System.out.println(pt);
+    for (Pt pt : poly2) System.out.println(pt);
     // Prints:
     // Second polygon:
     // (4.0,4.0)

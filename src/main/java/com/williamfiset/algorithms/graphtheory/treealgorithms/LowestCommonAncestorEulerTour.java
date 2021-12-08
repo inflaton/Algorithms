@@ -4,23 +4,21 @@
  * obtained from the Euler tour can then be used in combination with a sparse table to find the LCA
  * in O(1).
  *
- * <p>
- * Time Complexity: O(1) queries, O(n*log2(n)) pre-processing.
+ * <p>Time Complexity: O(1) queries, O(n*log2(n)) pre-processing.
  *
- * <p>
- * Space Complexity: O(n*log2(n))
+ * <p>Space Complexity: O(n*log2(n))
  *
- * <p>
- * To run script:
+ * <p>To run script:
  *
- * <p>
- * ./gradlew run -Palgorithm=graphtheory.treealgorithms.LowestCommonAncestorEulerTour
+ * <p>./gradlew run -Palgorithm=graphtheory.treealgorithms.LowestCommonAncestorEulerTour
  *
  * @author William Fiset
  */
 package com.williamfiset.algorithms.graphtheory.treealgorithms;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class LowestCommonAncestorEulerTour {
 
@@ -79,8 +77,7 @@ public class LowestCommonAncestorEulerTour {
   // Create a graph as a adjacency list with 'n' nodes.
   public static List<List<Integer>> createEmptyGraph(int n) {
     List<List<Integer>> graph = new ArrayList<>(n);
-    for (int i = 0; i < n; i++)
-      graph.add(new LinkedList<>());
+    for (int i = 0; i < n; i++) graph.add(new LinkedList<>());
     return graph;
   }
 
@@ -139,8 +136,8 @@ public class LowestCommonAncestorEulerTour {
       TreeNode root = new TreeNode(rootId);
       TreeNode rootedTree = buildTree(graph, root);
       if (rootedTree.size() < graph.size()) {
-        System.out
-            .println("WARNING: Input graph malformed. Did you forget to include all n-1 edges?");
+        System.out.println(
+            "WARNING: Input graph malformed. Did you forget to include all n-1 edges?");
       }
       return rootedTree;
     }

@@ -9,7 +9,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Random;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 
 public class MinIndexedBinaryHeapTest {
 
@@ -96,14 +97,14 @@ public class MinIndexedBinaryHeapTest {
   public void testPeekAndPollMinIndex() {
     // pairs[i][0] is the index
     // pairs[i][1] is the value
-    Integer[][] pairs =
-        {{4, 1}, {7, 5}, {1, 6}, {5, 8}, {3, 7}, {6, 9}, {8, 0}, {2, 4}, {9, 3}, {0, 2}};
+    Integer[][] pairs = {
+      {4, 1}, {7, 5}, {1, 6}, {5, 8}, {3, 7}, {6, 9}, {8, 0}, {2, 4}, {9, 3}, {0, 2}
+    };
     sortPairsByValue(pairs);
 
     int n = pairs.length;
     MinIndexedBinaryHeap<Integer> pq = new MinIndexedBinaryHeap<Integer>(n);
-    for (int i = 0; i < n; i++)
-      pq.insert(pairs[i][0], pairs[i][1]);
+    for (int i = 0; i < n; i++) pq.insert(pairs[i][0], pairs[i][1]);
 
     Integer minIndex;
     for (int i = 0; i < n; i++) {
@@ -118,14 +119,14 @@ public class MinIndexedBinaryHeapTest {
   public void testPeekAndPollMinValue() {
     // pairs[i][0] is the index
     // pairs[i][1] is the value
-    Integer[][] pairs =
-        {{4, 1}, {7, 5}, {1, 6}, {5, 8}, {3, 7}, {6, 9}, {8, 0}, {2, 4}, {9, 3}, {0, 2}};
+    Integer[][] pairs = {
+      {4, 1}, {7, 5}, {1, 6}, {5, 8}, {3, 7}, {6, 9}, {8, 0}, {2, 4}, {9, 3}, {0, 2}
+    };
     sortPairsByValue(pairs);
 
     int n = pairs.length;
     MinIndexedBinaryHeap<Integer> pq = new MinIndexedBinaryHeap<Integer>(n);
-    for (int i = 0; i < n; i++)
-      pq.insert(pairs[i][0], pairs[i][1]);
+    for (int i = 0; i < n; i++) pq.insert(pairs[i][0], pairs[i][1]);
 
     Integer minValue;
     for (int i = 0; i < n; i++) {
@@ -141,10 +142,8 @@ public class MinIndexedBinaryHeapTest {
   public void testInsertionAndValueOf() {
     String[] names = {"jackie", "wilson", "catherine", "jason", "bobby", "sia"};
     MinIndexedBinaryHeap<String> pq = new MinIndexedBinaryHeap<String>(names.length);
-    for (int i = 0; i < names.length; i++)
-      pq.insert(i, names[i]);
-    for (int i = 0; i < names.length; i++)
-      assertThat(pq.valueOf(i)).isEqualTo(names[i]);
+    for (int i = 0; i < names.length; i++) pq.insert(i, names[i]);
+    for (int i = 0; i < names.length; i++) assertThat(pq.valueOf(i)).isEqualTo(names[i]);
   }
 
   @Test
@@ -204,8 +203,7 @@ public class MinIndexedBinaryHeapTest {
 
         assertThat(pq1.size()).isEqualTo(pq2.size());
         assertThat(pq1.isEmpty()).isEqualTo(pq2.isEmpty());
-        if (!pq2.isEmpty())
-          assertThat(pq1.peekMinValue()).isEqualTo(pq2.peek());
+        if (!pq2.isEmpty()) assertThat(pq1.peekMinValue()).isEqualTo(pq2.peek());
       }
     }
   }
@@ -240,8 +238,7 @@ public class MinIndexedBinaryHeapTest {
               pq2.remove(indexToRemove);
               indexesToRemove.remove(iii);
             }
-            if (!pq2.isEmpty())
-              assertThat(pq1.peekMinValue()).isEqualTo(pq2.peek());
+            if (!pq2.isEmpty()) assertThat(pq1.peekMinValue()).isEqualTo(pq2.peek());
           }
         }
 
@@ -252,8 +249,7 @@ public class MinIndexedBinaryHeapTest {
 
         assertThat(pq1.size()).isEqualTo(pq2.size());
         assertThat(pq1.isEmpty()).isEqualTo(pq2.isEmpty());
-        if (!pq2.isEmpty())
-          assertThat(pq1.peekMinValue()).isEqualTo(pq2.peek());
+        if (!pq2.isEmpty()) assertThat(pq1.peekMinValue()).isEqualTo(pq2.peek());
       }
     }
   }
@@ -263,19 +259,20 @@ public class MinIndexedBinaryHeapTest {
   }
 
   static void sortPairsByValue(Integer[][] pairs) {
-    Arrays.sort(pairs, new Comparator<Integer[]>() {
-      @Override
-      public int compare(Integer[] pair1, Integer[] pair2) {
-        return pair1[1] - pair2[1];
-      }
-    });
+    Arrays.sort(
+        pairs,
+        new Comparator<Integer[]>() {
+          @Override
+          public int compare(Integer[] pair1, Integer[] pair2) {
+            return pair1[1] - pair2[1];
+          }
+        });
   }
 
   // Generate a list of unique random numbers
   static List<Integer> genUniqueRandList(int sz) {
     List<Integer> lst = new ArrayList<>(sz);
-    for (int i = 0; i < sz; i++)
-      lst.add(i);
+    for (int i = 0; i < sz; i++) lst.add(i);
     Collections.shuffle(lst);
     return lst;
   }

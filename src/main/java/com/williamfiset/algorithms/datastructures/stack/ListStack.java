@@ -35,16 +35,14 @@ public class ListStack<T> implements Iterable<T>, Stack<T> {
   // Pop an element off the stack
   // Throws an error is the stack is empty
   public T pop() {
-    if (isEmpty())
-      throw new java.util.EmptyStackException();
+    if (isEmpty()) throw new java.util.EmptyStackException();
     return list.removeLast();
   }
 
   // Peek the top of the stack without removing an element
   // Throws an exception if the stack is empty
   public T peek() {
-    if (isEmpty())
-      throw new java.util.EmptyStackException();
+    if (isEmpty()) throw new java.util.EmptyStackException();
     return list.peekLast();
   }
 

@@ -1,11 +1,9 @@
 /**
  * Selection sort implementation
  *
- * <p>
- * Run with:
+ * <p>Run with:
  *
- * <p>
- * $ ./gradlew run -Palgorithm=sorting.SelectionSort
+ * <p>$ ./gradlew run -Palgorithm=sorting.SelectionSort
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -19,8 +17,7 @@ public class SelectionSort implements InplaceSort {
   }
 
   public static void selectionSort(int[] array) {
-    if (array == null)
-      return;
+    if (array == null) return;
     final int N = array.length;
 
     for (int i = 0; i < N; i++) {

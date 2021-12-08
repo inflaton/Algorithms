@@ -2,29 +2,28 @@
  * An implementation of the eager version of Prim's algorithm which relies on using an indexed
  * priority queue data structure to query the next best edge.
  *
- * <p>
- * Download the code: $ git clone https://github.com/williamfiset/Algorithms
+ * <p>Download the code: $ git clone https://github.com/williamfiset/Algorithms
  *
- * <p>
- * Change directory to the root of the Algorithms directory: $ cd Algorithms
+ * <p>Change directory to the root of the Algorithms directory: $ cd Algorithms
  *
- * <p>
- * Compile: $ javac -d src/main/java
+ * <p>Compile: $ javac -d src/main/java
  * src/main/java/com/williamfiset/algorithms/graphtheory/examples/EagerPrimsExample.java
  *
- * <p>
- * Run: $ java -cp src/main/java com/williamfiset/algorithms/graphtheory/examples/EagerPrimsExample
+ * <p>Run: $ java -cp src/main/java
+ * com/williamfiset/algorithms/graphtheory/examples/EagerPrimsExample
  *
- * <p>
- * Time Complexity: O(ElogV)
+ * <p>Time Complexity: O(ElogV)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.graphtheory.examples;
 
-import static java.lang.Math.*;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 public class EagerPrimsExample {
 
@@ -73,8 +72,7 @@ public class EagerPrimsExample {
   // Creates an empty adjacency list graph with n nodes.
   private static List<List<Edge>> createEmptyGraph(int n) {
     List<List<Edge>> g = new ArrayList<>();
-    for (int i = 0; i < n; i++)
-      g.add(new ArrayList<>());
+    for (int i = 0; i < n; i++) g.add(new ArrayList<>());
     return g;
   }
 
@@ -121,8 +119,7 @@ public class EagerPrimsExample {
     private Edge[] mstEdges;
 
     public MinimumSpanningTreeSolver(List<List<Edge>> graph) {
-      if (graph == null || graph.isEmpty())
-        throw new IllegalArgumentException();
+      if (graph == null || graph.isEmpty()) throw new IllegalArgumentException();
       this.n = graph.size();
       this.graph = graph;
     }
@@ -146,8 +143,7 @@ public class EagerPrimsExample {
 
     // Computes the minimum spanning tree and minimum spanning tree cost.
     private void solve() {
-      if (solved)
-        return;
+      if (solved) return;
       solved = true;
 
       int m = n - 1, edgeCount = 0;
@@ -190,8 +186,7 @@ public class EagerPrimsExample {
         int destNodeIndex = edge.to;
 
         // Skip edges pointing to already visited nodes.
-        if (visited[destNodeIndex])
-          continue;
+        if (visited[destNodeIndex]) continue;
 
         if (ipq.contains(destNodeIndex)) {
           // Try and improve the cheapest edge at destNodeIndex with the current edge in
@@ -236,8 +231,7 @@ public class EagerPrimsExample {
 
     // Initializes a D-ary heap with a maximum capacity of maxSize.
     public MinIndexedDHeap(int degree, int maxSize) {
-      if (maxSize <= 0)
-        throw new IllegalArgumentException("maxSize <= 0");
+      if (maxSize <= 0) throw new IllegalArgumentException("maxSize <= 0");
 
       D = max(2, degree);
       N = max(D + 1, maxSize);
@@ -292,8 +286,7 @@ public class EagerPrimsExample {
     }
 
     public void insert(int ki, T value) {
-      if (contains(ki))
-        throw new IllegalArgumentException("index already exists; received: " + ki);
+      if (contains(ki)) throw new IllegalArgumentException("index already exists; received: " + ki);
       valueNotNullOrThrow(value);
       pm[ki] = sz;
       im[sz] = ki;
@@ -353,7 +346,7 @@ public class EagerPrimsExample {
     /* Helper functions */
 
     private void sink(int i) {
-      for (int j = minChild(i); j != -1;) {
+      for (int j = minChild(i); j != -1; ) {
         swap(i, j);
         i = j;
         j = minChild(i);
@@ -370,9 +363,7 @@ public class EagerPrimsExample {
     // From the parent node at index i find the minimum child below it
     private int minChild(int i) {
       int index = -1, from = child[i], to = min(sz, from + D);
-      for (int j = from; j < to; j++)
-        if (less(j, i))
-          index = i = j;
+      for (int j = from; j < to; j++) if (less(j, i)) index = i = j;
       return index;
     }
 
@@ -398,16 +389,14 @@ public class EagerPrimsExample {
     @Override
     public String toString() {
       List<Integer> lst = new ArrayList<>(sz);
-      for (int i = 0; i < sz; i++)
-        lst.add(im[i]);
+      for (int i = 0; i < sz; i++) lst.add(im[i]);
       return lst.toString();
     }
 
     /* Helper functions to make the code more readable. */
 
     private void isNotEmptyOrThrow() {
-      if (isEmpty())
-        throw new NoSuchElementException("Priority queue underflow");
+      if (isEmpty()) throw new NoSuchElementException("Priority queue underflow");
     }
 
     private void keyExistsAndValueNotNullOrThrow(int ki, Object value) {
@@ -416,13 +405,11 @@ public class EagerPrimsExample {
     }
 
     private void keyExistsOrThrow(int ki) {
-      if (!contains(ki))
-        throw new NoSuchElementException("Index does not exist; received: " + ki);
+      if (!contains(ki)) throw new NoSuchElementException("Index does not exist; received: " + ki);
     }
 
     private void valueNotNullOrThrow(Object value) {
-      if (value == null)
-        throw new IllegalArgumentException("value cannot be null");
+      if (value == null) throw new IllegalArgumentException("value cannot be null");
     }
 
     private void keyInBoundsOrThrow(int ki) {
@@ -441,10 +428,8 @@ public class EagerPrimsExample {
     private boolean isMinHeap(int i) {
       int from = child[i], to = min(sz, from + D);
       for (int j = from; j < to; j++) {
-        if (!less(i, j))
-          return false;
-        if (!isMinHeap(j))
-          return false;
+        if (!less(i, j)) return false;
+        if (!isMinHeap(j)) return false;
       }
       return true;
     }

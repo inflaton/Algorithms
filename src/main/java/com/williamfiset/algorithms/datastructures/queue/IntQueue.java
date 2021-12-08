@@ -107,10 +107,8 @@ public class IntQueue implements Queue<Integer> {
 
     // IntQueue times at around 0.0324 seconds
     long start = System.nanoTime();
-    for (int i = 0; i < n; i++)
-      intQ.offer(i);
-    for (int i = 0; i < n; i++)
-      intQ.poll();
+    for (int i = 0; i < n; i++) intQ.offer(i);
+    for (int i = 0; i < n; i++) intQ.poll();
     long end = System.nanoTime();
     System.out.println("IntQueue Time: " + (end - start) / 1e9);
 
@@ -120,10 +118,8 @@ public class IntQueue implements Queue<Integer> {
     // strangely the
     // ArrayQueue is slower when you give it an initial capacity.
     start = System.nanoTime();
-    for (int i = 0; i < n; i++)
-      arrayDeque.offer(i);
-    for (int i = 0; i < n; i++)
-      arrayDeque.poll();
+    for (int i = 0; i < n; i++) arrayDeque.offer(i);
+    for (int i = 0; i < n; i++) arrayDeque.poll();
     end = System.nanoTime();
     System.out.println("ArrayDeque Time: " + (end - start) / 1e9);
   }

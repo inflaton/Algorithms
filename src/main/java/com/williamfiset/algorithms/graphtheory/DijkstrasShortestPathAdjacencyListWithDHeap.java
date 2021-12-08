@@ -51,8 +51,7 @@ public class DijkstrasShortestPathAdjacencyListWithDHeap {
   // Construct an empty graph with n nodes including the source and sink nodes.
   private void createEmptyGraph() {
     graph = new ArrayList<>(n);
-    for (int i = 0; i < n; i++)
-      graph.add(new ArrayList<>());
+    for (int i = 0; i < n; i++) graph.add(new ArrayList<>());
   }
 
   /**
@@ -103,15 +102,13 @@ public class DijkstrasShortestPathAdjacencyListWithDHeap {
 
       // We already found a better path before we got to
       // processing this node so we can ignore it.
-      if (minValue > dist[nodeId])
-        continue;
+      if (minValue > dist[nodeId]) continue;
 
       for (Edge edge : graph.get(nodeId)) {
 
         // We cannot get a shorter path by revisiting
         // a node we have already visited before.
-        if (visited[edge.to])
-          continue;
+        if (visited[edge.to]) continue;
 
         // Relax edge by updating minimum cost if applicable.
         double newDist = dist[nodeId] + edge.cost;
@@ -120,18 +117,15 @@ public class DijkstrasShortestPathAdjacencyListWithDHeap {
           dist[edge.to] = newDist;
           // Insert the cost of going to a node for the first time in the PQ,
           // or try and update it to a better value by calling decrease.
-          if (!ipq.contains(edge.to))
-            ipq.insert(edge.to, newDist);
-          else
-            ipq.decrease(edge.to, newDist);
+          if (!ipq.contains(edge.to)) ipq.insert(edge.to, newDist);
+          else ipq.decrease(edge.to, newDist);
         }
       }
       // Once we've processed the end node we can return early (without
       // necessarily visiting the whole graph) because we know we cannot get a
       // shorter path by routing through any other nodes since Dijkstra's is
       // greedy and there are no negative edge weights.
-      if (nodeId == end)
-        return dist[end];
+      if (nodeId == end) return dist[end];
     }
     // End node is unreachable.
     return Double.POSITIVE_INFINITY;
@@ -141,19 +135,15 @@ public class DijkstrasShortestPathAdjacencyListWithDHeap {
    * Reconstructs the shortest path (of nodes) from 'start' to 'end' inclusive.
    *
    * @return An array of node indexes of the shortest path from 'start' to 'end'. If 'start' and
-   *         'end' are not connected then an empty array is returned.
+   *     'end' are not connected then an empty array is returned.
    */
   public List<Integer> reconstructPath(int start, int end) {
-    if (end < 0 || end >= n)
-      throw new IllegalArgumentException("Invalid node index");
-    if (start < 0 || start >= n)
-      throw new IllegalArgumentException("Invalid node index");
+    if (end < 0 || end >= n) throw new IllegalArgumentException("Invalid node index");
+    if (start < 0 || start >= n) throw new IllegalArgumentException("Invalid node index");
     List<Integer> path = new ArrayList<>();
     double dist = dijkstra(start, end);
-    if (dist == Double.POSITIVE_INFINITY)
-      return path;
-    for (Integer at = end; at != null; at = prev[at])
-      path.add(at);
+    if (dist == Double.POSITIVE_INFINITY) return path;
+    for (Integer at = end; at != null; at = prev[at]) path.add(at);
     Collections.reverse(path);
     return path;
   }
@@ -187,8 +177,7 @@ public class DijkstrasShortestPathAdjacencyListWithDHeap {
 
     // Initializes a D-ary heap with a maximum capacity of maxSize.
     public MinIndexedDHeap(int degree, int maxSize) {
-      if (maxSize <= 0)
-        throw new IllegalArgumentException("maxSize <= 0");
+      if (maxSize <= 0) throw new IllegalArgumentException("maxSize <= 0");
 
       D = max(2, degree);
       N = max(D + 1, maxSize);
@@ -243,8 +232,7 @@ public class DijkstrasShortestPathAdjacencyListWithDHeap {
     }
 
     public void insert(int ki, T value) {
-      if (contains(ki))
-        throw new IllegalArgumentException("index already exists; received: " + ki);
+      if (contains(ki)) throw new IllegalArgumentException("index already exists; received: " + ki);
       valueNotNullOrThrow(value);
       pm[ki] = sz;
       im[sz] = ki;
@@ -304,7 +292,7 @@ public class DijkstrasShortestPathAdjacencyListWithDHeap {
     /* Helper functions */
 
     private void sink(int i) {
-      for (int j = minChild(i); j != -1;) {
+      for (int j = minChild(i); j != -1; ) {
         swap(i, j);
         i = j;
         j = minChild(i);
@@ -321,9 +309,7 @@ public class DijkstrasShortestPathAdjacencyListWithDHeap {
     // From the parent node at index i find the minimum child below it
     private int minChild(int i) {
       int index = -1, from = child[i], to = min(sz, from + D);
-      for (int j = from; j < to; j++)
-        if (less(j, i))
-          index = i = j;
+      for (int j = from; j < to; j++) if (less(j, i)) index = i = j;
       return index;
     }
 
@@ -349,16 +335,14 @@ public class DijkstrasShortestPathAdjacencyListWithDHeap {
     @Override
     public String toString() {
       List<Integer> lst = new ArrayList<>(sz);
-      for (int i = 0; i < sz; i++)
-        lst.add(im[i]);
+      for (int i = 0; i < sz; i++) lst.add(im[i]);
       return lst.toString();
     }
 
     /* Helper functions to make the code more readable. */
 
     private void isNotEmptyOrThrow() {
-      if (isEmpty())
-        throw new NoSuchElementException("Priority queue underflow");
+      if (isEmpty()) throw new NoSuchElementException("Priority queue underflow");
     }
 
     private void keyExistsAndValueNotNullOrThrow(int ki, Object value) {
@@ -367,13 +351,11 @@ public class DijkstrasShortestPathAdjacencyListWithDHeap {
     }
 
     private void keyExistsOrThrow(int ki) {
-      if (!contains(ki))
-        throw new NoSuchElementException("Index does not exist; received: " + ki);
+      if (!contains(ki)) throw new NoSuchElementException("Index does not exist; received: " + ki);
     }
 
     private void valueNotNullOrThrow(Object value) {
-      if (value == null)
-        throw new IllegalArgumentException("value cannot be null");
+      if (value == null) throw new IllegalArgumentException("value cannot be null");
     }
 
     private void keyInBoundsOrThrow(int ki) {

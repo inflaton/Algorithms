@@ -2,8 +2,10 @@ package com.williamfiset.algorithms.graphtheory.networkflow;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import java.util.*;
-import org.junit.*;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.Before;
+import org.junit.Test;
 
 public class MinCostMaxFlowTests {
 

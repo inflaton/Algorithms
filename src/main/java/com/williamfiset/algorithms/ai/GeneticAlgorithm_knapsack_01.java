@@ -8,7 +8,8 @@
  */
 package com.williamfiset.algorithms.ai;
 
-import java.util.*;
+import java.util.BitSet;
+import java.util.Random;
 
 public class GeneticAlgorithm_knapsack_01 {
 
@@ -35,8 +36,7 @@ public class GeneticAlgorithm_knapsack_01 {
     // Create initial population
     Individual[] generation = new Individual[P + 1];
     Individual[] nextGeneration = new Individual[P + 1];
-    for (int i = 1; i <= P; i++)
-      generation[i] = new Individual(N);
+    for (int i = 1; i <= P; i++) generation[i] = new Individual(N);
 
     // Stores the ranges of individuals in the selection roulette
     double[] lo = new double[P + 1];
@@ -70,8 +70,7 @@ public class GeneticAlgorithm_knapsack_01 {
 
         if (fitness[i] > bestEpochFitness) {
           bestEpochFitness = fitness[i];
-          if (bestEpochFitness > bestFitness)
-            bestFitness = bestEpochFitness;
+          if (bestEpochFitness > bestFitness) bestFitness = bestEpochFitness;
         }
       }
 
@@ -89,8 +88,7 @@ public class GeneticAlgorithm_knapsack_01 {
         // Apply mutations to all parts of the DNA
         // according to a predefined mutation rate
         for (int j = 0; j < N; j++) {
-          if (Math.random() < MUTATION_RATE)
-            mutate(child, j);
+          if (Math.random() < MUTATION_RATE) mutate(child, j);
         }
 
         nextGeneration[i] = child;
@@ -109,8 +107,7 @@ public class GeneticAlgorithm_knapsack_01 {
         value += values[i];
         weight += weights[i];
       }
-      if (weight > capacity)
-        return 0;
+      if (weight > capacity) return 0;
     }
     return value;
   }
@@ -127,24 +124,17 @@ public class GeneticAlgorithm_knapsack_01 {
     int mid, l = 0, h = P - 1;
     while (true) {
       mid = (l + h) >>> 1;
-      if (lo[mid] <= r && r < hi[mid])
-        return generation[mid + 1];
-      if (r < lo[mid])
-        h = mid - 1;
-      else
-        l = mid + 1;
+      if (lo[mid] <= r && r < hi[mid]) return generation[mid + 1];
+      if (r < lo[mid]) h = mid - 1;
+      else l = mid + 1;
     }
   }
 
   static Individual crossover(Individual p1, Individual p2, int n) {
     int splitPoint = RANDOM.nextInt(n);
     BitSet newBitSet = new BitSet(n);
-    for (int i = 0; i < splitPoint; i++)
-      if (p1.bits.get(i))
-        newBitSet.flip(i);
-    for (int i = splitPoint; i < n; i++)
-      if (p2.bits.get(i))
-        newBitSet.flip(i);
+    for (int i = 0; i < splitPoint; i++) if (p1.bits.get(i)) newBitSet.flip(i);
+    for (int i = splitPoint; i < n; i++) if (p2.bits.get(i)) newBitSet.flip(i);
     return new Individual(newBitSet);
   }
 
@@ -167,7 +157,8 @@ public class GeneticAlgorithm_knapsack_01 {
 
     System.out.println("\nGenetic algorithm approximation: " + gaAns + "$");
     System.out.println("Actual answer calculated with DP:  " + answer + "$\n");
-    System.out.printf("Genetic algorithm was %.5f%% off from true answer\n\n",
+    System.out.printf(
+        "Genetic algorithm was %.5f%% off from true answer\n\n",
         (1.0 - ((double) gaAns) / answer) * 100);
   }
 
@@ -202,7 +193,7 @@ public class GeneticAlgorithm_knapsack_01 {
      * @param W - The weights of the items
      * @param V - The values of the items
      * @return The maximum achievable profit of selecting a subset of the elements such that the
-     *         capacity of the knapsack is not exceeded
+     *     capacity of the knapsack is not exceeded
      */
     public static int knapsack(int maxWeight, int[] W, int[] V) {
 

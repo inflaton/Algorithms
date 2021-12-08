@@ -5,7 +5,8 @@
  */
 package com.williamfiset.algorithms.graphtheory;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Stack;
 
 class TarjanAdjacencyMatrix {
 
@@ -45,8 +46,8 @@ class TarjanAdjacencyMatrix {
 
     Tarjan sccs = new Tarjan(adjMatrix);
 
-    System.out
-        .println("Strong connected component count: " + sccs.countStronglyConnectedComponents());
+    System.out.println(
+        "Strong connected component count: " + sccs.countStronglyConnectedComponents());
     System.out.println(
         "Strong connected components:\n" + Arrays.toString(sccs.getStronglyConnectedComponents()));
 
@@ -74,9 +75,7 @@ class TarjanAdjacencyMatrix {
       marked = new boolean[n];
       id = new int[n];
       low = new int[n];
-      for (int u = 0; u < n; u++)
-        if (!marked[u])
-          dfs(u);
+      for (int u = 0; u < n; u++) if (!marked[u]) dfs(u);
     }
 
     private void dfs(int u) {
@@ -86,10 +85,8 @@ class TarjanAdjacencyMatrix {
       stack.push(u);
       for (int v = 0; v < n; v++) {
         if (adj[u][v]) {
-          if (!marked[v])
-            dfs(v);
-          if (low[v] < min)
-            min = low[v];
+          if (!marked[v]) dfs(v);
+          if (low[v] < min) min = low[v];
         }
       }
       if (min < low[u]) {

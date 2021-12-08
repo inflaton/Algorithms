@@ -6,7 +6,8 @@
  */
 package com.williamfiset.algorithms.graphtheory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BellmanFordAdjacencyList {
 
@@ -26,8 +27,7 @@ public class BellmanFordAdjacencyList {
   @SuppressWarnings("unchecked")
   public static List<Edge>[] createGraph(final int V) {
     List<Edge>[] graph = new List[V];
-    for (int i = 0; i < V; i++)
-      graph[i] = new ArrayList<>();
+    for (int i = 0; i < V; i++) graph[i] = new ArrayList<>();
     return graph;
   }
 
@@ -67,8 +67,7 @@ public class BellmanFordAdjacencyList {
     for (int i = 0; i < V - 1; i++)
       for (List<Edge> edges : graph)
         for (Edge edge : edges)
-          if (dist[edge.from] + edge.cost < dist[edge.to])
-            dist[edge.to] = Double.NEGATIVE_INFINITY;
+          if (dist[edge.from] + edge.cost < dist[edge.to]) dist[edge.to] = Double.NEGATIVE_INFINITY;
 
     // Return the array containing the shortest distance to every node
     return dist;

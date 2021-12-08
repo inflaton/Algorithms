@@ -2,8 +2,7 @@
  * Implementation of the Capacity Scaling algorithm using a DFS as a method of finding augmenting
  * paths.
  *
- * <p>
- * Time Complexity: O(E^2log(U)), where E = num edges, U = max capacity
+ * <p>Time Complexity: O(E^2log(U)), where E = num edges, U = max capacity
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -63,15 +62,12 @@ public class CapacityScalingSolverAdjacencyList extends NetworkFlowSolverBase {
     }
 
     // Find min cut.
-    for (int i = 0; i < n; i++)
-      if (visited(i))
-        minCut[i] = true;
+    for (int i = 0; i < n; i++) if (visited(i)) minCut[i] = true;
   }
 
   private long dfs(int node, long flow) {
     // At sink node, return augmented path flow.
-    if (node == t)
-      return flow;
+    if (node == t) return flow;
 
     List<Edge> edges = graph[node];
     visit(node);

@@ -5,7 +5,7 @@
  */
 package com.williamfiset.algorithms.geometry;
 
-import static java.lang.Math.*;
+import static java.lang.Math.abs;
 
 import java.awt.geom.Point2D;
 
@@ -66,10 +66,8 @@ public class Line {
     // reciprocal or -(x2-x1)/(y2-y1) = (x1-x2)/(y2-y1)
     double perpSlope = (x1 - x2) / (y2 - y1);
 
-    if (abs(y2 - y1) < EPS)
-      perpSlope = Double.POSITIVE_INFINITY;
-    else if (abs(x1 - x2) < EPS)
-      perpSlope = 0;
+    if (abs(y2 - y1) < EPS) perpSlope = Double.POSITIVE_INFINITY;
+    else if (abs(x1 - x2) < EPS) perpSlope = 0;
 
     return slopePointToLine(perpSlope, middle);
   }
@@ -82,8 +80,7 @@ public class Line {
     l2.normalise();
 
     // Lines are parallel
-    if (abs(l1.a - l2.a) < EPS && abs(l1.b - l2.b) < EPS)
-      return null;
+    if (abs(l1.a - l2.a) < EPS && abs(l1.b - l2.b) < EPS) return null;
 
     double x = Double.NaN, y = Double.NaN;
     if (abs(l1.b) < EPS) {

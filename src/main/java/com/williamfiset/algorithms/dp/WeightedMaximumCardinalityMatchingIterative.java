@@ -3,21 +3,15 @@
  * given a distance matrix which gives the distance from each node to every other node, and you want
  * to pair up all the nodes to one another minimizing the overall cost.
  *
- * <p>
- * Tested against: UVA 10911 - Forming Quiz Teams
+ * <p>Tested against: UVA 10911 - Forming Quiz Teams
  *
- * <p>
- * To Run: ./gradlew run -Palgorithm=dp.WeightedMaximumCardinalityMatchingIterative
+ * <p>To Run: ./gradlew run -Palgorithm=dp.WeightedMaximumCardinalityMatchingIterative
  *
- * <p>
- * Time Complexity: O(n^2 * 2^n)
+ * <p>Time Complexity: O(n^2 * 2^n)
  *
  * @author William Fiset
  */
 package com.williamfiset.algorithms.dp;
-
-import java.awt.geom.*;
-import java.util.*;
 
 // NOTE: This class does not support WMCM generally. It assumes a complete graph structure.
 public class WeightedMaximumCardinalityMatchingIterative implements MwpmInterface {
@@ -36,11 +30,9 @@ public class WeightedMaximumCardinalityMatchingIterative implements MwpmInterfac
 
   // The cost matrix should be a symmetric (i.e cost[i][j] = cost[j][i])
   public WeightedMaximumCardinalityMatchingIterative(double[][] cost) {
-    if (cost == null)
-      throw new IllegalArgumentException("Input cannot be null");
+    if (cost == null) throw new IllegalArgumentException("Input cannot be null");
     n = cost.length;
-    if (n == 0)
-      throw new IllegalArgumentException("Matrix size is zero");
+    if (n == 0) throw new IllegalArgumentException("Matrix size is zero");
     if (n % 2 != 0)
       throw new IllegalArgumentException("Matrix has an odd size, no perfect matching exists.");
     if (n > 32)
@@ -61,11 +53,9 @@ public class WeightedMaximumCardinalityMatchingIterative implements MwpmInterfac
    * index 2*i and 2*i+1 form a matched pair. For example, nodes at indexes (0, 1) are a pair, (2,
    * 3) are another pair, etc...
    *
-   * <p>
-   * How to iterate over the pairs:
+   * <p>How to iterate over the pairs:
    *
-   * <pre>
-   * {@code
+   * <pre>{@code
    * WeightedMaximumCardinalityMatchingIterative mwpm = ...
    * int[] matching = mwpm.getMatching();
    * for (int i = 0; i < matching.length / 2; i++) {
@@ -73,8 +63,7 @@ public class WeightedMaximumCardinalityMatchingIterative implements MwpmInterfac
    *   int node2 = matching[2*i+1];
    *   // Do something with the matched pair (node1, node2)
    * }
-   * }
-   * </pre>
+   * }</pre>
    */
   public int[] getMatching() {
     solve();
@@ -82,8 +71,7 @@ public class WeightedMaximumCardinalityMatchingIterative implements MwpmInterfac
   }
 
   private void solve() {
-    if (solved)
-      return;
+    if (solved) return;
 
     // The DP state is encoded as a bitmask where the i'th bit is flipped on if the
     // i'th node is
@@ -135,8 +123,7 @@ public class WeightedMaximumCardinalityMatchingIterative implements MwpmInterfac
       for (int i = 0; i < numPairs; i++) { // O(n^2)
         int pair = pairStates[i];
         // Ignore states which overlap
-        if ((state & pair) != 0)
-          continue;
+        if ((state & pair) != 0) continue;
 
         int newState = state | pair;
         double newCost = dp[state] + pairCost[i];
@@ -214,8 +201,14 @@ public class WeightedMaximumCardinalityMatchingIterative implements MwpmInterfac
 
   private static void test() {
     // mwpm is expected to be between nodes: 0 & 5, 1 & 2, 3 & 4
-    double[][] costMatrix = {{0, 9, 9, 9, 9, 1}, {9, 0, 1, 9, 9, 9}, {9, 1, 0, 9, 9, 9},
-        {9, 9, 9, 0, 1, 9}, {9, 9, 9, 1, 0, 9}, {1, 9, 9, 9, 9, 0},};
+    double[][] costMatrix = {
+      {0, 9, 9, 9, 9, 1},
+      {9, 0, 1, 9, 9, 9},
+      {9, 1, 0, 9, 9, 9},
+      {9, 9, 9, 0, 1, 9},
+      {9, 9, 9, 1, 0, 9},
+      {1, 9, 9, 9, 9, 0},
+    };
 
     WeightedMaximumCardinalityMatchingIterative mwpm =
         new WeightedMaximumCardinalityMatchingIterative(costMatrix);

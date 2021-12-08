@@ -2,14 +2,14 @@
  * This file shows you how to determine if a point is inside or on the boundary of a triangle formed
  * by three points.
  *
- * <p>
- * Time Complexity: O(1)
+ * <p>Time Complexity: O(1)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.geometry;
 
-import static java.lang.Math.*;
+import static java.lang.Math.abs;
+import static java.lang.Math.signum;
 
 import java.awt.geom.Point2D;
 
@@ -65,8 +65,7 @@ public class PointInsideTriangle {
     double bx = b.getX(), by = b.getY();
     double cx = c.getX(), cy = c.getY();
     double area = (bx - ax) * (cy - ay) - (by - ay) * (cx - ax);
-    if (abs(area) < EPS)
-      return 0;
+    if (abs(area) < EPS) return 0;
     return (int) signum(area);
   }
 

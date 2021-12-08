@@ -19,16 +19,13 @@ public class BoothsAlgorithm {
       char sj = s.charAt(j);
       int i = f[j - k - 1];
       while (i != -1 && sj != s.charAt(k + i + 1)) {
-        if (sj < s.charAt(k + i + 1))
-          k = j - i - 1;
+        if (sj < s.charAt(k + i + 1)) k = j - i - 1;
         i = f[i];
       }
       if (sj != s.charAt(k + i + 1)) {
-        if (sj < s.charAt(k))
-          k = j;
+        if (sj < s.charAt(k)) k = j;
         f[j - k] = -1;
-      } else
-        f[j - k] = i + 1;
+      } else f[j - k] = i + 1;
     }
     return k;
   }

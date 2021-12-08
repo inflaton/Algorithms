@@ -19,8 +19,7 @@ public class LongestIncreasingSubsequence {
   // Finds the length of the longest increasing subsequence length, O(n^2)
   public static int lis(int[] ar) {
 
-    if (ar == null || ar.length == 0)
-      return 0;
+    if (ar == null || ar.length == 0) return 0;
     int n = ar.length, len = 0;
 
     // When starting, each individual element has a LIS
@@ -38,8 +37,7 @@ public class LongestIncreasingSubsequence {
         }
       }
       // Track the LIS
-      if (dp[i] > len)
-        len = dp[i];
+      if (dp[i] > len) len = dp[i];
     }
 
     return len;

@@ -1,12 +1,11 @@
 package com.williamfiset.algorithms.datastructures.queue;
 
-import org.junit.Before;
-import org.junit.Test;
+import static com.google.common.truth.Truth.assertThat;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.google.common.truth.Truth.assertThat;
+import org.junit.Before;
+import org.junit.Test;
 
 public class QueueTest {
 

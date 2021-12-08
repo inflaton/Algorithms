@@ -17,8 +17,7 @@ public class DynamicArray<T> implements Iterable<T> {
   }
 
   public DynamicArray(int capacity) {
-    if (capacity < 0)
-      throw new IllegalArgumentException("Illegal Capacity: " + capacity);
+    if (capacity < 0) throw new IllegalArgumentException("Illegal Capacity: " + capacity);
     this.capacity = capacity;
     arr = (T[]) new Object[capacity];
   }
@@ -32,20 +31,17 @@ public class DynamicArray<T> implements Iterable<T> {
   }
 
   public T get(int index) {
-    if (index >= len || index < 0)
-      throw new IndexOutOfBoundsException();
+    if (index >= len || index < 0) throw new IndexOutOfBoundsException();
     return arr[index];
   }
 
   public void set(int index, T elem) {
-    if (index >= len || index < 0)
-      throw new IndexOutOfBoundsException();
+    if (index >= len || index < 0) throw new IndexOutOfBoundsException();
     arr[index] = elem;
   }
 
   public void clear() {
-    for (int i = 0; i < len; i++)
-      arr[i] = null;
+    for (int i = 0; i < len; i++) arr[i] = null;
     len = 0;
   }
 
@@ -53,13 +49,10 @@ public class DynamicArray<T> implements Iterable<T> {
 
     // Time to resize!
     if (len + 1 >= capacity) {
-      if (capacity == 0)
-        capacity = 1;
-      else
-        capacity *= 2; // double the size
+      if (capacity == 0) capacity = 1;
+      else capacity *= 2; // double the size
       T[] new_arr = (T[]) new Object[capacity];
-      for (int i = 0; i < len; i++)
-        new_arr[i] = arr[i];
+      for (int i = 0; i < len; i++) new_arr[i] = arr[i];
       arr = new_arr; // arr has extra nulls padded
     }
 
@@ -68,15 +61,12 @@ public class DynamicArray<T> implements Iterable<T> {
 
   // Removes an element at the specified index in this array.
   public T removeAt(int rm_index) {
-    if (rm_index >= len || rm_index < 0)
-      throw new IndexOutOfBoundsException();
+    if (rm_index >= len || rm_index < 0) throw new IndexOutOfBoundsException();
     T data = arr[rm_index];
     T[] new_arr = (T[]) new Object[len - 1];
     for (int i = 0, j = 0; i < len; i++, j++)
-      if (i == rm_index)
-        j--; // Skip over rm_index by fixing j temporarily
-      else
-        new_arr[j] = arr[i];
+      if (i == rm_index) j--; // Skip over rm_index by fixing j temporarily
+      else new_arr[j] = arr[i];
     arr = new_arr;
     capacity = --len;
     return data;
@@ -84,8 +74,7 @@ public class DynamicArray<T> implements Iterable<T> {
 
   public boolean remove(Object obj) {
     int index = indexOf(obj);
-    if (index == -1)
-      return false;
+    if (index == -1) return false;
     removeAt(index);
     return true;
   }
@@ -93,11 +82,9 @@ public class DynamicArray<T> implements Iterable<T> {
   public int indexOf(Object obj) {
     for (int i = 0; i < len; i++) {
       if (obj == null) {
-        if (arr[i] == null)
-          return i;
+        if (arr[i] == null) return i;
       } else {
-        if (obj.equals(arr[i]))
-          return i;
+        if (obj.equals(arr[i])) return i;
       }
     }
     return -1;
@@ -132,12 +119,10 @@ public class DynamicArray<T> implements Iterable<T> {
 
   @Override
   public String toString() {
-    if (len == 0)
-      return "[]";
+    if (len == 0) return "[]";
     else {
       StringBuilder sb = new StringBuilder(len).append("[");
-      for (int i = 0; i < len - 1; i++)
-        sb.append(arr[i] + ", ");
+      for (int i = 0; i < len - 1; i++) sb.append(arr[i] + ", ");
       return sb.append(arr[len - 1] + "]").toString();
     }
   }

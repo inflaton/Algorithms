@@ -3,14 +3,13 @@
  * node adds all the edges to the min priority queue and also removes already seen edges when
  * polling.
  *
- * <p>
- * Time Complexity: O(V^2)
+ * <p>Time Complexity: O(V^2)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.graphtheory;
 
-import java.util.*;
+import java.util.PriorityQueue;
 
 public class LazyPrimsAdjacencyMatrix {
 
@@ -40,9 +39,7 @@ public class LazyPrimsAdjacencyMatrix {
     boolean[] connected = new boolean[n];
     connected[0] = true;
 
-    for (int i = 1; i < n; i++)
-      if (graph[0][i] != null)
-        pq.offer(new Edge(i, graph[0][i]));
+    for (int i = 1; i < n; i++) if (graph[0][i] != null) pq.offer(new Edge(i, graph[0][i]));
 
     // Loop while the MST is not complete
     while (visitedNodes != n && !pq.isEmpty()) {
@@ -53,8 +50,7 @@ public class LazyPrimsAdjacencyMatrix {
 
         // Update minimum distances
         for (int i = 0; i < n; i++)
-          if (!connected[i] && graph[edge.to][i] != null)
-            pq.offer(new Edge(i, graph[edge.to][i]));
+          if (!connected[i] && graph[edge.to][i] != null) pq.offer(new Edge(i, graph[edge.to][i]));
 
         connected[edge.to] = true;
         sum += edge.cost;
@@ -63,8 +59,7 @@ public class LazyPrimsAdjacencyMatrix {
     }
 
     // Make sure MST spans the whole graph
-    if (visitedNodes != n)
-      return null;
+    if (visitedNodes != n) return null;
     return sum;
   }
 

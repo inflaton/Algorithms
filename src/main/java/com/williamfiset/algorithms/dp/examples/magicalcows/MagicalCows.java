@@ -3,19 +3,15 @@ package com.williamfiset.algorithms.dp.examples.magicalcows;
 /**
  * Solution to Magical Cows (https://open.kattis.com/problems/magicalcows)
  *
- * <p>
- * Problem author: Graeme Zinck
+ * <p>Problem author: Graeme Zinck
  *
- * <p>
- * Solution by: William Fiset
+ * <p>Solution by: William Fiset
  *
- * <p>
- * The main thing to realize with magical cows is that the total number of cows allowed on each farm
- * is bounded by C which is less than or equal to 1000, so you can keep track of all cows in a
+ * <p>The main thing to realize with magical cows is that the total number of cows allowed on each
+ * farm is bounded by C which is less than or equal to 1000, so you can keep track of all cows in a
  * frequency table for each farm size.
  *
- * <p>
- * NOTE: You can ignore taking the floor/ceiling of the number of cows on a split since when you
+ * <p>NOTE: You can ignore taking the floor/ceiling of the number of cows on a split since when you
  * double the number of cows you always get an even number.
  */
 import java.io.BufferedReader;

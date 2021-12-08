@@ -1,24 +1,25 @@
 /**
  * Tests for Kosaraju's algorithm
  *
- * <p>
- * gradle test --info --tests "com.williamfiset.algorithms.graphtheory.KosarajuTest"
+ * <p>gradle test --info --tests "com.williamfiset.algorithms.graphtheory.KosarajuTest"
  */
 package com.williamfiset.algorithms.graphtheory;
 
 import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.collect.ImmutableList;
-import java.util.*;
-import org.junit.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import org.junit.Test;
 
 public class KosarajuTest {
 
   // Initialize graph with 'n' nodes.
   public static List<List<Integer>> createGraph(int n) {
     List<List<Integer>> graph = new ArrayList<>();
-    for (int i = 0; i < n; i++)
-      graph.add(new ArrayList<>());
+    for (int i = 0; i < n; i++) graph.add(new ArrayList<>());
     return graph;
   }
 
@@ -105,8 +106,14 @@ public class KosarajuTest {
     solver.solve();
 
     List<List<Integer>> expectedSccs =
-        ImmutableList.of(ImmutableList.of(0), ImmutableList.of(1), ImmutableList.of(2),
-            ImmutableList.of(3), ImmutableList.of(4), ImmutableList.of(5), ImmutableList.of(6));
+        ImmutableList.of(
+            ImmutableList.of(0),
+            ImmutableList.of(1),
+            ImmutableList.of(2),
+            ImmutableList.of(3),
+            ImmutableList.of(4),
+            ImmutableList.of(5),
+            ImmutableList.of(6));
 
     assertThat(solver.sccCount()).isEqualTo(expectedSccs.size());
     assertThat(isScc(solver.getSccs(), expectedSccs)).isTrue();
@@ -137,11 +144,22 @@ public class KosarajuTest {
     Kosaraju solver = new Kosaraju(g);
     solver.solve();
 
-    List<List<Integer>> expectedSccs = ImmutableList.of(ImmutableList.of(0), ImmutableList.of(2),
-        ImmutableList.of(3), ImmutableList.of(4), ImmutableList.of(5), ImmutableList.of(6),
-        ImmutableList.of(7), ImmutableList.of(8), ImmutableList.of(9), ImmutableList.of(10),
-        ImmutableList.of(1, 11, 12), ImmutableList.of(13), ImmutableList.of(14),
-        ImmutableList.of(15));
+    List<List<Integer>> expectedSccs =
+        ImmutableList.of(
+            ImmutableList.of(0),
+            ImmutableList.of(2),
+            ImmutableList.of(3),
+            ImmutableList.of(4),
+            ImmutableList.of(5),
+            ImmutableList.of(6),
+            ImmutableList.of(7),
+            ImmutableList.of(8),
+            ImmutableList.of(9),
+            ImmutableList.of(10),
+            ImmutableList.of(1, 11, 12),
+            ImmutableList.of(13),
+            ImmutableList.of(14),
+            ImmutableList.of(15));
 
     assertThat(solver.sccCount()).isEqualTo(expectedSccs.size());
     assertThat(isScc(solver.getSccs(), expectedSccs)).isTrue();
@@ -172,8 +190,12 @@ public class KosarajuTest {
     Kosaraju solver = new Kosaraju(g);
     solver.solve();
 
-    List<List<Integer>> expectedSccs = ImmutableList.of(ImmutableList.of(0, 1, 8),
-        ImmutableList.of(7, 6), ImmutableList.of(2, 3, 5), ImmutableList.of(4));
+    List<List<Integer>> expectedSccs =
+        ImmutableList.of(
+            ImmutableList.of(0, 1, 8),
+            ImmutableList.of(7, 6),
+            ImmutableList.of(2, 3, 5),
+            ImmutableList.of(4));
 
     assertThat(solver.sccCount()).isEqualTo(expectedSccs.size());
     assertThat(isScc(solver.getSccs(), expectedSccs)).isTrue();
@@ -201,8 +223,9 @@ public class KosarajuTest {
     Kosaraju solver = new Kosaraju(g);
     solver.solve();
 
-    List<List<Integer>> expectedSccs = ImmutableList.of(ImmutableList.of(6, 5, 4),
-        ImmutableList.of(3, 7), ImmutableList.of(0, 2, 1));
+    List<List<Integer>> expectedSccs =
+        ImmutableList.of(
+            ImmutableList.of(6, 5, 4), ImmutableList.of(3, 7), ImmutableList.of(0, 2, 1));
     assertThat(solver.sccCount()).isEqualTo(expectedSccs.size());
     assertThat(isScc(solver.getSccs(), expectedSccs)).isTrue();
   }
@@ -217,10 +240,8 @@ public class KosarajuTest {
         componentId = ids[index];
         set.add(componentId);
       }
-      if (sccComponentIds.contains(componentId))
-        return false;
-      if (set.size() != 1)
-        return false;
+      if (sccComponentIds.contains(componentId)) return false;
+      if (set.size() != 1) return false;
       sccComponentIds.add(componentId);
     }
     return true;

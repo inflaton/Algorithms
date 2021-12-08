@@ -2,14 +2,15 @@
  * An implementation of the lazy version of Prim's algorithm which relies on using a traditional
  * priority queue to query the next best edge.
  *
- * <p>
- * Time Complexity: O(ElogE)
+ * <p>Time Complexity: O(ElogE)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.graphtheory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.PriorityQueue;
 
 public class LazyPrimsAdjacencyList {
 
@@ -43,8 +44,7 @@ public class LazyPrimsAdjacencyList {
   private Edge[] mstEdges;
 
   public LazyPrimsAdjacencyList(List<List<Edge>> graph) {
-    if (graph == null || graph.isEmpty())
-      throw new IllegalArgumentException();
+    if (graph == null || graph.isEmpty()) throw new IllegalArgumentException();
     this.n = graph.size();
     this.graph = graph;
   }
@@ -76,8 +76,7 @@ public class LazyPrimsAdjacencyList {
 
   // Computes the minimum spanning tree and minimum spanning tree cost.
   private void solve() {
-    if (solved)
-      return;
+    if (solved) return;
     solved = true;
 
     int m = n - 1, edgeCount = 0;
@@ -94,8 +93,7 @@ public class LazyPrimsAdjacencyList {
       int nodeIndex = edge.to;
 
       // Skip any edge pointing to an already visited node.
-      if (visited[nodeIndex])
-        continue;
+      if (visited[nodeIndex]) continue;
 
       mstEdges[edgeCount++] = edge;
       minCostSum += edge.cost;
@@ -111,8 +109,7 @@ public class LazyPrimsAdjacencyList {
 
   static List<List<Edge>> createEmptyGraph(int n) {
     List<List<Edge>> g = new ArrayList<>();
-    for (int i = 0; i < n; i++)
-      g.add(new ArrayList<>());
+    for (int i = 0; i < n; i++) g.add(new ArrayList<>());
     return g;
   }
 

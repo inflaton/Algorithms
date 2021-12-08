@@ -2,21 +2,16 @@
  * An implementation of the Ford-Fulkerson (FF) method with a DFS as a method of finding augmenting
  * paths.
  *
- * <p>
- * Time Complexity: O(fE), where f is the max flow and E is the number of edges
+ * <p>Time Complexity: O(fE), where f is the max flow and E is the number of edges
  *
- * <p>
- * Download the code: $ git clone https://github.com/williamfiset/Algorithms
+ * <p>Download the code: $ git clone https://github.com/williamfiset/Algorithms
  *
- * <p>
- * Change directory to the root of the Algorithms directory: $ cd Algorithms
+ * <p>Change directory to the root of the Algorithms directory: $ cd Algorithms
  *
- * <p>
- * Build: $ javac -d src/main/java
+ * <p>Build: $ javac -d src/main/java
  * src/main/java/com/williamfiset/algorithms/graphtheory/networkflow/examples/FordFulkersonExample.java
  *
- * <p>
- * Run: $ java -cp src/main/java
+ * <p>Run: $ java -cp src/main/java
  * com/williamfiset/algorithms/graphtheory/networkflow/examples/FordFulkersonExample
  */
 package com.williamfiset.algorithms.graphtheory.networkflow.examples;
@@ -56,8 +51,9 @@ public class FordFulkersonExample {
     public String toString(int s, int t) {
       String u = (from == s) ? "s" : ((from == t) ? "t" : String.valueOf(from));
       String v = (to == s) ? "s" : ((to == t) ? "t" : String.valueOf(to));
-      return String.format("Edge %s -> %s | flow = %3d | capacity = %3d | is residual: %s", u, v,
-          flow, capacity, isResidual());
+      return String.format(
+          "Edge %s -> %s | flow = %3d | capacity = %3d | is residual: %s",
+          u, v, flow, capacity, isResidual());
     }
   }
 
@@ -106,8 +102,7 @@ public class FordFulkersonExample {
     @SuppressWarnings("unchecked")
     private void initializeEmptyFlowGraph() {
       graph = new List[n];
-      for (int i = 0; i < n; i++)
-        graph[i] = new ArrayList<Edge>();
+      for (int i = 0; i < n; i++) graph[i] = new ArrayList<Edge>();
     }
 
     /**
@@ -118,8 +113,7 @@ public class FordFulkersonExample {
      * @param capacity - The capacity of the edge
      */
     public void addEdge(int from, int to, long capacity) {
-      if (capacity <= 0)
-        throw new IllegalArgumentException("Forward edge capacity <= 0");
+      if (capacity <= 0) throw new IllegalArgumentException("Forward edge capacity <= 0");
       Edge e1 = new Edge(from, to, capacity);
       Edge e2 = new Edge(to, from, 0);
       e1.residual = e2;
@@ -146,8 +140,7 @@ public class FordFulkersonExample {
 
     // Wrapper method that ensures we only call solve() once
     private void execute() {
-      if (solved)
-        return;
+      if (solved) return;
       solved = true;
       solve();
     }
@@ -183,8 +176,7 @@ public class FordFulkersonExample {
 
     private long dfs(int node, long flow) {
       // At sink node, return augmented path flow.
-      if (node == t)
-        return flow;
+      if (node == t) return flow;
 
       // Mark the current node as visited.
       visited[node] = visitedToken;
@@ -247,8 +239,6 @@ public class FordFulkersonExample {
     List<Edge>[] resultGraph = solver.getGraph();
 
     // Displays all edges part of the resulting residual graph.
-    for (List<Edge> edges : resultGraph)
-      for (Edge e : edges)
-        System.out.println(e.toString(s, t));
+    for (List<Edge> edges : resultGraph) for (Edge e : edges) System.out.println(e.toString(s, t));
   }
 }

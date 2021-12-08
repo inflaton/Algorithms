@@ -10,8 +10,7 @@ public class ModularInverse {
   // and can be used for several things such as finding modular inverses and
   // solutions to linear Diophantine equations.
   private static long[] egcd(long a, long b) {
-    if (b == 0)
-      return new long[] {a, 1L, 0L};
+    if (b == 0) return new long[] {a, 1L, 0L};
     long[] v = egcd(b, a % b);
     long tmp = v[1] - v[2] * (a / b);
     v[1] = v[2];
@@ -23,8 +22,7 @@ public class ModularInverse {
   // Make sure m > 0 and 'a' & 'm' are relatively prime.
   public static Long modInv(long a, long m) {
 
-    if (m <= 0)
-      throw new ArithmeticException("mod must be > 0");
+    if (m <= 0) throw new ArithmeticException("mod must be > 0");
 
     // Avoid a being negative
     a = ((a % m) + m) % m;
@@ -33,8 +31,7 @@ public class ModularInverse {
     long gcd = v[0];
     long x = v[1];
 
-    if (gcd != 1)
-      return null;
+    if (gcd != 1) return null;
     return ((x + m) % m) % m;
   }
 

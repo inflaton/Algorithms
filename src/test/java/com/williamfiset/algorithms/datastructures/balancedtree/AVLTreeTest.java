@@ -1,14 +1,13 @@
 package com.williamfiset.algorithms.datastructures.balancedtree;
 
-import org.junit.Before;
-import org.junit.Test;
+import static com.google.common.truth.Truth.assertThat;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.TreeSet;
-
-import static com.google.common.truth.Truth.assertThat;
+import org.junit.Before;
+import org.junit.Test;
 
 public class AVLTreeTest {
 
@@ -130,10 +129,8 @@ public class AVLTreeTest {
 
   // Make sure all balance factor values are either -1, 0 or +1
   static boolean validateBalanceFactorValues(AVLTreeRecursive<Integer>.Node node) {
-    if (node == null)
-      return true;
-    if (node.bf > +1 || node.bf < -1)
-      return false;
+    if (node == null) return true;
+    if (node.bf > +1 || node.bf < -1) return false;
     return validateBalanceFactorValues(node.left) && validateBalanceFactorValues(node.right);
   }
 
@@ -237,8 +234,7 @@ public class AVLTreeTest {
 
   static List<Integer> genRandList(int sz) {
     List<Integer> lst = new ArrayList<>(sz);
-    for (int i = 0; i < sz; i++)
-      lst.add(i); // unique values.
+    for (int i = 0; i < sz; i++) lst.add(i); // unique values.
     Collections.shuffle(lst);
     return lst;
   }

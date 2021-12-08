@@ -6,7 +6,8 @@
  */
 package com.williamfiset.algorithms.geometry;
 
-import static java.lang.Math.*;
+import static java.lang.Math.abs;
+import static java.lang.Math.signum;
 
 import java.awt.geom.Point2D;
 
@@ -31,16 +32,12 @@ public class ConvexPolygonContainsPoint {
     while (lo != hi) {
       Point2D p1 = hull[mid];
       double sign = collinear(p0, p1, p);
-      if (sign >= 0)
-        lo = mid;
-      else if (sign < 0)
-        hi = mid;
+      if (sign >= 0) lo = mid;
+      else if (sign < 0) hi = mid;
       mid = (lo + hi) >>> 1;
       if (hi - lo == 1) {
-        if (collinear(p0, hull[hi], p) >= 0)
-          lo = hi;
-        else
-          hi = lo;
+        if (collinear(p0, hull[hi], p) >= 0) lo = hi;
+        else hi = lo;
       }
     }
 
@@ -62,8 +59,7 @@ public class ConvexPolygonContainsPoint {
     double bx = b.getX(), by = b.getY();
     double cx = c.getX(), cy = c.getY();
     double area = (bx - ax) * (cy - ay) - (by - ay) * (cx - ax);
-    if (abs(area) < EPS)
-      return 0;
+    if (abs(area) < EPS) return 0;
     return (int) signum(area);
   }
 }

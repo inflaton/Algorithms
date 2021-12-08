@@ -3,17 +3,17 @@ package com.williamfiset.algorithms.graphtheory;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.collect.ImmutableList;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.commons.lang3.tuple.Pair;
-import org.junit.*;
+import org.junit.Test;
 
 public class BridgesAdjacencyListIterativeTest {
 
   // Initialize graph with 'n' nodes.
   public static List<List<Integer>> createGraph(int n) {
     List<List<Integer>> graph = new ArrayList<>();
-    for (int i = 0; i < n; i++)
-      graph.add(new ArrayList<>());
+    for (int i = 0; i < n; i++) graph.add(new ArrayList<>());
     return graph;
   }
 
@@ -44,9 +44,19 @@ public class BridgesAdjacencyListIterativeTest {
     BridgesAdjacencyList solver = new BridgesAdjacencyList(graph, n);
     List<Pair<Integer, Integer>> sortedBridges = getSortedBridges(solver.findBridges());
 
-    List<Pair<Integer, Integer>> expected = ImmutableList.of(Pair.of(0, 1), Pair.of(0, 2),
-        Pair.of(2, 5), Pair.of(5, 6), Pair.of(5, 11), Pair.of(4, 5), Pair.of(4, 10), Pair.of(3, 4),
-        Pair.of(3, 7), Pair.of(7, 8), Pair.of(7, 9));
+    List<Pair<Integer, Integer>> expected =
+        ImmutableList.of(
+            Pair.of(0, 1),
+            Pair.of(0, 2),
+            Pair.of(2, 5),
+            Pair.of(5, 6),
+            Pair.of(5, 11),
+            Pair.of(4, 5),
+            Pair.of(4, 10),
+            Pair.of(3, 4),
+            Pair.of(3, 7),
+            Pair.of(7, 8),
+            Pair.of(7, 9));
 
     assertThat(sortedBridges).containsExactlyElementsIn(expected);
   }
@@ -123,8 +133,14 @@ public class BridgesAdjacencyListIterativeTest {
     BridgesAdjacencyList solver = new BridgesAdjacencyList(graph, n);
     List<Pair<Integer, Integer>> sortedBridges = getSortedBridges(solver.findBridges());
 
-    List<Pair<Integer, Integer>> expected = ImmutableList.of(Pair.of(0, 1), Pair.of(1, 2),
-        Pair.of(3, 4), Pair.of(7, 8), Pair.of(8, 9), Pair.of(8, 10));
+    List<Pair<Integer, Integer>> expected =
+        ImmutableList.of(
+            Pair.of(0, 1),
+            Pair.of(1, 2),
+            Pair.of(3, 4),
+            Pair.of(7, 8),
+            Pair.of(8, 9),
+            Pair.of(8, 10));
 
     assertThat(sortedBridges).containsExactlyElementsIn(expected);
   }

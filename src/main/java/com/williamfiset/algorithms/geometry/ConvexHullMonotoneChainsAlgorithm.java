@@ -8,12 +8,10 @@
  * O(nlog-n) time due to the sort time. After that, it only takes O(n) time to compute the hull." -
  * Dan Sunday
  *
- * <p>
- * This code is a modification of the monotone chains algorithm found on wikibooks.
+ * <p>This code is a modification of the monotone chains algorithm found on wikibooks.
  * https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain
  *
- * <p>
- * Time Complexity: O(nlogn)
+ * <p>Time Complexity: O(nlogn)
  *
  * @author A. M. Andrew, Dan Sunday, William Fiset
  */
@@ -21,8 +19,9 @@ package com.williamfiset.algorithms.geometry;
 
 import static java.lang.Math.abs;
 
-import java.awt.geom.*;
-import java.util.*;
+import java.awt.geom.Point2D;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class ConvexHullMonotoneChainsAlgorithm {
 
@@ -33,12 +32,9 @@ public class ConvexHullMonotoneChainsAlgorithm {
   private static class PointComparator implements Comparator<Point2D> {
     public int compare(Point2D p1, Point2D p2) {
       if (abs(p1.getX() - p2.getX()) < EPS) {
-        if (abs(p1.getY() - p2.getY()) < EPS)
-          return 0;
-        else if (p1.getY() > p2.getY())
-          return 1;
-      } else if (p1.getX() > p2.getX())
-        return 1;
+        if (abs(p1.getY() - p2.getY()) < EPS) return 0;
+        else if (p1.getY() > p2.getY()) return 1;
+      } else if (p1.getX() > p2.getX()) return 1;
       return -1;
     }
   }
@@ -48,16 +44,14 @@ public class ConvexHullMonotoneChainsAlgorithm {
   public static Point2D[] convexHull(Point2D[] pts) {
 
     int n = pts.length, k = 0;
-    if (n <= 1)
-      return pts;
+    if (n <= 1) return pts;
 
     Point2D[] hull = new Point2D[2 * n];
     Arrays.sort(pts, new PointComparator());
 
     // Build upper chain.
     for (int i = 0; i < n; i++) {
-      while (k >= 2 && orientation(hull[k - 2], hull[k - 1], pts[i]) <= 0)
-        k--;
+      while (k >= 2 && orientation(hull[k - 2], hull[k - 1], pts[i]) <= 0) k--;
       hull[k++] = pts[i];
     }
 
@@ -65,8 +59,7 @@ public class ConvexHullMonotoneChainsAlgorithm {
 
     // Build lower chain.
     for (int i = n - 2; i >= 0; i--) {
-      while (k > lastUpperChainIndex && orientation(hull[k - 2], hull[k - 1], pts[i]) <= 0)
-        k--;
+      while (k > lastUpperChainIndex && orientation(hull[k - 2], hull[k - 1], pts[i]) <= 0) k--;
       hull[k++] = pts[i];
     }
 
@@ -90,10 +83,10 @@ public class ConvexHullMonotoneChainsAlgorithm {
   // Returns +1 if 'c' is counter clockwise to segment (a, b), i.e left of line
   // formed by the segment.
   private static int orientation(Point2D a, Point2D b, Point2D c) {
-    double value = (b.getY() - a.getY()) * (c.getX() - b.getX())
-        - (b.getX() - a.getX()) * (c.getY() - b.getY());
-    if (abs(value) < EPS)
-      return 0;
+    double value =
+        (b.getY() - a.getY()) * (c.getX() - b.getX())
+            - (b.getX() - a.getX()) * (c.getY() - b.getY());
+    if (abs(value) < EPS) return 0;
     return (value > 0) ? -1 : +1;
   }
 }

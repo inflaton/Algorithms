@@ -1,6 +1,8 @@
 package com.williamfiset.algorithms.utils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public final class TestUtils {
 
@@ -8,8 +10,7 @@ public final class TestUtils {
   // [min, max) and there are possible repeats.
   public static int[] randomIntegerArray(int sz, int min, int max) {
     int[] ar = new int[sz];
-    for (int i = 0; i < sz; i++)
-      ar[i] = randValue(min, max);
+    for (int i = 0; i < sz; i++) ar[i] = randValue(min, max);
     return ar;
   }
 
@@ -17,8 +18,7 @@ public final class TestUtils {
   // [min, max) and there are possible repeats.
   public static long[] randomLongArray(int sz, long min, long max) {
     long[] ar = new long[sz];
-    for (int i = 0; i < sz; i++)
-      ar[i] = randValue(min, max);
+    for (int i = 0; i < sz; i++) ar[i] = randValue(min, max);
     return ar;
   }
 
@@ -26,8 +26,7 @@ public final class TestUtils {
   // [min, max) and there are possible repeats.
   public static List<Integer> randomIntegerList(int sz, int min, int max) {
     List<Integer> lst = new ArrayList<>(sz);
-    for (int i = 0; i < sz; i++)
-      lst.add(randValue(min, max));
+    for (int i = 0; i < sz; i++) lst.add(randValue(min, max));
     return lst;
   }
 
@@ -35,8 +34,7 @@ public final class TestUtils {
   // is in the range of [0, sz)
   public static List<Integer> randomUniformUniqueIntegerList(int sz) {
     List<Integer> lst = new ArrayList<>(sz);
-    for (int i = 0; i < sz; i++)
-      lst.add(i);
+    for (int i = 0; i < sz; i++) lst.add(i);
     Collections.shuffle(lst);
     return lst;
   }

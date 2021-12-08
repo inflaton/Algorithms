@@ -23,8 +23,7 @@ public class DoubleHashingTestObject implements SecondaryHash {
     randomVector = new long[MAX_VECTOR_SIZE];
     for (int i = 0; i < MAX_VECTOR_SIZE; i++) {
       long val = R.nextLong();
-      while (val % 2 == 0)
-        val = R.nextLong();
+      while (val % 2 == 0) val = R.nextLong();
       randomVector[i] = val;
     }
   }
@@ -36,16 +35,14 @@ public class DoubleHashingTestObject implements SecondaryHash {
   }
 
   public DoubleHashingTestObject(int[] data) {
-    if (data == null)
-      throw new IllegalArgumentException("Cannot be null");
+    if (data == null) throw new IllegalArgumentException("Cannot be null");
     vectorData = data;
     vectorHash();
     computeHash();
   }
 
   public DoubleHashingTestObject(String data) {
-    if (data == null)
-      throw new IllegalArgumentException("Cannot be null");
+    if (data == null) throw new IllegalArgumentException("Cannot be null");
     stringData = data;
     stringHash();
     computeHash();
@@ -56,8 +53,7 @@ public class DoubleHashingTestObject implements SecondaryHash {
   }
 
   private void vectorHash() {
-    for (int i = 0; i < vectorData.length; i++)
-      hash2 += randomVector[i] * vectorData[i];
+    for (int i = 0; i < vectorData.length; i++) hash2 += randomVector[i] * vectorData[i];
   }
 
   private void stringHash() {
@@ -75,12 +71,9 @@ public class DoubleHashingTestObject implements SecondaryHash {
   }
 
   private void computeHash() {
-    if (intData != null)
-      hash = intData.hashCode();
-    else if (stringData != null)
-      hash = stringData.hashCode();
-    else
-      hash = java.util.Arrays.hashCode(vectorData);
+    if (intData != null) hash = intData.hashCode();
+    else if (stringData != null) hash = stringData.hashCode();
+    else hash = java.util.Arrays.hashCode(vectorData);
   }
 
   @Override
@@ -96,12 +89,9 @@ public class DoubleHashingTestObject implements SecondaryHash {
   @Override
   public boolean equals(Object o) {
     DoubleHashingTestObject obj = (DoubleHashingTestObject) o;
-    if (hash != obj.hash)
-      return false;
-    if (intData != null)
-      return intData.equals(obj.intData);
-    if (vectorData != null)
-      return java.util.Arrays.equals(vectorData, obj.vectorData);
+    if (hash != obj.hash) return false;
+    if (intData != null) return intData.equals(obj.intData);
+    if (vectorData != null) return java.util.Arrays.equals(vectorData, obj.vectorData);
     return stringData.equals(obj.stringData);
   }
 }

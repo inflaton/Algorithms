@@ -2,8 +2,7 @@
  * This file shows you how to convert a line segment (x1,y1), (x2,y2) into the general form for a
  * line: ax + by + c = 0
  *
- * <p>
- * Time Complexity: O(1)
+ * <p>Time Complexity: O(1)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */

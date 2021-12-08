@@ -3,16 +3,17 @@ package com.williamfiset.algorithms.graphtheory.treealgorithms;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.williamfiset.algorithms.graphtheory.treealgorithms.RootingTree.TreeNode;
-import java.util.*;
-import org.junit.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import org.junit.Test;
 
 public class RootingTreeTest {
 
   // Create a graph as a adjacency list
   private static List<List<Integer>> createGraph(int n) {
     List<List<Integer>> graph = new ArrayList<>(n);
-    for (int i = 0; i < n; i++)
-      graph.add(new LinkedList<>());
+    for (int i = 0; i < n; i++) graph.add(new LinkedList<>());
     return graph;
   }
 

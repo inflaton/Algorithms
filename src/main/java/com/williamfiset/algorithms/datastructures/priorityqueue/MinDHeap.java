@@ -44,16 +44,14 @@ public class MinDHeap<T extends Comparable<T>> {
 
   // Returns the element at the top of the PQ or null if the PQ is empty
   public T peek() {
-    if (isEmpty())
-      return null;
+    if (isEmpty()) return null;
     return heap[0];
   }
 
   // Polls an element from the priority queue.
   // Make sure the queue is not empty before calling.
   public T poll() {
-    if (isEmpty())
-      return null;
+    if (isEmpty()) return null;
     T root = heap[0];
     heap[0] = heap[--sz];
     heap[sz] = null;
@@ -63,15 +61,14 @@ public class MinDHeap<T extends Comparable<T>> {
 
   // Adds a none null element to the priority queue
   public void add(T elem) {
-    if (elem == null)
-      throw new IllegalArgumentException("No null elements please :)");
+    if (elem == null) throw new IllegalArgumentException("No null elements please :)");
     heap[sz] = elem;
     swim(sz);
     sz++;
   }
 
   private void sink(int i) {
-    for (int j = minChild(i); j != -1;) {
+    for (int j = minChild(i); j != -1; ) {
       swap(i, j);
       i = j;
       j = minChild(i);
@@ -88,9 +85,7 @@ public class MinDHeap<T extends Comparable<T>> {
   // From the parent node at index i find the minimum child below it
   private int minChild(int i) {
     int index = -1, from = child[i], to = Math.min(sz, from + d);
-    for (int j = from; j < to; j++)
-      if (less(j, i))
-        index = i = j;
+    for (int j = from; j < to; j++) if (less(j, i)) index = i = j;
     return index;
   }
 

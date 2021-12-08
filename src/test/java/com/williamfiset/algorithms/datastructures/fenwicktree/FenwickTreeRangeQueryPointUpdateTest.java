@@ -112,8 +112,7 @@ public class FenwickTreeRangeQueryPointUpdateTest {
 
     // System.out.println("LO: " + lo + " HI: " + hi + " N: " + N);
 
-    for (int k = lo; k <= hi; k++)
-      sum += arr[k];
+    for (int k = lo; k <= hi; k++) sum += arr[k];
 
     assertThat(ft.sum(lo, hi)).isEqualTo(sum);
   }

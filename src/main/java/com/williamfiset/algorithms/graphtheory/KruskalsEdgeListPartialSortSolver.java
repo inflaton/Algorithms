@@ -1,11 +1,9 @@
 /**
  * An implementation of Kruskal's MST algorithm with lazy sorting.
  *
- * <p>
- * Tested against: - https://open.kattis.com/problems/minspantree
+ * <p>Tested against: - https://open.kattis.com/problems/minspantree
  *
- * <p>
- * Time Complexity: O(Elog(E))
+ * <p>Time Complexity: O(Elog(E))
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -49,8 +47,7 @@ public class KruskalsEdgeListPartialSortSolver {
   // edges - A list of undirected edges.
   // n - The number of nodes in the input graph.
   public KruskalsEdgeListPartialSortSolver(List<Edge> edges, int n) {
-    if (edges == null || n <= 1)
-      throw new IllegalArgumentException();
+    if (edges == null || n <= 1) throw new IllegalArgumentException();
     this.edges = edges;
     this.n = n;
   }
@@ -68,8 +65,7 @@ public class KruskalsEdgeListPartialSortSolver {
   }
 
   private void kruskals() {
-    if (solved)
-      return;
+    if (solved) return;
 
     // Heapify operation in constructor transforms list of edges into a binary heap
     // in O(n)
@@ -85,8 +81,7 @@ public class KruskalsEdgeListPartialSortSolver {
       Edge edge = pq.poll();
 
       // Skip this edge to avoid creating a cycle in MST.
-      if (uf.connected(edge.u, edge.v))
-        continue;
+      if (uf.connected(edge.u, edge.v)) continue;
 
       // Include this edge
       uf.union(edge.u, edge.v);
@@ -94,8 +89,7 @@ public class KruskalsEdgeListPartialSortSolver {
       mst[index++] = edge;
 
       // Stop early if we found a MST that includes all the nodes.
-      if (uf.size(0) == n)
-        break;
+      if (uf.size(0) == n) break;
     }
 
     mstExists = (uf.size(0) == n);
@@ -117,8 +111,7 @@ public class KruskalsEdgeListPartialSortSolver {
 
     public int find(int p) {
       int root = p;
-      while (root != id[root])
-        root = id[root];
+      while (root != id[root]) root = id[root];
       // Path compression
       while (p != root) {
         int next = id[p];
@@ -139,8 +132,7 @@ public class KruskalsEdgeListPartialSortSolver {
     public void union(int p, int q) {
       int root1 = find(p);
       int root2 = find(q);
-      if (root1 == root2)
-        return;
+      if (root1 == root2) return;
       if (sz[root1] < sz[root2]) {
         sz[root2] += sz[root1];
         id[root1] = root2;

@@ -31,11 +31,12 @@ public class BoyerMooreStringSearchTest {
   @Test
   public void shouldReturnOneOccurrence() {
     assertThat(
-        underTest.findOccurrences("Sample text for testing the Boyer-Moore algorithm.", "Sample"))
-            .containsExactly(0);
+            underTest.findOccurrences(
+                "Sample text for testing the Boyer-Moore algorithm.", "Sample"))
+        .containsExactly(0);
     assertThat(
-        underTest.findOccurrences("Sample text for testing the Boyer-Moore algorithm.", "for"))
-            .containsExactly(12);
+            underTest.findOccurrences("Sample text for testing the Boyer-Moore algorithm.", "for"))
+        .containsExactly(12);
     assertThat(underTest.findOccurrences("Sample text for testing the Boyer-Moore algorithm.", "."))
         .containsExactly(49);
   }
@@ -44,8 +45,8 @@ public class BoyerMooreStringSearchTest {
   public void shouldReturnMultipleOccurrences() {
     assertThat(underTest.findOccurrences("SAAT TE", "TE")).containsExactly(5);
     assertThat(
-        underTest.findOccurrences("Sample text for testing the Boyer-Moore algorithm.", "te"))
-            .containsExactly(7, 16);
+            underTest.findOccurrences("Sample text for testing the Boyer-Moore algorithm.", "te"))
+        .containsExactly(7, 16);
     assertThat(underTest.findOccurrences("Sample text for testing the Boyer-Moore algorithm.", " "))
         .containsExactly(6, 11, 15, 23, 27, 39);
     assertThat(underTest.findOccurrences("AABAACAADAABAABA", "AABA")).containsExactly(0, 9, 12);
@@ -65,7 +66,7 @@ public class BoyerMooreStringSearchTest {
       int upperCharText = random.nextInt(3);
       int upperCharPattern = random.nextInt(3);
       int maxLengthText = random.nextInt(1000) + 100; // random length of the string between
-                                                      // [100=1000]
+      // [100=1000]
       int maxLengthPattern = random.nextInt(10);
       String text = generateRandomString(upperCharText, maxLengthText);
       String pattern = generateRandomString(upperCharPattern, maxLengthPattern);
@@ -80,7 +81,9 @@ public class BoyerMooreStringSearchTest {
    * @return a list of beginning index of text where pattern exits
    */
   private List<Integer> getOccurrencesBruteForce(String text, String pattern) {
-    if (isNull(text) || isNull(pattern) || text.length() < pattern.length()
+    if (isNull(text)
+        || isNull(pattern)
+        || text.length() < pattern.length()
         || pattern.length() == 0) {
       return new ArrayList<>();
     }
@@ -106,7 +109,9 @@ public class BoyerMooreStringSearchTest {
    * @return Returns a random string containing character between [a-z]
    */
   private String generateRandomString(int upperLimitAscii, int length) {
-    return random.ints('a', 'a' + upperLimitAscii + 1).limit(length)
+    return random
+        .ints('a', 'a' + upperLimitAscii + 1)
+        .limit(length)
         .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
         .toString();
   }

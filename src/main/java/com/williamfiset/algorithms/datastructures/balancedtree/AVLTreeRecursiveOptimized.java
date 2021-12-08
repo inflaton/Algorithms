@@ -43,8 +43,7 @@ public class AVLTreeRecursiveOptimized<T extends Comparable<T>> implements Itera
   // root and its furthest leaf. This means that a tree containing a single
   // node has a height of 0.
   public int height() {
-    if (root == null)
-      return 0;
+    if (root == null) return 0;
     return root.height;
   }
 
@@ -67,20 +66,16 @@ public class AVLTreeRecursiveOptimized<T extends Comparable<T>> implements Itera
       // Compare current value to the value in the node.
       int cmp = value.compareTo(node.value);
 
-      if (cmp < 0)
-        node = node.left;
-      else if (cmp > 0)
-        node = node.right;
-      else
-        return true;
+      if (cmp < 0) node = node.left;
+      else if (cmp > 0) node = node.right;
+      else return true;
     }
     return false;
   }
 
   // Insert/add a value to the AVL tree. The value must not be null, O(log(n))
   public boolean insert(T value) {
-    if (value == null)
-      return false;
+    if (value == null) return false;
     Node newRoot = insert(root, value);
     boolean insertedNode = (newRoot != TOKEN);
     if (insertedNode) {
@@ -96,8 +91,7 @@ public class AVLTreeRecursiveOptimized<T extends Comparable<T>> implements Itera
   private Node insert(Node node, T value) {
 
     // Base case.
-    if (node == null)
-      return new Node(value);
+    if (node == null) return new Node(value);
 
     // Compare current value to the value in the node.
     int cmp = value.compareTo(node.value);
@@ -105,20 +99,17 @@ public class AVLTreeRecursiveOptimized<T extends Comparable<T>> implements Itera
     // Insert node in left subtree.
     if (cmp < 0) {
       Node newLeftNode = insert(node.left, value);
-      if (newLeftNode == TOKEN)
-        return TOKEN;
+      if (newLeftNode == TOKEN) return TOKEN;
       node.left = newLeftNode;
 
       // Insert node in right subtree.
     } else if (cmp > 0) {
       Node newRightNode = insert(node.right, value);
-      if (newRightNode == TOKEN)
-        return TOKEN;
+      if (newRightNode == TOKEN) return TOKEN;
       node.right = newRightNode;
 
       // Return 'TOKEN' to indicate a duplicate value in the tree.
-    } else
-      return TOKEN;
+    } else return TOKEN;
 
     // Update balance factor and height values.
     update(node);
@@ -229,8 +220,7 @@ public class AVLTreeRecursiveOptimized<T extends Comparable<T>> implements Itera
   private Node remove(Node node, T elem) {
 
     // Return 'TOKEN' to indicate value to remove was not found.
-    if (node == null)
-      return TOKEN;
+    if (node == null) return TOKEN;
 
     int cmp = elem.compareTo(node.value);
 
@@ -238,16 +228,14 @@ public class AVLTreeRecursiveOptimized<T extends Comparable<T>> implements Itera
     // for is smaller than the current value.
     if (cmp < 0) {
       Node newLeftNode = remove(node.left, elem);
-      if (newLeftNode == TOKEN)
-        return TOKEN;
+      if (newLeftNode == TOKEN) return TOKEN;
       node.left = newLeftNode;
 
       // Dig into right subtree, the value we're looking
       // for is greater than the current value.
     } else if (cmp > 0) {
       Node newRightNode = remove(node.right, elem);
-      if (newRightNode == TOKEN)
-        return TOKEN;
+      if (newRightNode == TOKEN) return TOKEN;
       node.right = newRightNode;
 
       // Found the node we wish to remove.
@@ -281,8 +269,7 @@ public class AVLTreeRecursiveOptimized<T extends Comparable<T>> implements Itera
 
           // Find the largest node in the left subtree.
           Node replacement = remove(node.left, successorValue);
-          if (replacement == TOKEN)
-            return TOKEN;
+          if (replacement == TOKEN) return TOKEN;
           node.left = replacement;
 
         } else {
@@ -295,8 +282,7 @@ public class AVLTreeRecursiveOptimized<T extends Comparable<T>> implements Itera
           // found and swapped data with. This prevents us from having
           // two nodes in our tree with the same value.
           Node replacement = remove(node.right, successorValue);
-          if (replacement == TOKEN)
-            return TOKEN;
+          if (replacement == TOKEN) return TOKEN;
           node.right = replacement;
         }
       }
@@ -311,15 +297,13 @@ public class AVLTreeRecursiveOptimized<T extends Comparable<T>> implements Itera
 
   // Helper method to find the leftmost node (which has the smallest value)
   private T findMin(Node node) {
-    while (node.left != null)
-      node = node.left;
+    while (node.left != null) node = node.left;
     return node.value;
   }
 
   // Helper method to find the rightmost node (which has the largest value)
   private T findMax(Node node) {
-    while (node.right != null)
-      node = node.right;
+    while (node.right != null) node = node.right;
     return node.value;
   }
 
@@ -335,16 +319,14 @@ public class AVLTreeRecursiveOptimized<T extends Comparable<T>> implements Itera
 
       @Override
       public boolean hasNext() {
-        if (expectedNodeCount != nodeCount)
-          throw new java.util.ConcurrentModificationException();
+        if (expectedNodeCount != nodeCount) throw new java.util.ConcurrentModificationException();
         return root != null && !stack.isEmpty();
       }
 
       @Override
       public T next() {
 
-        if (expectedNodeCount != nodeCount)
-          throw new java.util.ConcurrentModificationException();
+        if (expectedNodeCount != nodeCount) throw new java.util.ConcurrentModificationException();
 
         while (trav != null && trav.left != null) {
           stack.push(trav.left);
@@ -372,14 +354,11 @@ public class AVLTreeRecursiveOptimized<T extends Comparable<T>> implements Itera
   // make sure all right child nodes are greater in value than their parent.
   // (Used only for testing)
   boolean validateBSTInvarient(Node node) {
-    if (node == null)
-      return true;
+    if (node == null) return true;
     T val = node.value;
     boolean isValid = true;
-    if (node.left != null)
-      isValid = isValid && node.left.value.compareTo(val) < 0;
-    if (node.right != null)
-      isValid = isValid && node.right.value.compareTo(val) > 0;
+    if (node.left != null) isValid = isValid && node.left.value.compareTo(val) < 0;
+    if (node.right != null) isValid = isValid && node.right.value.compareTo(val) > 0;
     return isValid && validateBSTInvarient(node.left) && validateBSTInvarient(node.right);
   }
 }

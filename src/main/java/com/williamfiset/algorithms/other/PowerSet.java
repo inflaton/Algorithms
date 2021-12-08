@@ -3,8 +3,7 @@
  * a set. There are two common ways of doing this which are to use the binary representation of
  * numbers on a computer or to do it recursively. Both methods are shown here, pick your flavor!
  *
- * <p>
- * Time Complexity: O( 2^n )
+ * <p>Time Complexity: O( 2^n )
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -23,8 +22,7 @@ public class PowerSet {
       System.out.print("{ ");
       for (int i = 0; i < N; i++) {
         int mask = 1 << i;
-        if ((subset & mask) == mask)
-          System.out.print(set[i] + " ");
+        if ((subset & mask) == mask) System.out.print(set[i] + " ");
       }
       System.out.println("}");
     }
@@ -39,9 +37,7 @@ public class PowerSet {
 
       // Print found subset!
       System.out.print("{ ");
-      for (int i = 0; i < set.length; i++)
-        if (used[i])
-          System.out.print(set[i] + " ");
+      for (int i = 0; i < set.length; i++) if (used[i]) System.out.print(set[i] + " ");
       System.out.println("}");
 
     } else {

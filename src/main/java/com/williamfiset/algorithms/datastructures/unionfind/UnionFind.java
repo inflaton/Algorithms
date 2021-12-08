@@ -22,8 +22,7 @@ public class UnionFind {
 
   public UnionFind(int size) {
 
-    if (size <= 0)
-      throw new IllegalArgumentException("Size <= 0 is not allowed");
+    if (size <= 0) throw new IllegalArgumentException("Size <= 0 is not allowed");
 
     this.size = numComponents = size;
     sz = new int[size];
@@ -40,8 +39,7 @@ public class UnionFind {
 
     // Find the root of the component/set
     int root = p;
-    while (root != id[root])
-      root = id[root];
+    while (root != id[root]) root = id[root];
 
     // Compress the path leading back to the root.
     // Doing this operation is called "path compression"
@@ -86,8 +84,7 @@ public class UnionFind {
   public void unify(int p, int q) {
 
     // These elements are already in the same group!
-    if (connected(p, q))
-      return;
+    if (connected(p, q)) return;
 
     int root1 = find(p);
     int root2 = find(q);

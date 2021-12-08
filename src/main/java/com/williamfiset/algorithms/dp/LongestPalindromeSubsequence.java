@@ -14,8 +14,7 @@ public class LongestPalindromeSubsequence {
 
   // Returns the length of the longest paldindrome subsequence
   public static int lps(String s) {
-    if (s == null || s.length() == 0)
-      return 0;
+    if (s == null || s.length() == 0) return 0;
     Integer[][] dp = new Integer[s.length()][s.length()];
     return lps(s, dp, 0, s.length() - 1);
   }
@@ -25,18 +24,14 @@ public class LongestPalindromeSubsequence {
   private static int lps(String s, Integer[][] dp, int i, int j) {
 
     // Base cases
-    if (j < i)
-      return 0;
-    if (i == j)
-      return 1;
-    if (dp[i][j] != null)
-      return dp[i][j];
+    if (j < i) return 0;
+    if (i == j) return 1;
+    if (dp[i][j] != null) return dp[i][j];
 
     char c1 = s.charAt(i), c2 = s.charAt(j);
 
     // Both end characters match
-    if (c1 == c2)
-      return dp[i][j] = lps(s, dp, i + 1, j - 1) + 2;
+    if (c1 == c2) return dp[i][j] = lps(s, dp, i + 1, j - 1) + 2;
 
     // Consider both possible substrings and take the maximum
     return dp[i][j] = Math.max(lps(s, dp, i + 1, j), lps(s, dp, i, j - 1));

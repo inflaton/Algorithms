@@ -224,13 +224,16 @@ public class GenericSegmentTreeTest {
   @Test
   public void testAllFunctionCombinations() {
     GenericSegmentTree.SegmentCombinationFn[] combinationFns = {
-        GenericSegmentTree.SegmentCombinationFn.SUM, GenericSegmentTree.SegmentCombinationFn.MIN,
-        GenericSegmentTree.SegmentCombinationFn.MAX, GenericSegmentTree.SegmentCombinationFn.GCD,
-        // GenericSegmentTree.SegmentCombinationFn.PRODUCT,
+      GenericSegmentTree.SegmentCombinationFn.SUM, GenericSegmentTree.SegmentCombinationFn.MIN,
+      GenericSegmentTree.SegmentCombinationFn.MAX, GenericSegmentTree.SegmentCombinationFn.GCD,
+      // GenericSegmentTree.SegmentCombinationFn.PRODUCT,
     };
 
-    GenericSegmentTree.RangeUpdateFn[] rangeUpdateFns = {GenericSegmentTree.RangeUpdateFn.ADDITION,
-        GenericSegmentTree.RangeUpdateFn.ASSIGN, GenericSegmentTree.RangeUpdateFn.MULTIPLICATION};
+    GenericSegmentTree.RangeUpdateFn[] rangeUpdateFns = {
+      GenericSegmentTree.RangeUpdateFn.ADDITION,
+      GenericSegmentTree.RangeUpdateFn.ASSIGN,
+      GenericSegmentTree.RangeUpdateFn.MULTIPLICATION
+    };
 
     for (GenericSegmentTree.SegmentCombinationFn combinationFn : combinationFns) {
       for (GenericSegmentTree.RangeUpdateFn rangeUpdateFn : rangeUpdateFns) {
@@ -329,8 +332,8 @@ public class GenericSegmentTreeTest {
     return TestUtils.randValue(1, 10);
   }
 
-  private static long[] generateRandomArrayByTestType(int n,
-      GenericSegmentTree.SegmentCombinationFn combinationFn) {
+  private static long[] generateRandomArrayByTestType(
+      int n, GenericSegmentTree.SegmentCombinationFn combinationFn) {
     // GCD doesn't play well with negative numbers
     if (combinationFn != GenericSegmentTree.SegmentCombinationFn.GCD) {
       return TestUtils.randomLongArray(n, -100, +100);

@@ -3,17 +3,19 @@
  * the graph you're dealing with is directed have a look at Tarjan's algorithm to find strongly
  * connected components.
  *
- * <p>
- * The approach I will use to find all the strongly connected components is to use a union find data
- * structure to merge together nodes connected by an edge. An alternative approach would be to do a
- * breadth first search from each node (except the ones already visited of course) to determine the
- * individual components.
+ * <p>The approach I will use to find all the strongly connected components is to use a union find
+ * data structure to merge together nodes connected by an edge. An alternative approach would be to
+ * do a breadth first search from each node (except the ones already visited of course) to determine
+ * the individual components.
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.graphtheory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ConnectedComponentsAdjacencyList {
 
@@ -62,8 +64,8 @@ public class ConnectedComponentsAdjacencyList {
   }
 
   // Helper method to setup graph
-  private static void addUndirectedEdge(Map<Integer, List<Edge>> graph, int from, int to,
-      int cost) {
+  private static void addUndirectedEdge(
+      Map<Integer, List<Edge>> graph, int from, int to, int cost) {
     List<Edge> list = graph.get(from);
     if (list == null) {
       list = new ArrayList<Edge>();
@@ -73,7 +75,6 @@ public class ConnectedComponentsAdjacencyList {
     list.add(new Edge(to, from, cost));
   }
 }
-
 
 // Union find data structure
 class UnionFind {
@@ -92,8 +93,7 @@ class UnionFind {
 
   public UnionFind(int size) {
 
-    if (size <= 0)
-      throw new IllegalArgumentException("Size <= 0 is not allowed");
+    if (size <= 0) throw new IllegalArgumentException("Size <= 0 is not allowed");
 
     this.size = numComponents = size;
     sz = new int[size];
@@ -110,8 +110,7 @@ class UnionFind {
 
     // Find the root of the component/set
     int root = p;
-    while (root != id[root])
-      root = id[root];
+    while (root != id[root]) root = id[root];
 
     // Compress the path leading back to the root.
     // Doing this operation is called "path compression"
@@ -153,8 +152,7 @@ class UnionFind {
     int root2 = find(q);
 
     // These elements are already in the same group!
-    if (root1 == root2)
-      return;
+    if (root1 == root2) return;
 
     // Merge smaller component/set into the larger one.
     if (sz[root1] < sz[root2]) {

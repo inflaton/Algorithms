@@ -1,9 +1,10 @@
 package com.williamfiset.algorithms.datastructures.unionfind;
 
 // import static org.junit.Assert.*;
+
 import static com.google.common.truth.Truth.assertThat;
 
-import org.junit.*;
+import org.junit.Test;
 
 public class UnionFindTest {
 
@@ -121,8 +122,7 @@ public class UnionFindTest {
     int sz = 7;
     UnionFind uf = new UnionFind(sz);
 
-    for (int i = 0; i < sz; i++)
-      assertThat(uf.connected(i, i)).isTrue();
+    for (int i = 0; i < sz; i++) assertThat(uf.connected(i, i)).isTrue();
 
     uf.unify(0, 2);
 
@@ -134,8 +134,7 @@ public class UnionFindTest {
     assertThat(uf.connected(6, 4)).isFalse();
     assertThat(uf.connected(5, 0)).isFalse();
 
-    for (int i = 0; i < sz; i++)
-      assertThat(uf.connected(i, i)).isTrue();
+    for (int i = 0; i < sz; i++) assertThat(uf.connected(i, i)).isTrue();
 
     uf.unify(3, 1);
 
@@ -155,8 +154,7 @@ public class UnionFindTest {
     assertThat(uf.connected(2, 5)).isFalse();
     assertThat(uf.connected(3, 6)).isFalse();
 
-    for (int i = 0; i < sz; i++)
-      assertThat(uf.connected(i, i)).isTrue();
+    for (int i = 0; i < sz; i++) assertThat(uf.connected(i, i)).isTrue();
 
     uf.unify(2, 5);
     assertThat(uf.connected(0, 2)).isTrue();
@@ -179,8 +177,7 @@ public class UnionFindTest {
     assertThat(uf.connected(4, 5)).isFalse();
     assertThat(uf.connected(1, 6)).isFalse();
 
-    for (int i = 0; i < sz; i++)
-      assertThat(uf.connected(i, i)).isTrue();
+    for (int i = 0; i < sz; i++) assertThat(uf.connected(i, i)).isTrue();
 
     // Connect everything
     uf.unify(1, 2);

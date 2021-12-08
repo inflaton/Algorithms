@@ -3,8 +3,7 @@
  * summing over the entries in the array, but it can be modified to support many different
  * operations.
  *
- * <p>
- * Time Complexity: Point update in O(1) and query in O(sqrt(n))
+ * <p>Time Complexity: Point update in O(1) and query in O(sqrt(n))
  *
  * @author Thomas Finn Lidbetter
  */
@@ -26,8 +25,7 @@ public class SquareRootDecomposition {
 
   public SquareRootDecomposition(int[] values) {
     this(values.length);
-    for (int i = 0; i < values.length; i++)
-      set(i, values[i]);
+    for (int i = 0; i < values.length; i++) set(i, values[i]);
   }
 
   public int blockID(int index) {
@@ -47,21 +45,17 @@ public class SquareRootDecomposition {
     long sum = 0;
     int loId = blockID(lo);
     int hiId = blockID(hi);
-    for (int i = loId + 1; i < hiId; i++)
-      sum += blocks[i];
+    for (int i = loId + 1; i < hiId; i++) sum += blocks[i];
 
     if (loId == hiId) {
-      for (int i = lo; i <= hi; i++)
-        sum += arr[i];
+      for (int i = lo; i <= hi; i++) sum += arr[i];
       return sum;
     }
 
     int loMax = (((lo / blockSize) + 1) * blockSize) - 1;
     int hiMin = (hi / blockSize) * blockSize;
-    for (int i = lo; i <= loMax; i++)
-      sum += arr[i];
-    for (int i = hiMin; i <= hi; i++)
-      sum += arr[i];
+    for (int i = lo; i <= loMax; i++) sum += arr[i];
+    for (int i = hiMin; i <= hi; i++) sum += arr[i];
 
     return sum;
   }

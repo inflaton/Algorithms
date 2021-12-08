@@ -1,8 +1,7 @@
 /**
  * A QuadTree implementation with integer coordinates.
  *
- * <p>
- * NOTE: THIS FILE IS STILL UNDER DEVELOPMENT!
+ * <p>NOTE: THIS FILE IS STILL UNDER DEVELOPMENT!
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -10,7 +9,10 @@ package com.williamfiset.algorithms.datastructures.quadtree;
 
 import static java.lang.Double.POSITIVE_INFINITY;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.PriorityQueue;
 
 public class QuadTree {
 
@@ -77,8 +79,7 @@ public class QuadTree {
 
     // Construct a quad tree for a particular region.
     public Node(Rect region) {
-      if (region == null)
-        throw new IllegalArgumentException("Illegal argument");
+      if (region == null) throw new IllegalArgumentException("Illegal argument");
       this.region = region;
       X = new long[NUM_POINTS];
       Y = new long[NUM_POINTS];
@@ -90,8 +91,7 @@ public class QuadTree {
     private boolean add(long x, long y) {
 
       // Point is not within this region.
-      if (!region.contains(x, y))
-        return false;
+      if (!region.contains(x, y)) return false;
 
       // The point is within this region and there is room for it.
       if (ptCount < NUM_POINTS) {
@@ -113,23 +113,16 @@ public class QuadTree {
         // Lazily subdivide each of the regions into four parts
         // one by one as needed to save memory.
 
-        if (sw == null)
-          sw = new Node(new Rect(region.x1, region.y1, cx, cy));
-        if (sw.add(x, y))
-          return true;
+        if (sw == null) sw = new Node(new Rect(region.x1, region.y1, cx, cy));
+        if (sw.add(x, y)) return true;
 
-        if (nw == null)
-          nw = new Node(new Rect(region.x1, cy, cx, region.y2));
-        if (nw.add(x, y))
-          return true;
+        if (nw == null) nw = new Node(new Rect(region.x1, cy, cx, region.y2));
+        if (nw.add(x, y)) return true;
 
-        if (ne == null)
-          ne = new Node(new Rect(cx, cy, region.x2, region.y2));
-        if (ne.add(x, y))
-          return true;
+        if (ne == null) ne = new Node(new Rect(cx, cy, region.x2, region.y2));
+        if (ne.add(x, y)) return true;
 
-        if (se == null)
-          se = new Node(new Rect(cx, region.y1, region.x2, cy));
+        if (se == null) se = new Node(new Rect(cx, region.y1, region.x2, cy));
         return se.add(x, y);
       }
     }
@@ -137,8 +130,7 @@ public class QuadTree {
     // Count how many points are found within a certain rectangular region
     private int count(Rect area) {
 
-      if (area == null || !region.intersects(area))
-        return 0;
+      if (area == null || !region.intersects(area)) return 0;
 
       int count = 0;
 
@@ -151,21 +143,15 @@ public class QuadTree {
         // Our regions overlap, so some points in this
         // region may intersect with the area we're considering
       } else {
-        for (int i = 0; i < ptCount; i++)
-          if (area.contains(X[i], Y[i]))
-            count++;
+        for (int i = 0; i < ptCount; i++) if (area.contains(X[i], Y[i])) count++;
       }
 
       // Dig into each of the quadrants and count all points
       // which overlap with the area and sum their count
-      if (nw != null)
-        count += nw.count(area);
-      if (ne != null)
-        count += ne.count(area);
-      if (sw != null)
-        count += sw.count(area);
-      if (se != null)
-        count += se.count(area);
+      if (nw != null) count += nw.count(area);
+      if (ne != null) count += ne.count(area);
+      if (sw != null) count += sw.count(area);
+      if (se != null) count += se.count(area);
 
       return count;
     }
@@ -175,8 +161,7 @@ public class QuadTree {
       knn(k, x, y, heap);
 
       List<Pt> neighbors = new ArrayList<>();
-      for (SortedPt n : heap)
-        neighbors.add(n.pt);
+      for (SortedPt n : heap) neighbors.add(n.pt);
       return neighbors;
     }
 
@@ -245,47 +230,23 @@ public class QuadTree {
 
         if (isNorth(pointQuadrant)) {
           if (pointQuadrant == NORTH_WEST) {
-            if (checkHorizontalCell)
-              if (ne != null)
-                ne.knn(k, x, y, heap);
-            if (checkVerticalCell)
-              if (sw != null)
-                sw.knn(k, x, y, heap);
-            if (checkDiagonalCell)
-              if (se != null)
-                se.knn(k, x, y, heap);
+            if (checkHorizontalCell) if (ne != null) ne.knn(k, x, y, heap);
+            if (checkVerticalCell) if (sw != null) sw.knn(k, x, y, heap);
+            if (checkDiagonalCell) if (se != null) se.knn(k, x, y, heap);
           } else {
-            if (checkHorizontalCell)
-              if (nw != null)
-                nw.knn(k, x, y, heap);
-            if (checkVerticalCell)
-              if (se != null)
-                se.knn(k, x, y, heap);
-            if (checkDiagonalCell)
-              if (nw != null)
-                nw.knn(k, x, y, heap);
+            if (checkHorizontalCell) if (nw != null) nw.knn(k, x, y, heap);
+            if (checkVerticalCell) if (se != null) se.knn(k, x, y, heap);
+            if (checkDiagonalCell) if (nw != null) nw.knn(k, x, y, heap);
           }
         } else {
           if (pointQuadrant == SOUTH_WEST) {
-            if (checkHorizontalCell)
-              if (se != null)
-                se.knn(k, x, y, heap);
-            if (checkVerticalCell)
-              if (nw != null)
-                nw.knn(k, x, y, heap);
-            if (checkDiagonalCell)
-              if (ne != null)
-                ne.knn(k, x, y, heap);
+            if (checkHorizontalCell) if (se != null) se.knn(k, x, y, heap);
+            if (checkVerticalCell) if (nw != null) nw.knn(k, x, y, heap);
+            if (checkDiagonalCell) if (ne != null) ne.knn(k, x, y, heap);
           } else {
-            if (checkHorizontalCell)
-              if (sw != null)
-                sw.knn(k, x, y, heap);
-            if (checkVerticalCell)
-              if (ne != null)
-                ne.knn(k, x, y, heap);
-            if (checkDiagonalCell)
-              if (nw != null)
-                nw.knn(k, x, y, heap);
+            if (checkHorizontalCell) if (sw != null) sw.knn(k, x, y, heap);
+            if (checkVerticalCell) if (ne != null) ne.knn(k, x, y, heap);
+            if (checkDiagonalCell) if (nw != null) nw.knn(k, x, y, heap);
           }
         }
 
@@ -297,8 +258,7 @@ public class QuadTree {
 
         for (int quadrant = 1; quadrant <= 4; quadrant++) {
 
-          if (quadrant == pointQuadrant)
-            continue;
+          if (quadrant == pointQuadrant) continue;
           radius = heap.isEmpty() ? POSITIVE_INFINITY : heap.peek().dist;
           checkHorizontalCell = radius >= dx;
           checkVerticalCell = radius >= dy;
@@ -308,35 +268,23 @@ public class QuadTree {
           if (heap.size() != k) {
             if (isNorth(pointQuadrant)) {
               if (pointQuadrant == NORTH_WEST) {
-                if (ne != null)
-                  ne.knn(k, x, y, heap);
-                if (sw != null)
-                  sw.knn(k, x, y, heap);
-                if (se != null)
-                  se.knn(k, x, y, heap);
+                if (ne != null) ne.knn(k, x, y, heap);
+                if (sw != null) sw.knn(k, x, y, heap);
+                if (se != null) se.knn(k, x, y, heap);
               } else {
-                if (nw != null)
-                  nw.knn(k, x, y, heap);
-                if (se != null)
-                  se.knn(k, x, y, heap);
-                if (nw != null)
-                  nw.knn(k, x, y, heap);
+                if (nw != null) nw.knn(k, x, y, heap);
+                if (se != null) se.knn(k, x, y, heap);
+                if (nw != null) nw.knn(k, x, y, heap);
               }
             } else {
               if (pointQuadrant == SOUTH_WEST) {
-                if (se != null)
-                  se.knn(k, x, y, heap);
-                if (nw != null)
-                  nw.knn(k, x, y, heap);
-                if (ne != null)
-                  ne.knn(k, x, y, heap);
+                if (se != null) se.knn(k, x, y, heap);
+                if (nw != null) nw.knn(k, x, y, heap);
+                if (ne != null) ne.knn(k, x, y, heap);
               } else {
-                if (sw != null)
-                  sw.knn(k, x, y, heap);
-                if (ne != null)
-                  ne.knn(k, x, y, heap);
-                if (nw != null)
-                  nw.knn(k, x, y, heap);
+                if (sw != null) sw.knn(k, x, y, heap);
+                if (ne != null) ne.knn(k, x, y, heap);
+                if (nw != null) nw.knn(k, x, y, heap);
               }
             }
 
@@ -345,47 +293,23 @@ public class QuadTree {
 
             if (isNorth(pointQuadrant)) {
               if (pointQuadrant == NORTH_WEST) {
-                if (checkHorizontalCell)
-                  if (ne != null)
-                    ne.knn(k, x, y, heap);
-                if (checkVerticalCell)
-                  if (sw != null)
-                    sw.knn(k, x, y, heap);
-                if (checkDiagonalCell)
-                  if (se != null)
-                    se.knn(k, x, y, heap);
+                if (checkHorizontalCell) if (ne != null) ne.knn(k, x, y, heap);
+                if (checkVerticalCell) if (sw != null) sw.knn(k, x, y, heap);
+                if (checkDiagonalCell) if (se != null) se.knn(k, x, y, heap);
               } else {
-                if (checkHorizontalCell)
-                  if (nw != null)
-                    nw.knn(k, x, y, heap);
-                if (checkVerticalCell)
-                  if (se != null)
-                    se.knn(k, x, y, heap);
-                if (checkDiagonalCell)
-                  if (nw != null)
-                    nw.knn(k, x, y, heap);
+                if (checkHorizontalCell) if (nw != null) nw.knn(k, x, y, heap);
+                if (checkVerticalCell) if (se != null) se.knn(k, x, y, heap);
+                if (checkDiagonalCell) if (nw != null) nw.knn(k, x, y, heap);
               }
             } else {
               if (pointQuadrant == SOUTH_WEST) {
-                if (checkHorizontalCell)
-                  if (se != null)
-                    se.knn(k, x, y, heap);
-                if (checkVerticalCell)
-                  if (nw != null)
-                    nw.knn(k, x, y, heap);
-                if (checkDiagonalCell)
-                  if (ne != null)
-                    ne.knn(k, x, y, heap);
+                if (checkHorizontalCell) if (se != null) se.knn(k, x, y, heap);
+                if (checkVerticalCell) if (nw != null) nw.knn(k, x, y, heap);
+                if (checkDiagonalCell) if (ne != null) ne.knn(k, x, y, heap);
               } else {
-                if (checkHorizontalCell)
-                  if (sw != null)
-                    sw.knn(k, x, y, heap);
-                if (checkVerticalCell)
-                  if (ne != null)
-                    ne.knn(k, x, y, heap);
-                if (checkDiagonalCell)
-                  if (nw != null)
-                    nw.knn(k, x, y, heap);
+                if (checkHorizontalCell) if (sw != null) sw.knn(k, x, y, heap);
+                if (checkVerticalCell) if (ne != null) ne.knn(k, x, y, heap);
+                if (checkDiagonalCell) if (nw != null) nw.knn(k, x, y, heap);
               }
             }
           }
@@ -401,8 +325,7 @@ public class QuadTree {
     // Define a rectangle as a pair of points (x1, y1) in the bottom left corner
     // and (x2, y2) in the top right corner of the rectangle.
     public Rect(long x1, long y1, long x2, long y2) {
-      if (x1 > x2 || y1 > y2)
-        throw new IllegalArgumentException("Illegal rectangle coordinates");
+      if (x1 > x2 || y1 > y2) throw new IllegalArgumentException("Illegal rectangle coordinates");
       this.x1 = x1;
       this.y1 = y1;
       this.x2 = x2;
@@ -467,10 +390,8 @@ public class QuadTree {
   }
 
   private void getPoints(Node node, List<Pt> points) {
-    if (node == null)
-      return;
-    for (int i = 0; i < node.ptCount; i++)
-      points.add(new Pt(node.X[i], node.Y[i]));
+    if (node == null) return;
+    for (int i = 0; i < node.ptCount; i++) points.add(new Pt(node.X[i], node.Y[i]));
     getPoints(node.nw, points);
     getPoints(node.ne, points);
     getPoints(node.sw, points);

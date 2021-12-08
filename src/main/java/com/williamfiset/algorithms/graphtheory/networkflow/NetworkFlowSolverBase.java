@@ -42,8 +42,9 @@ public abstract class NetworkFlowSolverBase {
     public String toString(int s, int t) {
       String u = (from == s) ? "s" : ((from == t) ? "t" : String.valueOf(from));
       String v = (to == s) ? "s" : ((to == t) ? "t" : String.valueOf(to));
-      return String.format("Edge %s -> %s | flow = %d | capacity = %d | is residual: %s", u, v,
-          flow, capacity, isResidual());
+      return String.format(
+          "Edge %s -> %s | flow = %d | capacity = %d | is residual: %s",
+          u, v, flow, capacity, isResidual());
     }
   }
 
@@ -88,8 +89,7 @@ public abstract class NetworkFlowSolverBase {
   @SuppressWarnings("unchecked")
   private void initializeGraph() {
     graph = new List[n];
-    for (int i = 0; i < n; i++)
-      graph[i] = new ArrayList<Edge>();
+    for (int i = 0; i < n; i++) graph[i] = new ArrayList<Edge>();
   }
 
   /**
@@ -100,8 +100,7 @@ public abstract class NetworkFlowSolverBase {
    * @param capacity - The capacity of the edge.
    */
   public void addEdge(int from, int to, long capacity) {
-    if (capacity < 0)
-      throw new IllegalArgumentException("Capacity < 0");
+    if (capacity < 0) throw new IllegalArgumentException("Capacity < 0");
     Edge e1 = new Edge(from, to, capacity);
     Edge e2 = new Edge(to, from, 0);
     e1.residual = e2;
@@ -137,9 +136,9 @@ public abstract class NetworkFlowSolverBase {
   }
 
   /**
-   * Returns the graph after the solver has been executed. This allow you to inspect the
-   * {@link Edge#flow} compared to the {@link Edge#capacity} in each edge. This is useful if you
-   * want to figure out which edges were used during the max flow.
+   * Returns the graph after the solver has been executed. This allow you to inspect the {@link
+   * Edge#flow} compared to the {@link Edge#capacity} in each edge. This is useful if you want to
+   * figure out which edges were used during the max flow.
    */
   public List<Edge>[] getGraph() {
     execute();
@@ -170,8 +169,7 @@ public abstract class NetworkFlowSolverBase {
 
   // Wrapper method that ensures we only call solve() once
   private void execute() {
-    if (solved)
-      return;
+    if (solved) return;
     solved = true;
     solve();
   }

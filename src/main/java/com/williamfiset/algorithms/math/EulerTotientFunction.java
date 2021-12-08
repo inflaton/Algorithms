@@ -1,21 +1,20 @@
 package com.williamfiset.algorithms.math;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.PriorityQueue;
 
 public class EulerTotientFunction {
 
   public static long eulersTotient(long n) {
-    for (long p : new HashSet<Long>(primeFactorization(n)))
-      n -= (n / p);
+    for (long p : new HashSet<Long>(primeFactorization(n))) n -= (n / p);
     return n;
   }
 
   private static ArrayList<Long> primeFactorization(long n) {
     ArrayList<Long> factors = new ArrayList<Long>();
-    if (n <= 0)
-      throw new IllegalArgumentException();
-    else if (n == 1)
-      return factors;
+    if (n <= 0) throw new IllegalArgumentException();
+    else if (n == 1) return factors;
     PriorityQueue<Long> divisorQueue = new PriorityQueue<Long>();
     divisorQueue.add(n);
     while (!divisorQueue.isEmpty()) {
@@ -36,8 +35,7 @@ public class EulerTotientFunction {
   }
 
   private static long pollardRho(long n) {
-    if (n % 2 == 0)
-      return 2;
+    if (n % 2 == 0) return 2;
     // Get a number in the range [2, 10^6]
     long x = 2 + (long) (999999 * Math.random());
     long c = 2 + (long) (999999 * Math.random());
@@ -48,8 +46,7 @@ public class EulerTotientFunction {
       y = (y * y + c) % n;
       y = (y * y + c) % n;
       d = gcf(Math.abs(x - y), n);
-      if (d == n)
-        break;
+      if (d == n) break;
     }
     return d;
   }
@@ -60,18 +57,13 @@ public class EulerTotientFunction {
 
   private static boolean isPrime(long n) {
 
-    if (n < 2)
-      return false;
-    if (n == 2 || n == 3)
-      return true;
-    if (n % 2 == 0 || n % 3 == 0)
-      return false;
+    if (n < 2) return false;
+    if (n == 2 || n == 3) return true;
+    if (n % 2 == 0 || n % 3 == 0) return false;
 
     int limit = (int) Math.sqrt(n);
 
-    for (int i = 5; i <= limit; i += 6)
-      if (n % i == 0 || n % (i + 2) == 0)
-        return false;
+    for (int i = 5; i <= limit; i += 6) if (n % i == 0 || n % (i + 2) == 0) return false;
 
     return true;
   }

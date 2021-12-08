@@ -2,15 +2,12 @@
  * Implementation of finding an Eulerian Path on a graph. This implementation verifies that the
  * input graph is fully connected and supports self loops and repeated edges between nodes.
  *
- * <p>
- * Test against: https://open.kattis.com/problems/eulerianpath
+ * <p>Test against: https://open.kattis.com/problems/eulerianpath
  * http://codeforces.com/contest/508/problem/D
  *
- * <p>
- * Run: ./gradlew run -Palgorithm=graphtheory.EulerianPathDirectedEdgesAdjacencyList
+ * <p>Run: ./gradlew run -Palgorithm=graphtheory.EulerianPathDirectedEdgesAdjacencyList
  *
- * <p>
- * Time Complexity: O(E)
+ * <p>Time Complexity: O(E)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -30,8 +27,7 @@ public class EulerianPathDirectedEdgesAdjacencyList {
   private List<List<Integer>> graph;
 
   public EulerianPathDirectedEdgesAdjacencyList(List<List<Integer>> graph) {
-    if (graph == null)
-      throw new IllegalArgumentException("Graph cannot be null");
+    if (graph == null) throw new IllegalArgumentException("Graph cannot be null");
     n = graph.size();
     this.graph = graph;
     path = new LinkedList<>();
@@ -42,20 +38,17 @@ public class EulerianPathDirectedEdgesAdjacencyList {
   public int[] getEulerianPath() {
     setUp();
 
-    if (!graphHasEulerianPath())
-      return null;
+    if (!graphHasEulerianPath()) return null;
     dfs(findStartNode());
 
     // Make sure all edges of the graph were traversed. It could be the
     // case that the graph is disconnected in which case return null.
-    if (path.size() != edgeCount + 1)
-      return null;
+    if (path.size() != edgeCount + 1) return null;
 
     // Instead of returning the 'path' as a linked list return
     // the solution as a primitive array for convenience.
     int[] soln = new int[edgeCount + 1];
-    for (int i = 0; !path.isEmpty(); i++)
-      soln[i] = path.removeFirst();
+    for (int i = 0; !path.isEmpty(); i++) soln[i] = path.removeFirst();
 
     return soln;
   }
@@ -78,16 +71,12 @@ public class EulerianPathDirectedEdgesAdjacencyList {
   }
 
   private boolean graphHasEulerianPath() {
-    if (edgeCount == 0)
-      return false;
+    if (edgeCount == 0) return false;
     int startNodes = 0, endNodes = 0;
     for (int i = 0; i < n; i++) {
-      if (out[i] - in[i] > 1 || in[i] - out[i] > 1)
-        return false;
-      else if (out[i] - in[i] == 1)
-        startNodes++;
-      else if (in[i] - out[i] == 1)
-        endNodes++;
+      if (out[i] - in[i] > 1 || in[i] - out[i] > 1) return false;
+      else if (out[i] - in[i] == 1) startNodes++;
+      else if (in[i] - out[i] == 1) endNodes++;
     }
     return (endNodes == 0 && startNodes == 0) || (endNodes == 1 && startNodes == 1);
   }
@@ -96,11 +85,9 @@ public class EulerianPathDirectedEdgesAdjacencyList {
     int start = 0;
     for (int i = 0; i < n; i++) {
       // Unique starting node.
-      if (out[i] - in[i] == 1)
-        return i;
+      if (out[i] - in[i] == 1) return i;
       // Start at a node with an outgoing edge.
-      if (out[i] > 0)
-        start = i;
+      if (out[i] > 0) start = i;
     }
     return start;
   }
@@ -118,8 +105,7 @@ public class EulerianPathDirectedEdgesAdjacencyList {
 
   public static List<List<Integer>> initializeEmptyGraph(int n) {
     List<List<Integer>> graph = new ArrayList<>(n);
-    for (int i = 0; i < n; i++)
-      graph.add(new ArrayList<>());
+    for (int i = 0; i < n; i++) graph.add(new ArrayList<>());
     return graph;
   }
 

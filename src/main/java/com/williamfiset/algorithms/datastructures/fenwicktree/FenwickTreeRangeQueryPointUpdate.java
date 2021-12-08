@@ -23,8 +23,7 @@ public class FenwickTreeRangeQueryPointUpdate {
   // does not get used, O(n) construction.
   public FenwickTreeRangeQueryPointUpdate(long[] values) {
 
-    if (values == null)
-      throw new IllegalArgumentException("Values array cannot be null!");
+    if (values == null) throw new IllegalArgumentException("Values array cannot be null!");
 
     N = values.length;
     values[0] = 0L;
@@ -35,8 +34,7 @@ public class FenwickTreeRangeQueryPointUpdate {
 
     for (int i = 1; i < N; i++) {
       int parent = i + lsb(i);
-      if (parent < N)
-        tree[parent] += tree[i];
+      if (parent < N) tree[parent] += tree[i];
     }
   }
 
@@ -67,8 +65,7 @@ public class FenwickTreeRangeQueryPointUpdate {
 
   // Returns the sum of the interval [left, right], O(log(n))
   public long sum(int left, int right) {
-    if (right < left)
-      throw new IllegalArgumentException("Make sure right >= left");
+    if (right < left) throw new IllegalArgumentException("Make sure right >= left");
     return prefixSum(right) - prefixSum(left - 1);
   }
 

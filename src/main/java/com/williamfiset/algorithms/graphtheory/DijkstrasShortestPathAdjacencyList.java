@@ -50,14 +50,14 @@ public class DijkstrasShortestPathAdjacencyList {
   private Integer[] prev;
   private List<List<Edge>> graph;
 
-  private Comparator<Node> comparator = new Comparator<Node>() {
-    @Override
-    public int compare(Node node1, Node node2) {
-      if (Math.abs(node1.value - node2.value) < EPS)
-        return 0;
-      return (node1.value - node2.value) > 0 ? +1 : -1;
-    }
-  };
+  private Comparator<Node> comparator =
+      new Comparator<Node>() {
+        @Override
+        public int compare(Node node1, Node node2) {
+          if (Math.abs(node1.value - node2.value) < EPS) return 0;
+          return (node1.value - node2.value) > 0 ? +1 : -1;
+        }
+      };
 
   /**
    * Initialize the solver by providing the graph size and a starting node. Use the {@link #addEdge}
@@ -72,8 +72,7 @@ public class DijkstrasShortestPathAdjacencyList {
 
   public DijkstrasShortestPathAdjacencyList(int n, Comparator<Node> comparator) {
     this(n);
-    if (comparator == null)
-      throw new IllegalArgumentException("Comparator cannot be null");
+    if (comparator == null) throw new IllegalArgumentException("Comparator cannot be null");
     this.comparator = comparator;
   }
 
@@ -98,19 +97,15 @@ public class DijkstrasShortestPathAdjacencyList {
    * Reconstructs the shortest path (of nodes) from 'start' to 'end' inclusive.
    *
    * @return An array of nodes indexes of the shortest path from 'start' to 'end'. If 'start' and
-   *         'end' are not connected then an empty array is returned.
+   *     'end' are not connected then an empty array is returned.
    */
   public List<Integer> reconstructPath(int start, int end) {
-    if (end < 0 || end >= n)
-      throw new IllegalArgumentException("Invalid node index");
-    if (start < 0 || start >= n)
-      throw new IllegalArgumentException("Invalid node index");
+    if (end < 0 || end >= n) throw new IllegalArgumentException("Invalid node index");
+    if (start < 0 || start >= n) throw new IllegalArgumentException("Invalid node index");
     double dist = dijkstra(start, end);
     List<Integer> path = new ArrayList<>();
-    if (dist == Double.POSITIVE_INFINITY)
-      return path;
-    for (Integer at = end; at != null; at = prev[at])
-      path.add(at);
+    if (dist == Double.POSITIVE_INFINITY) return path;
+    for (Integer at = end; at != null; at = prev[at]) path.add(at);
     Collections.reverse(path);
     return path;
   }
@@ -139,8 +134,7 @@ public class DijkstrasShortestPathAdjacencyList {
 
       // We already found a better path before we got to
       // processing this node so we can ignore it.
-      if (dist[node.id] < node.value)
-        continue;
+      if (dist[node.id] < node.value) continue;
 
       List<Edge> edges = graph.get(node.id);
       for (int i = 0; i < edges.size(); i++) {
@@ -148,8 +142,7 @@ public class DijkstrasShortestPathAdjacencyList {
 
         // You cannot get a shorter path by revisiting
         // a node you have already visited before.
-        if (visited[edge.to])
-          continue;
+        if (visited[edge.to]) continue;
 
         // Relax edge by updating minimum cost if applicable.
         double newDist = dist[edge.from] + edge.cost;
@@ -162,8 +155,7 @@ public class DijkstrasShortestPathAdjacencyList {
       // Once we've visited all the nodes spanning from the end
       // node we know we can return the minimum distance value to
       // the end node because it cannot get any better after this point.
-      if (node.id == end)
-        return dist[end];
+      if (node.id == end) return dist[end];
     }
     // End node is unreachable
     return Double.POSITIVE_INFINITY;
@@ -172,7 +164,6 @@ public class DijkstrasShortestPathAdjacencyList {
   // Construct an empty graph with n nodes including the source and sink nodes.
   private void createEmptyGraph() {
     graph = new ArrayList<>(n);
-    for (int i = 0; i < n; i++)
-      graph.add(new ArrayList<>());
+    for (int i = 0; i < n; i++) graph.add(new ArrayList<>());
   }
 }

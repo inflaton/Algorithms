@@ -2,8 +2,7 @@
  * This file shows you how to solve the traveling salesman problem using a brute force approach.
  * Since the time complexity is on the order of O(n!) this method is not convenient for n > 12
  *
- * <p>
- * Time Complexity: O(n!)
+ * <p>Time Complexity: O(n!)
  *
  * @author William Fiset, Micah Stairs
  */
@@ -18,8 +17,7 @@ public class TspBruteForce {
 
     int n = matrix.length;
     int[] permutation = new int[n];
-    for (int i = 0; i < n; i++)
-      permutation[i] = i;
+    for (int i = 0; i < n; i++) permutation[i] = i;
 
     int[] bestTour = permutation.clone();
     double bestTourCost = Double.POSITIVE_INFINITY;
@@ -65,22 +63,17 @@ public class TspBruteForce {
   // loop to generate each successive permutations (see main for example).
   public static boolean nextPermutation(int[] sequence) {
     int first = getFirst(sequence);
-    if (first == -1)
-      return false;
+    if (first == -1) return false;
     int toSwap = sequence.length - 1;
-    while (sequence[first] >= sequence[toSwap])
-      --toSwap;
+    while (sequence[first] >= sequence[toSwap]) --toSwap;
     swap(sequence, first++, toSwap);
     toSwap = sequence.length - 1;
-    while (first < toSwap)
-      swap(sequence, first++, toSwap--);
+    while (first < toSwap) swap(sequence, first++, toSwap--);
     return true;
   }
 
   private static int getFirst(int[] sequence) {
-    for (int i = sequence.length - 2; i >= 0; --i)
-      if (sequence[i] < sequence[i + 1])
-        return i;
+    for (int i = sequence.length - 2; i >= 0; --i) if (sequence[i] < sequence[i + 1]) return i;
     return -1;
   }
 
@@ -94,8 +87,7 @@ public class TspBruteForce {
 
     int n = 10;
     double[][] matrix = new double[n][n];
-    for (double[] row : matrix)
-      java.util.Arrays.fill(row, 100);
+    for (double[] row : matrix) java.util.Arrays.fill(row, 100);
 
     // Construct an optimal tour
     int edgeCost = 5;

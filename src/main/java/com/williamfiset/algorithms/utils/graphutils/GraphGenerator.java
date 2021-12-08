@@ -1,6 +1,6 @@
 package com.williamfiset.algorithms.utils.graphutils;
 
-import java.util.*;
+import java.util.List;
 
 public class GraphGenerator {
 
@@ -10,7 +10,11 @@ public class GraphGenerator {
 
     // Generates a DAg gives several parameters. Make sure the edge probability
     // is high enough to make a mostly connected graph.
-    public DagGenerator(int minLevels, int maxLevels, int minNodesPerLevel, int maxNodesPerLevel,
+    public DagGenerator(
+        int minLevels,
+        int maxLevels,
+        int minNodesPerLevel,
+        int maxNodesPerLevel,
         double edgeProbability) {
       this.minLevels = minLevels;
       this.maxLevels = maxLevels;

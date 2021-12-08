@@ -6,7 +6,8 @@
  */
 package com.williamfiset.algorithms.graphtheory;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class BellmanFordAdjacencyMatrix {
@@ -32,26 +33,21 @@ public class BellmanFordAdjacencyMatrix {
     this.matrix = new double[n][n];
 
     // Copy input adjacency matrix.
-    for (int i = 0; i < n; i++)
-      this.matrix[i] = matrix[i].clone();
+    for (int i = 0; i < n; i++) this.matrix[i] = matrix[i].clone();
   }
 
   public double[] getShortestPaths() {
-    if (!solved)
-      solve();
+    if (!solved) solve();
     return dist;
   }
 
   public List<Integer> reconstructShortestPath(int end) {
-    if (!solved)
-      solve();
+    if (!solved) solve();
     LinkedList<Integer> path = new LinkedList<>();
-    if (dist[end] == Double.POSITIVE_INFINITY)
-      return path;
+    if (dist[end] == Double.POSITIVE_INFINITY) return path;
     for (int at = end; prev[at] != null; at = prev[at]) {
       // Return null since there are an infinite number of shortest paths.
-      if (prev[at] == -1)
-        return null;
+      if (prev[at] == -1) return null;
       path.addFirst(at);
     }
     path.addFirst(start);
@@ -59,8 +55,7 @@ public class BellmanFordAdjacencyMatrix {
   }
 
   public void solve() {
-    if (solved)
-      return;
+    if (solved) return;
 
     // Initialize the distance to all nodes to be infinity
     // except for the start node which is zero.

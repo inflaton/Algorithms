@@ -2,13 +2,13 @@ package com.williamfiset.algorithms.datastructures.sparsetable;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import java.util.*;
-import org.junit.*;
+import java.util.Random;
+import org.junit.Test;
 
 public class SparseTableTest {
 
-  private void queryResultTest(long[] values, int l, int r, long actual, int index,
-      SparseTable.Operation op) {
+  private void queryResultTest(
+      long[] values, int l, int r, long actual, int index, SparseTable.Operation op) {
     if (op == SparseTable.Operation.MIN) {
       minQuery(values, l, r, actual, index);
     } else if (op == SparseTable.Operation.MAX) {
@@ -24,31 +24,27 @@ public class SparseTableTest {
 
   private void minQuery(long[] values, int l, int r, long actual, int index) {
     long m = Long.MAX_VALUE;
-    for (int i = l; i <= r; i++)
-      m = Math.min(m, values[i]);
+    for (int i = l; i <= r; i++) m = Math.min(m, values[i]);
     assertThat(actual).isEqualTo(m);
     assertThat(values[index]).isEqualTo(m);
   }
 
   private void maxQuery(long[] values, int l, int r, long actual, int index) {
     long m = Long.MIN_VALUE;
-    for (int i = l; i <= r; i++)
-      m = Math.max(m, values[i]);
+    for (int i = l; i <= r; i++) m = Math.max(m, values[i]);
     assertThat(actual).isEqualTo(m);
     assertThat(values[index]).isEqualTo(m);
   }
 
   private void sumQuery(long[] values, int l, int r, long actual) {
     long m = 0;
-    for (int i = l; i <= r; i++)
-      m += values[i];
+    for (int i = l; i <= r; i++) m += values[i];
     assertThat(m).isEqualTo(actual);
   }
 
   private void multQuery(long[] values, int l, int r, long actual) {
     long m = 1;
-    for (int i = l; i <= r; i++)
-      m *= values[i];
+    for (int i = l; i <= r; i++) m *= values[i];
     assertThat(m).isEqualTo(actual);
   }
 
@@ -60,8 +56,7 @@ public class SparseTableTest {
 
   private void gcdQuery(long[] values, int l, int r, long actual) {
     long m = values[l];
-    for (int i = l; i <= r; i++)
-      m = gcd(m, values[i]);
+    for (int i = l; i <= r; i++) m = gcd(m, values[i]);
     assertThat(m).isEqualTo(actual);
   }
 
@@ -74,16 +69,16 @@ public class SparseTableTest {
 
     for (int i = 0; i < values.length; i++) {
       for (int j = i; j < values.length; j++) {
-        queryResultTest(values, i, j, min_st.query(i, j), min_st.queryIndex(i, j),
-            SparseTable.Operation.MIN);
-        queryResultTest(values, i, j, max_st.query(i, j), max_st.queryIndex(i, j),
-            SparseTable.Operation.MAX);
-        queryResultTest(values, i, j, sum_st.query(i, j), -1 /* unused */,
-            SparseTable.Operation.SUM);
-        queryResultTest(values, i, j, mult_st.query(i, j), -1 /* unused */,
-            SparseTable.Operation.MULT);
-        queryResultTest(values, i, j, gcd_st.query(i, j), -1 /* unused */,
-            SparseTable.Operation.GCD);
+        queryResultTest(
+            values, i, j, min_st.query(i, j), min_st.queryIndex(i, j), SparseTable.Operation.MIN);
+        queryResultTest(
+            values, i, j, max_st.query(i, j), max_st.queryIndex(i, j), SparseTable.Operation.MAX);
+        queryResultTest(
+            values, i, j, sum_st.query(i, j), -1 /* unused */, SparseTable.Operation.SUM);
+        queryResultTest(
+            values, i, j, mult_st.query(i, j), -1 /* unused */, SparseTable.Operation.MULT);
+        queryResultTest(
+            values, i, j, gcd_st.query(i, j), -1 /* unused */, SparseTable.Operation.GCD);
       }
     }
   }
@@ -143,7 +138,8 @@ public class SparseTableTest {
       for (int i = 0; i < values.length; i++) {
         for (int j = i; j < values.length; j++) {
           long min = Long.MAX_VALUE, max = Long.MIN_VALUE;
-          int minIndex = 0, maxIndex = 0;;
+          int minIndex = 0, maxIndex = 0;
+          ;
           for (int k = i; k <= j; k++) {
             if (values[k] < min) {
               min = values[k];

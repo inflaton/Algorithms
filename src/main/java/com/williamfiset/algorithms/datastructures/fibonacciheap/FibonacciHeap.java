@@ -1,8 +1,7 @@
 /**
  * FibonacciHeap data structure implementation.
  *
- * <p>
- * Disclaimer: implementation based on:
+ * <p>Disclaimer: implementation based on:
  * http://staff.ustc.edu.cn/~csli/graduate/algorithms/book6/chap21.htm Implementation credits to the
  * respective code owners.
  */

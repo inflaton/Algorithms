@@ -16,8 +16,7 @@ public class MaximumSubarray {
   // Return the value of the maximum subarray in 'ar'
   public static long maximumSubarrayValue(int[] ar) {
 
-    if (ar == null || ar.length == 0)
-      return 0L;
+    if (ar == null || ar.length == 0) return 0L;
     int n = ar.length, maxValue, sum;
 
     maxValue = sum = ar[0];
@@ -27,13 +26,10 @@ public class MaximumSubarray {
       // At each step consider continuing the current subarray
       // or starting a new one because adding the next element
       // doesn't acutally make the subarray sum any better.
-      if (ar[i] > sum + ar[i])
-        sum = ar[i];
-      else
-        sum = sum + ar[i];
+      if (ar[i] > sum + ar[i]) sum = ar[i];
+      else sum = sum + ar[i];
 
-      if (sum > maxValue)
-        maxValue = sum;
+      if (sum > maxValue) maxValue = sum;
     }
 
     return maxValue;

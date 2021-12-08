@@ -10,8 +10,8 @@ import static com.williamfiset.algorithms.graphtheory.treealgorithms.TreeCenterL
 import static com.williamfiset.algorithms.graphtheory.treealgorithms.TreeCenterLongestPathImpl.createEmptyTree;
 import static com.williamfiset.algorithms.graphtheory.treealgorithms.TreeCenterLongestPathImpl.findTreeCenters;
 
-import java.util.*;
-import org.junit.*;
+import java.util.List;
+import org.junit.Test;
 
 public class TreeCenterLongestPathImplTest {
 

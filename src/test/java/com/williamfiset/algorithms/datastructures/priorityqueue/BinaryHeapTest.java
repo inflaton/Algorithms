@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.PriorityQueue;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 
 public class BinaryHeapTest {
 
@@ -32,17 +33,14 @@ public class BinaryHeapTest {
     Integer[] nums = {3, 2, 5, 6, 7, 9, 4, 8, 1};
 
     // Try manually creating heap
-    for (int n : nums)
-      q.add(n);
-    for (int i = 1; i <= 9; i++)
-      assertThat(q.poll()).isEqualTo(i);
+    for (int n : nums) q.add(n);
+    for (int i = 1; i <= 9; i++) assertThat(q.poll()).isEqualTo(i);
 
     q.clear();
 
     // Try heapify constructor
     q = new BinaryHeap<>(nums);
-    for (int i = 1; i <= 9; i++)
-      assertThat(q.poll()).isEqualTo(i);
+    for (int i = 1; i <= 9; i++) assertThat(q.poll()).isEqualTo(i);
   }
 
   @Test
@@ -54,8 +52,7 @@ public class BinaryHeapTest {
       BinaryHeap<Integer> pq = new BinaryHeap<>(lst);
 
       PriorityQueue<Integer> pq2 = new PriorityQueue<>(i);
-      for (int x : lst)
-        pq2.add(x);
+      for (int x : lst) pq2.add(x);
 
       assertThat(pq.isMinHeap(0)).isTrue();
       while (!pq2.isEmpty()) {
@@ -122,8 +119,7 @@ public class BinaryHeapTest {
 
     BinaryHeap<Integer> pq = new BinaryHeap<>(in);
     PriorityQueue<Integer> PQ = new PriorityQueue<>();
-    for (int value : in)
-      PQ.offer(value);
+    for (int value : in) PQ.offer(value);
 
     assertThat(pq.isMinHeap(0)).isTrue();
 
@@ -300,24 +296,21 @@ public class BinaryHeapTest {
 
   static Integer[] genRandArray(int sz) {
     Integer[] lst = new Integer[sz];
-    for (int i = 0; i < sz; i++)
-      lst[i] = (int) (Math.random() * MAX_SZ);
+    for (int i = 0; i < sz; i++) lst[i] = (int) (Math.random() * MAX_SZ);
     return lst;
   }
 
   // Generate a list of random numbers
   static List<Integer> genRandList(int sz) {
     List<Integer> lst = new ArrayList<>(sz);
-    for (int i = 0; i < sz; i++)
-      lst.add((int) (Math.random() * MAX_SZ));
+    for (int i = 0; i < sz; i++) lst.add((int) (Math.random() * MAX_SZ));
     return lst;
   }
 
   // Generate a list of unique random numbers
   static List<Integer> genUniqueRandList(int sz) {
     List<Integer> lst = new ArrayList<>(sz);
-    for (int i = 0; i < sz; i++)
-      lst.add(i);
+    for (int i = 0; i < sz; i++) lst.add(i);
     Collections.shuffle(lst);
     return lst;
   }

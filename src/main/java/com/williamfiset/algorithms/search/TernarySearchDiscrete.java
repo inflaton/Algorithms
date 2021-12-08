@@ -3,11 +3,9 @@
  * then increases. This implementation of ternary search works on discrete values and returns the
  * input value corresponding with the minimum output value of the function you're searching on.
  *
- * <p>
- * Time Complexity: O(log(high - low)).
+ * <p>Time Complexity: O(log(high - low)).
  *
- * <p>
- * NOTE: You can also work with a function which increases and then decreases, simply negate your
+ * <p>NOTE: You can also work with a function which increases and then decreases, simply negate your
  * function :)
  *
  * @author Thomas Finn Lidbetter
@@ -33,19 +31,15 @@ public class TernarySearchDiscrete {
 
   static double discreteTernarySearch(int lo, int hi) {
     while (lo != hi) {
-      if (hi - lo == 1)
-        return Math.min(f(lo), f(hi));
-      if (hi - lo == 2)
-        return Math.min(f(lo), Math.min(f(lo + 1), f(hi)));
+      if (hi - lo == 1) return Math.min(f(lo), f(hi));
+      if (hi - lo == 2) return Math.min(f(lo), Math.min(f(lo + 1), f(hi)));
       int mid1 = (2 * lo + hi) / 3, mid2 = (lo + 2 * hi) / 3;
       double res1 = f(mid1), res2 = f(mid2);
       if (Math.abs(res1 - res2) < 0.000000001) {
         lo = mid1;
         hi = mid2;
-      } else if (res1 > res2)
-        lo = mid1;
-      else
-        hi = mid2;
+      } else if (res1 > res2) lo = mid1;
+      else hi = mid2;
     }
     return f(lo);
   }

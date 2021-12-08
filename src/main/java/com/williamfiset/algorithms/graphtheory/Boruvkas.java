@@ -1,7 +1,9 @@
 /** WIP */
 package com.williamfiset.algorithms.graphtheory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Boruvkas {
 
@@ -24,8 +26,7 @@ public class Boruvkas {
       // Break ties by picking lexicographically smallest edge pair.
       if (cmp == 0) {
         cmp = u - other.u;
-        if (cmp == 0)
-          return v - other.v;
+        if (cmp == 0) return v - other.v;
         return cmp;
       }
       return cmp;
@@ -45,8 +46,7 @@ public class Boruvkas {
   private List<Edge> mst;
 
   public Boruvkas(int n, int m, Edge[] graph) {
-    if (graph == null)
-      throw new IllegalArgumentException();
+    if (graph == null) throw new IllegalArgumentException();
     this.graph = graph;
     this.n = n;
     this.m = m;
@@ -68,8 +68,7 @@ public class Boruvkas {
   // the Minimum Spanning Tree (MST) cost if there exists
   // a MST, otherwise it returns null.
   private void solve() {
-    if (solved)
-      return;
+    if (solved) return;
 
     mst = new ArrayList<>();
 
@@ -81,7 +80,7 @@ public class Boruvkas {
     // Repeat at most log(n) times or until we have a complete spanning tree.
     // for(int t = 1; t < N && index < n - 1; t = t + t) {
     // for(long t = 1; t <= n && mst.size() != n-1; t = t << 1) {
-    for (; mst.size() != n - 1;) {
+    for (; mst.size() != n - 1; ) {
 
       // TODO: Remove
       Arrays.fill(cheapest, -1);
@@ -89,11 +88,9 @@ public class Boruvkas {
 
       for (int i = 0; i < graph.length; i++) {
         Edge e = graph[i];
-        if (e.u == e.v)
-          continue;
+        if (e.u == e.v) continue;
         int uc = uf.id[e.u], vc = uf.id[e.v];
-        if (uc == vc)
-          continue;
+        if (uc == vc) continue;
         // if (cheapest[vc] == -1 || e.compareTo(graph[cheapest[vc]]) < 0) { stop =
         // false;
         // cheapest[vc] = i; }
@@ -110,16 +107,13 @@ public class Boruvkas {
         }
       }
 
-      if (stop)
-        break;
+      if (stop) break;
 
       for (int i = 0; i < n; i++) {
-        if (cheapest[i] == -1)
-          continue;
+        if (cheapest[i] == -1) continue;
         Edge e = graph[cheapest[i]];
         // cheapest[i] = -1;
-        if (uf.connected(e.u, e.v))
-          continue;
+        if (uf.connected(e.u, e.v)) continue;
 
         mst.add(e);
         minCostSum += e.cost;
@@ -139,8 +133,7 @@ public class Boruvkas {
 
   private boolean check() {
 
-    if (!mstExists)
-      return true;
+    if (!mstExists) return true;
 
     // check that it is acyclic
     UnionFind uf = new UnionFind(n);
@@ -169,8 +162,7 @@ public class Boruvkas {
       uf = new UnionFind(n);
       for (Edge f : mst) {
         int x = f.u, y = f.v;
-        if (f != e)
-          uf.union(x, y);
+        if (f != e) uf.union(x, y);
       }
 
       // check that e is min weight edge in crossing cut
@@ -245,8 +237,7 @@ public class Boruvkas {
 
     public int find(int p) {
       int root = p;
-      while (root != id[root])
-        root = id[root];
+      while (root != id[root]) root = id[root];
       while (p != root) { // Do path compression
         int next = id[p];
         id[p] = root;
@@ -265,8 +256,7 @@ public class Boruvkas {
 
     public void union(int p, int q) {
       int root1 = find(p), root2 = find(q);
-      if (root1 == root2)
-        return;
+      if (root1 == root2) return;
       if (sz[root1] < sz[root2]) {
         sz[root2] += sz[root1];
         id[root1] = root2;

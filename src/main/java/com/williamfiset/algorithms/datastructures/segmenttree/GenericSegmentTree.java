@@ -3,15 +3,12 @@
  * functions. This implementation of the segment tree differs from the `GenericSegmentTree2` impl in
  * that it stores the segment tree information inside multiple arrays for node.
  *
- * <p>
- * Run with: ./gradlew run -Palgorithm=datastructures.segmenttree.GenericSegmentTree
+ * <p>Run with: ./gradlew run -Palgorithm=datastructures.segmenttree.GenericSegmentTree
  *
- * <p>
- * Several thanks to cp-algorithms for their great article on segment trees:
+ * <p>Several thanks to cp-algorithms for their great article on segment trees:
  * https://cp-algorithms.com/data_structures/segment_tree.html
  *
- * <p>
- * NOTE: This file is still a WIP
+ * <p>NOTE: This file is still a WIP
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -23,7 +20,11 @@ public class GenericSegmentTree {
 
   // The type of segment combination function to use
   public static enum SegmentCombinationFn {
-    SUM, MIN, MAX, GCD, PRODUCT
+    SUM,
+    MIN,
+    MAX,
+    GCD,
+    PRODUCT
   }
 
   // When updating the value of a specific index position, or a range of values,
@@ -73,34 +74,26 @@ public class GenericSegmentTree {
   private Ruf lruf;
 
   private long safeSum(Long a, Long b) {
-    if (a == null)
-      a = 0L;
-    if (b == null)
-      b = 0L;
+    if (a == null) a = 0L;
+    if (b == null) b = 0L;
     return a + b;
   }
 
   private Long safeMul(Long a, Long b) {
-    if (a == null)
-      a = 1L;
-    if (b == null)
-      b = 1L;
+    if (a == null) a = 1L;
+    if (b == null) b = 1L;
     return a * b;
   }
 
   private Long safeMin(Long a, Long b) {
-    if (a == null)
-      return b;
-    if (b == null)
-      return a;
+    if (a == null) return b;
+    if (b == null) return a;
     return Math.min(a, b);
   }
 
   private Long safeMax(Long a, Long b) {
-    if (a == null)
-      return b;
-    if (b == null)
-      return a;
+    if (a == null) return b;
+    if (b == null) return a;
     return Math.max(a, b);
   }
 
@@ -108,19 +101,18 @@ public class GenericSegmentTree {
   private BinaryOperator<Long> minCombinationFn = (a, b) -> safeMin(a, b);
   private BinaryOperator<Long> maxCombinationFn = (a, b) -> safeMax(a, b);
   private BinaryOperator<Long> productCombinationFn = (a, b) -> safeMul(a, b);
-  private BinaryOperator<Long> gcdCombinationFn = (a, b) -> {
-    if (a == null)
-      return b;
-    if (b == null)
-      return a;
-    long gcd = a;
-    while (b != 0) {
-      gcd = b;
-      b = a % b;
-      a = gcd;
-    }
-    return Math.abs(gcd);
-  };
+  private BinaryOperator<Long> gcdCombinationFn =
+      (a, b) -> {
+        if (a == null) return b;
+        if (b == null) return a;
+        long gcd = a;
+        while (b != 0) {
+          gcd = b;
+          b = a % b;
+          a = gcd;
+        }
+        return Math.abs(gcd);
+      };
 
   // TODO(william): Document the justification for each function below
 
@@ -170,14 +162,16 @@ public class GenericSegmentTree {
 
   private Ruf productQueryMulUpdate = (b, tl, tr, d) -> b * (long) (Math.pow(d, (tr - tl + 1)));
   private Ruf lproductQueryMulUpdate = (b, tl, tr, d) -> safeMul(b, d); // safeMul(b,
-                                                                        // (long)(Math.pow(d, (tr -
-                                                                        // tl +
-                                                                        // 1))));
+  // (long)(Math.pow(d, (tr -
+  // tl +
+  // 1))));
 
   private Ruf productQueryAssignUpdate = (b, tl, tr, d) -> d;
   private Ruf lproductQueryAssignUpdate = (b, tl, tr, d) -> d;
 
-  public GenericSegmentTree(long[] values, SegmentCombinationFn segmentCombinationFunction,
+  public GenericSegmentTree(
+      long[] values,
+      SegmentCombinationFn segmentCombinationFunction,
       RangeUpdateFn rangeUpdateFunction) {
     if (values == null) {
       throw new IllegalArgumentException("Segment tree values cannot be null.");
@@ -325,7 +319,8 @@ public class GenericSegmentTree {
     // Instead of checking if [tl, tm] overlaps [l, r] and [tm+1, tr] overlaps
     // [l, r], simply recurse on both segments and let the base case return the
     // default value for invalid intervals.
-    return combinationFn.apply(rangeQuery1(2 * i + 1, tl, tm, l, Math.min(tm, r)),
+    return combinationFn.apply(
+        rangeQuery1(2 * i + 1, tl, tm, l, Math.min(tm, r)),
         rangeQuery1(2 * i + 2, tm + 1, tr, Math.max(l, tm + 1), r));
   }
 
@@ -345,8 +340,7 @@ public class GenericSegmentTree {
 
   private void propagateLazy1(int i, int tl, int tr, long delta) {
     // Ignore leaf segments
-    if (tl == tr)
-      return;
+    if (tl == tr) return;
     lazy[2 * i + 1] = lruf.apply(lazy[2 * i + 1], tl, tr, delta);
     lazy[2 * i + 2] = lruf.apply(lazy[2 * i + 2], tl, tr, delta);
   }
@@ -454,24 +448,21 @@ public class GenericSegmentTree {
     int l = 0;
     int r = 3;
     long q = st.rangeQuery1(l, r);
-    if (q != 12)
-      System.out.println("Error");
+    if (q != 12) System.out.println("Error");
     System.out.printf("The product between indeces [%d, %d] is: %d\n", l, r, q);
 
     // 3, 8, 8, 1
     // 3 * 8 * 8 * 1 = 192
     st.rangeUpdate1(1, 2, 4);
     q = st.rangeQuery1(l, r);
-    if (q != 192)
-      System.out.println("Error");
+    if (q != 192) System.out.println("Error");
     System.out.printf("The product between indeces [%d, %d] is: %d\n", l, r, st.rangeQuery1(l, r));
 
     // 3, 8, 16, 2
     // 3 * 8 * 16 * 2 = 768
     st.rangeUpdate1(2, 3, 2);
     q = st.rangeQuery1(l, r);
-    if (q != 768)
-      System.out.println("Error");
+    if (q != 768) System.out.println("Error");
     System.out.printf("The product between indeces [%d, %d] is: %d\n", l, r, st.rangeQuery1(l, r));
 
     // 12, 24, 24, 24, 48
@@ -494,19 +485,16 @@ public class GenericSegmentTree {
     int l = 0;
     int r = 2;
     long q = st.rangeQuery1(l, r);
-    if (q != 3)
-      System.out.println("Error");
+    if (q != 3) System.out.println("Error");
     System.out.printf("The gcd between indeces [%d, %d] is: %d\n", l, r, q);
     st.rangeUpdate1(2, 2, 2);
     q = st.rangeQuery1(l, r);
-    if (q != 6)
-      System.out.println("Error");
+    if (q != 6) System.out.println("Error");
     System.out.printf("The gcd between indeces [%d, %d] is: %d\n", l, r, st.rangeQuery1(l, r));
 
     r = 1; // [l, r] = [0, 1]
     q = st.rangeQuery1(l, r);
-    if (q != 12)
-      System.out.println("Error");
+    if (q != 12) System.out.println("Error");
     System.out.printf("The gcd between indeces [%d, %d] is: %d\n", l, r, st.rangeQuery1(l, r));
   }
 
@@ -519,15 +507,13 @@ public class GenericSegmentTree {
     int l = 0;
     int r = 2;
     long q = st.rangeQuery1(l, r);
-    if (q != 3)
-      System.out.println("Error");
+    if (q != 3) System.out.println("Error");
     System.out.printf("The gcd between indeces [%d, %d] is: %d\n", l, r, q);
 
     // 12, 24, 48, 12, 48
     st.rangeUpdate1(2, 2, 48);
     q = st.rangeQuery1(l, r);
-    if (q != 12)
-      System.out.println("Error");
+    if (q != 12) System.out.println("Error");
     System.out.printf("The gcd between indeces [%d, %d] is: %d\n", l, r, st.rangeQuery1(l, r));
 
     // 12, 24, 24, 24, 48
@@ -535,8 +521,7 @@ public class GenericSegmentTree {
     l = 0;
     r = 4;
     q = st.rangeQuery1(l, r);
-    if (q != 12)
-      System.out.println("Error");
+    if (q != 12) System.out.println("Error");
     System.out.printf("The gcd between indeces [%d, %d] is: %d\n", l, r, st.rangeQuery1(l, r));
   }
 
@@ -549,13 +534,11 @@ public class GenericSegmentTree {
     int l = 1;
     int r = 3;
     long q = st.rangeQuery1(l, r);
-    if (q != 8)
-      System.out.println("Error");
+    if (q != 8) System.out.println("Error");
     System.out.printf("The sum between indeces [%d, %d] is: %d\n", l, r, q);
     st.rangeUpdate1(1, 3, 3);
     q = st.rangeQuery1(l, r);
-    if (q != 17)
-      System.out.println("Error");
+    if (q != 17) System.out.println("Error");
     System.out.printf("The sum between indeces [%d, %d] is: %d\n", l, r, st.rangeQuery1(l, r));
   }
 
@@ -577,15 +560,13 @@ public class GenericSegmentTree {
     int l = 1;
     int r = 3;
     long q = st.rangeQuery1(l, r);
-    if (q != 1)
-      System.out.println("Error");
+    if (q != 1) System.out.println("Error");
     System.out.printf("The min between indeces [%d, %d] is: %d\n", l, r, q);
     st.rangeUpdate1(1, 3, 3);
     l = 0;
     r = 1;
     q = st.rangeQuery1(l, r);
-    if (q != 2)
-      System.out.println("Error");
+    if (q != 2) System.out.println("Error");
     System.out.printf("The min between indeces [%d, %d] is: %d\n", l, r, st.rangeQuery1(l, r));
   }
 }

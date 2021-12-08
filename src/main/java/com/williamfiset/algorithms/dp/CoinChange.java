@@ -3,8 +3,7 @@
  * the minimum number of coins required for a certain amount of change given the coin denominations.
  * You may use each coin denomination as many times as you please.
  *
- * <p>
- * Tested against: https://leetcode.com/problems/coin-change/
+ * <p>Tested against: https://leetcode.com/problems/coin-change/
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -16,10 +15,8 @@ public class CoinChange {
 
   public static int coinChange(int[] coins, int amount) {
 
-    if (coins == null)
-      throw new IllegalArgumentException("Coins array is null");
-    if (coins.length == 0)
-      throw new IllegalArgumentException("No coin values :/");
+    if (coins == null) throw new IllegalArgumentException("Coins array is null");
+    if (coins.length == 0) throw new IllegalArgumentException("No coin values :/");
 
     final int N = coins.length;
     // Initialize table and set first row to be infinity
@@ -44,8 +41,7 @@ public class CoinChange {
     }
 
     // The amount we wanted to make cannot be made :/
-    if (dp[N][amount] == INF)
-      return -1;
+    if (dp[N][amount] == INF) return -1;
 
     // Return the minimum number of coins needed
     return dp[N][amount];
@@ -53,8 +49,7 @@ public class CoinChange {
 
   public static int coinChangeSpaceEfficient(int[] coins, int amount) {
 
-    if (coins == null)
-      throw new IllegalArgumentException("Coins array is null");
+    if (coins == null) throw new IllegalArgumentException("Coins array is null");
 
     // Initialize table and set everything to infinity except first cell
     int[] dp = new int[amount + 1];
@@ -70,8 +65,7 @@ public class CoinChange {
     }
 
     // The amount we wanted to make cannot be made :/
-    if (dp[amount] == INF)
-      return -1;
+    if (dp[amount] == INF) return -1;
 
     // Return the minimum number of coins needed
     return dp[amount];
@@ -82,10 +76,8 @@ public class CoinChange {
   // things especially if the coin denominations are large.
   public static int coinChangeRecursive(int[] coins, int amount) {
 
-    if (coins == null)
-      throw new IllegalArgumentException("Coins array is null");
-    if (amount < 0)
-      return -1;
+    if (coins == null) throw new IllegalArgumentException("Coins array is null");
+    if (amount < 0) return -1;
 
     int[] dp = new int[amount + 1];
     return coinChangeRecursive(amount, coins, dp);
@@ -95,20 +87,16 @@ public class CoinChange {
   private static int coinChangeRecursive(int amount, int[] coins, int[] dp) {
 
     // Base cases.
-    if (amount < 0)
-      return -1;
-    if (amount == 0)
-      return 0;
-    if (dp[amount] != 0)
-      return dp[amount];
+    if (amount < 0) return -1;
+    if (amount == 0) return 0;
+    if (dp[amount] != 0) return dp[amount];
 
     int minCoins = INF;
     for (int coinValue : coins) {
 
       int newAmount = amount - coinValue;
       int value = coinChangeRecursive(newAmount, coins, dp);
-      if (value != -1 && value < minCoins)
-        minCoins = value + 1;
+      if (value != -1 && value < minCoins) minCoins = value + 1;
     }
 
     // If we weren't able to find some coins to make our

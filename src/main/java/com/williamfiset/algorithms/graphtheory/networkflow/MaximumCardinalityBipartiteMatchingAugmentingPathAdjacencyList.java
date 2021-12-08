@@ -4,17 +4,17 @@
  * graph we are able to find the matching between two groups which yields the most number of edges
  * used.
  *
- * <p>
- * Code tested against: https://open.kattis.com/problems/gopher2
+ * <p>Code tested against: https://open.kattis.com/problems/gopher2
  *
- * <p>
- * Time Complexity: O(VE)
+ * <p>Time Complexity: O(VE)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.graphtheory.networkflow;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MaximumCardinalityBipartiteMatchingAugmentingPathAdjacencyList {
 
@@ -46,8 +46,7 @@ public class MaximumCardinalityBipartiteMatchingAugmentingPathAdjacencyList {
   private static int augment(List<List<Integer>> graph, int[] visited, int[] next, int at) {
 
     // Node already visited in this augmenting path
-    if (visited[at] == visitToken)
-      return 0;
+    if (visited[at] == visitToken) return 0;
     visited[at] = visitToken;
 
     for (int node : graph.get(at)) {
@@ -79,8 +78,7 @@ public class MaximumCardinalityBipartiteMatchingAugmentingPathAdjacencyList {
 
   private static List<List<Integer>> createEmptyGraph(int n) {
     List<List<Integer>> graph = new ArrayList<>();
-    for (int i = 0; i < n; i++)
-      graph.add(new ArrayList<>());
+    for (int i = 0; i < n; i++) graph.add(new ArrayList<>());
     return graph;
   }
 

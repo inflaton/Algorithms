@@ -41,8 +41,7 @@ public class ArrayStack<T> implements Stack<T> {
   @Override
   @SuppressWarnings("unchecked")
   public T pop() {
-    if (isEmpty())
-      throw new EmptyStackException();
+    if (isEmpty()) throw new EmptyStackException();
     T elem = (T) data[--size];
     data[size] = null;
     return elem;
@@ -51,8 +50,7 @@ public class ArrayStack<T> implements Stack<T> {
   @Override
   @SuppressWarnings("unchecked")
   public T peek() {
-    if (isEmpty())
-      throw new EmptyStackException();
+    if (isEmpty()) throw new EmptyStackException();
     return (T) data[size - 1];
   }
 }

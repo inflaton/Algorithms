@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.TreeSet;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -211,8 +210,7 @@ public class RedBlackTreeTest {
   public void interestingCase1() {
 
     int[] values = {41, 44, 95, 83, 72, 66, 94, 90, 59};
-    for (int v : values)
-      tree.insert(v);
+    for (int v : values) tree.insert(v);
 
     assertThat(tree.root.value.intValue()).isEqualTo(44);
 
@@ -325,10 +323,11 @@ public class RedBlackTreeTest {
     }
   }
 
-  static void assertCorrectParentLinks(RedBlackTree<Integer> tree, RedBlackTree<Integer>.Node node,
+  static void assertCorrectParentLinks(
+      RedBlackTree<Integer> tree,
+      RedBlackTree<Integer>.Node node,
       RedBlackTree<Integer>.Node parent) {
-    if (node == tree.NIL)
-      return;
+    if (node == tree.NIL) return;
     try {
       assertThat(node.parent).isEqualTo(parent);
     } catch (AssertionError e) {
@@ -390,34 +389,29 @@ public class RedBlackTreeTest {
   // Make sure all left child nodes are smaller in value than their parent and
   // make sure all right child nodes are greater in value than their parent.
   // (Used only for testing)
-  boolean assertBinarySearchTreeInvariant(RedBlackTree<Integer> tree,
-      RedBlackTree<Integer>.Node node) {
-    if (node == tree.NIL)
-      return true;
+  boolean assertBinarySearchTreeInvariant(
+      RedBlackTree<Integer> tree, RedBlackTree<Integer>.Node node) {
+    if (node == tree.NIL) return true;
     boolean isValid = true;
-    if (node.left != tree.NIL)
-      isValid = node.left.value.compareTo(node.value) < 0;
-    if (node.right != tree.NIL)
-      isValid = isValid && node.right.value.compareTo(node.value) > 0;
-    return isValid && assertBinarySearchTreeInvariant(tree, node.left)
+    if (node.left != tree.NIL) isValid = node.left.value.compareTo(node.value) < 0;
+    if (node.right != tree.NIL) isValid = isValid && node.right.value.compareTo(node.value) > 0;
+    return isValid
+        && assertBinarySearchTreeInvariant(tree, node.left)
         && assertBinarySearchTreeInvariant(tree, node.right);
   }
 
   // Used for testing.
-  boolean validateParentLinksAreCorrect(RedBlackTree<Integer>.Node node,
-      RedBlackTree<Integer>.Node parent) {
-    if (node == tree.NIL)
-      return true;
-    if (node.parent != parent)
-      return false;
+  boolean validateParentLinksAreCorrect(
+      RedBlackTree<Integer>.Node node, RedBlackTree<Integer>.Node parent) {
+    if (node == tree.NIL) return true;
+    if (node.parent != parent) return false;
     return validateParentLinksAreCorrect(node.left, node)
         && validateParentLinksAreCorrect(node.right, node);
   }
 
   static List<Integer> genRandList(int sz) {
     List<Integer> lst = new ArrayList<>(sz);
-    for (int i = 0; i < sz; i++)
-      lst.add(i); // unique values.
+    for (int i = 0; i < sz; i++) lst.add(i); // unique values.
     Collections.shuffle(lst);
     return lst;
   }

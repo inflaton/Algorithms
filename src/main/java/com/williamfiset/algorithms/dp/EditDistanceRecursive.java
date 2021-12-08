@@ -1,8 +1,7 @@
 /**
  * A solution to the edit distance problem
  *
- * <p>
- * Tested against: https://leetcode.com/problems/edit-distance
+ * <p>Tested against: https://leetcode.com/problems/edit-distance
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -13,8 +12,8 @@ public class EditDistanceRecursive {
   final char[] a, b;
   final int insertionCost, deletionCost, substitutionCost;
 
-  public EditDistanceRecursive(String a, String b, int insertionCost, int deletionCost,
-      int substitutionCost) {
+  public EditDistanceRecursive(
+      String a, String b, int insertionCost, int deletionCost, int substitutionCost) {
     if (a == null || b == null) {
       throw new IllegalArgumentException("Input string must not be null");
     }

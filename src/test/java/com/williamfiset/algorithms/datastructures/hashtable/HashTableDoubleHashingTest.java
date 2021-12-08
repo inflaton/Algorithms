@@ -2,8 +2,16 @@ package com.williamfiset.algorithms.datastructures.hashtable;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import java.util.*;
-import org.junit.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+import org.junit.Before;
+import org.junit.Test;
 
 public class HashTableDoubleHashingTest {
 
@@ -98,8 +106,7 @@ public class HashTableDoubleHashingTest {
       }
 
       Set<DoubleHashingTestObject> set = new HashSet<>();
-      for (DoubleHashingTestObject n : rand_nums)
-        set.add(n);
+      for (DoubleHashingTestObject n : rand_nums) set.add(n);
 
       // System.out.println(set.size() + " " + jmap.size() + " " + count);
 
@@ -118,8 +125,7 @@ public class HashTableDoubleHashingTest {
     map.add(o1, 1);
     map.add(o2, 1);
     map.add(o3, 1);
-    for (DoubleHashingTestObject key : map)
-      map.add(o4, 4);
+    for (DoubleHashingTestObject key : map) map.add(o4, 4);
   }
 
   @Test(expected = java.util.ConcurrentModificationException.class)
@@ -130,8 +136,7 @@ public class HashTableDoubleHashingTest {
     map.add(o1, 1);
     map.add(o2, 1);
     map.add(o3, 1);
-    for (DoubleHashingTestObject key : map)
-      map.remove(o2);
+    for (DoubleHashingTestObject key : map) map.remove(o2);
   }
 
   @Test
@@ -156,8 +161,7 @@ public class HashTableDoubleHashingTest {
       assertThat(map.size()).isEqualTo(keys_set.size());
 
       List<DoubleHashingTestObject> keys = map.keys();
-      for (DoubleHashingTestObject key : keys)
-        map.remove(key);
+      for (DoubleHashingTestObject key : keys) map.remove(key);
 
       assertThat(map.isEmpty()).isTrue();
     }
@@ -179,13 +183,11 @@ public class HashTableDoubleHashingTest {
     assertThat(map.size()).isEqualTo(3);
 
     // Add ten more
-    for (int i = 1; i <= 10; i++)
-      map.put(new DoubleHashingTestObject(i), 0);
+    for (int i = 1; i <= 10; i++) map.put(new DoubleHashingTestObject(i), 0);
     assertThat(map.size()).isEqualTo(13);
 
     // Remove ten
-    for (int i = 1; i <= 10; i++)
-      map.remove(new DoubleHashingTestObject(i));
+    for (int i = 1; i <= 10; i++) map.remove(new DoubleHashingTestObject(i));
     assertThat(map.size()).isEqualTo(3);
 
     // remove three
@@ -219,15 +221,13 @@ public class HashTableDoubleHashingTest {
         DoubleHashingTestObject key = nums.get(i);
         int val = i;
 
-        if (r < probability1)
-          assertThat(jmap.put(key, val)).isEqualTo(map.put(key, val));
+        if (r < probability1) assertThat(jmap.put(key, val)).isEqualTo(map.put(key, val));
 
         assertThat(jmap.get(key)).isEqualTo(map.get(key));
         assertThat(jmap.containsKey(key)).isEqualTo(map.containsKey(key));
         assertThat(jmap.size()).isEqualTo(map.size());
 
-        if (r > probability2)
-          assertThat(map.remove(key)).isEqualTo(jmap.remove(key));
+        if (r > probability2) assertThat(map.remove(key)).isEqualTo(jmap.remove(key));
 
         assertThat(jmap.get(key)).isEqualTo(map.get(key));
         assertThat(jmap.containsKey(key)).isEqualTo(map.containsKey(key));

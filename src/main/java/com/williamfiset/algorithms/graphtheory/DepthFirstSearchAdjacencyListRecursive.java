@@ -5,7 +5,10 @@
  */
 package com.williamfiset.algorithms.graphtheory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DepthFirstSearchAdjacencyListRecursive {
 
@@ -24,8 +27,7 @@ public class DepthFirstSearchAdjacencyListRecursive {
   static long dfs(int at, boolean[] visited, Map<Integer, List<Edge>> graph) {
 
     // We have already visited this node
-    if (visited[at])
-      return 0L;
+    if (visited[at]) return 0L;
 
     // Visit this node
     visited[at] = true;
@@ -68,13 +70,11 @@ public class DepthFirstSearchAdjacencyListRecursive {
 
     long nodeCount = dfs(0, new boolean[numNodes], graph);
     System.out.println("DFS node count starting at node 0: " + nodeCount);
-    if (nodeCount != 4)
-      System.err.println("Error with DFS");
+    if (nodeCount != 4) System.err.println("Error with DFS");
 
     nodeCount = dfs(4, new boolean[numNodes], graph);
     System.out.println("DFS node count starting at node 4: " + nodeCount);
-    if (nodeCount != 1)
-      System.err.println("Error with DFS");
+    if (nodeCount != 1) System.err.println("Error with DFS");
   }
 
   // Helper method to setup graph

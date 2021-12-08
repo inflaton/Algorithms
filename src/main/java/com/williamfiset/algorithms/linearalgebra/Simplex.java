@@ -1,8 +1,7 @@
 /**
  * This simplex algorithm maximizes an expression subject to a set of constraints
  *
- * <p>
- * Time complexity: O(n^3)
+ * <p>Time complexity: O(n^3)
  *
  * @author Thomas Finn Lidbetter
  */
@@ -43,8 +42,7 @@ public class Simplex {
           c = j;
         }
       }
-      if (c < 0)
-        break;
+      if (c < 0) break;
       min = Double.MAX_VALUE;
       int r = -1;
       for (int i = 1; i < m.length; i++) {
@@ -57,13 +55,11 @@ public class Simplex {
         }
       }
       double v = m[r][c];
-      for (int j = 0; j < m[r].length; j++)
-        m[r][j] /= v;
+      for (int j = 0; j < m[r].length; j++) m[r][j] /= v;
       for (int i = 0; i < m.length; i++) {
         if (i != r) {
           v = m[i][c];
-          for (int j = 0; j < m[i].length; j++)
-            m[i][j] -= m[r][j] * v;
+          for (int j = 0; j < m[i].length; j++) m[i][j] -= m[r][j] * v;
         }
       }
     }

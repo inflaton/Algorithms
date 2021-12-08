@@ -3,11 +3,9 @@
  * improved partitioning algorithm. QuickSort is quite slow in the case where very few unique
  * elements exist in the array so the QuickSort3 algorithm is used at that time.
  *
- * <p>
- * Run with:
+ * <p>Run with:
  *
- * <p>
- * $ ./gradlew run -Palgorithm=sorting.QuickSort3
+ * <p>$ ./gradlew run -Palgorithm=sorting.QuickSort3
  *
  * @author Atharva Thorve, aaathorve@gmail.com
  */
@@ -24,8 +22,7 @@ public class QuickSort3 implements InplaceSort {
   }
 
   public static void quickSort3(int[] ar) {
-    if (ar == null)
-      return;
+    if (ar == null) return;
     QuickSort3.randomizedQuickSort(ar, 0, ar.length - 1);
   }
 

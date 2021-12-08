@@ -2,14 +2,14 @@
  * Determining the diameter of a tree is a special case of the graph diameter problem which can be
  * solved in linear time :)
  *
- * <p>
- * Time Complexity: O(V + E)
+ * <p>Time Complexity: O(V + E)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.graphtheory.treealgorithms;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TreeDiameter {
 
@@ -25,8 +25,7 @@ public class TreeDiameter {
   private static int[] dfs(List<List<Integer>> graph, int at, int parent) {
 
     // Already visited this node
-    if (visited[at] == VISITED_TOKEN)
-      return new int[] {0, parent};
+    if (visited[at] == VISITED_TOKEN) return new int[] {0, parent};
 
     // Visit this node
     visited[at] = VISITED_TOKEN;
@@ -52,16 +51,14 @@ public class TreeDiameter {
   // starting node list determine the diameter of this tree.
   public static int treeDiameter(List<List<Integer>> graph, int start) {
 
-    if (graph == null)
-      return 0;
+    if (graph == null) return 0;
 
     // Do DFS to find furthest node from the start
     VISITED_TOKEN++;
     int furthestIndex = dfs(graph, start, -1)[1];
 
     // Singleton
-    if (furthestIndex == -1)
-      return 0;
+    if (furthestIndex == -1) return 0;
 
     // Do another DFS, but this time from the furthest
     // node and record the distance to that node.
@@ -86,8 +83,7 @@ public class TreeDiameter {
 
     int diameter = treeDiameter(graph, 0);
     System.out.println("Tree diameter: " + diameter);
-    if (diameter != 5)
-      System.out.println("ERROR");
+    if (diameter != 5) System.out.println("ERROR");
     resetGraph(graph, numNodes);
 
     numNodes = 10;
@@ -103,26 +99,22 @@ public class TreeDiameter {
 
     diameter = treeDiameter(graph, 5);
     System.out.println("Tree diameter: " + diameter);
-    if (diameter != 6)
-      System.out.println("ERROR");
+    if (diameter != 6) System.out.println("ERROR");
     resetGraph(graph, numNodes);
 
     diameter = treeDiameter(graph, 3);
     System.out.println("Tree diameter: " + diameter);
-    if (diameter != 0)
-      System.out.println("ERROR");
+    if (diameter != 0) System.out.println("ERROR");
   }
 
   private static List<List<Integer>> createGraph(int size) {
     List<List<Integer>> graph = new ArrayList<>(size);
-    for (int i = 0; i < size; i++)
-      graph.add(new ArrayList<>());
+    for (int i = 0; i < size; i++) graph.add(new ArrayList<>());
     return graph;
   }
 
   private static void resetGraph(List<List<Integer>> graph, int size) {
-    for (int i = 0; i < size; i++)
-      graph.get(i).clear();
+    for (int i = 0; i < size; i++) graph.get(i).clear();
   }
 
   private static void addUndirectedEdge(List<List<Integer>> graph, int from, int to) {

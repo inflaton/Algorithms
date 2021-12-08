@@ -1,17 +1,13 @@
 /**
  * Implementation of heapsort
  *
- * <p>
- * Run with:
+ * <p>Run with:
  *
- * <p>
- * $ ./gradlew run -Palgorithm=sorting.Heapsort
+ * <p>$ ./gradlew run -Palgorithm=sorting.Heapsort
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.sorting;
-
-import java.util.*;
 
 public class Heapsort implements InplaceSort {
 
@@ -21,8 +17,7 @@ public class Heapsort implements InplaceSort {
   }
 
   private static void heapsort(int[] ar) {
-    if (ar == null)
-      return;
+    if (ar == null) return;
     int n = ar.length;
 
     // Heapify, converts array into binary heap O(n), see:
@@ -45,19 +40,16 @@ public class Heapsort implements InplaceSort {
       int largest = i;
 
       // Right child is larger than parent
-      if (right < n && ar[right] > ar[largest])
-        largest = right;
+      if (right < n && ar[right] > ar[largest]) largest = right;
 
       // Left child is larger than parent
-      if (left < n && ar[left] > ar[largest])
-        largest = left;
+      if (left < n && ar[left] > ar[largest]) largest = left;
 
       // Move down the tree following the largest node
       if (largest != i) {
         swap(ar, largest, i);
         i = largest;
-      } else
-        break;
+      } else break;
     }
   }
 

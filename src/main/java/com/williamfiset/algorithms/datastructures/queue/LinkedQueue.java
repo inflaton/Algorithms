@@ -28,16 +28,14 @@ public class LinkedQueue<T> implements Iterable<T>, Queue<T> {
   // Peek the element at the front of the queue
   // The method throws an error is the queue is empty
   public T peek() {
-    if (isEmpty())
-      throw new RuntimeException("Queue Empty");
+    if (isEmpty()) throw new RuntimeException("Queue Empty");
     return list.peekFirst();
   }
 
   // Poll an element from the front of the queue
   // The method throws an error is the queue is empty
   public T poll() {
-    if (isEmpty())
-      throw new RuntimeException("Queue Empty");
+    if (isEmpty()) throw new RuntimeException("Queue Empty");
     return list.removeFirst();
   }
 

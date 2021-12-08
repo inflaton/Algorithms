@@ -3,8 +3,10 @@ package com.williamfiset.algorithms.graphtheory.networkflow;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.williamfiset.algorithms.graphtheory.networkflow.NetworkFlowSolverBase.Edge;
-import java.util.*;
-import org.junit.*;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.Before;
+import org.junit.Test;
 
 public class MaxFlowTests {
 
@@ -105,8 +107,7 @@ public class MaxFlowTests {
     final int k = 250, t = 2 * k; // source = 0
     createAllSolvers(2 * k + 1, 0, t);
 
-    for (int i = 0; i < k - 1; i++)
-      addEdge(i, i + 1, k);
+    for (int i = 0; i < k - 1; i++) addEdge(i, i + 1, k);
     for (int i = 0; i < k; i++) {
       addEdge(k - 1, k + i, 1);
       addEdge(k + i, t, 1);
@@ -186,8 +187,7 @@ public class MaxFlowTests {
       }
 
       for (int i = 0; i < n; i++) {
-        if (i == s || i == t)
-          continue;
+        if (i == s || i == t) continue;
         assertThat(inFlows[i]).isEqualTo(outFlows[i]);
       }
     }

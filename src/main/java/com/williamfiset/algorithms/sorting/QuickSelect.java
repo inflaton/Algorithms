@@ -3,12 +3,9 @@ package com.williamfiset.algorithms.sorting;
 public class QuickSelect {
 
   public Integer quickSelect(int[] ar, int k) {
-    if (ar == null)
-      return null;
-    if (k > ar.length)
-      return null;
-    if (k < 1)
-      return null;
+    if (ar == null) return null;
+    if (k > ar.length) return null;
+    if (k < 1) return null;
     return quickSelect(ar, k, 0, ar.length - 1);
   }
 
@@ -40,10 +37,8 @@ public class QuickSelect {
       do {
         j--;
       } while (ar[j] > pivot);
-      if (i < j)
-        swap(ar, i, j);
-      else
-        return j;
+      if (i < j) swap(ar, i, j);
+      else return j;
     }
   }
 

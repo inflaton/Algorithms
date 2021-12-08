@@ -3,8 +3,7 @@
  * expansion. Although this method is mathematically beautiful, it is computationally intensive and
  * not practical for matrices beyond the size of 7-8.
  *
- * <p>
- * Time Complexity: ~O((n+2)!)
+ * <p>Time Complexity: ~O((n+2)!)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -32,17 +31,18 @@ public class MatrixDeterminantLaplaceExpansion {
     m = new double[][] {{1, -2, 3, 7}, {4, -5, 6, 2}, {7, -8, 10, 3}, {-8, 10, 3, 2}};
     System.out.println(determinant(m)); // -252
 
-    m = new double[][] {{1, -2, 3, 7, 12}, {4, -5, 6, 2, 4}, {7, -8, 10, 3, 1}, {-8, 10, 8, 3, 2},
-        {5, 5, 5, 5, 5}};
+    m =
+        new double[][] {
+          {1, -2, 3, 7, 12}, {4, -5, 6, 2, 4}, {7, -8, 10, 3, 1}, {-8, 10, 8, 3, 2}, {5, 5, 5, 5, 5}
+        };
     System.out.println(determinant(m)); // -27435
 
     System.out.println();
 
-    for (int n = 1;; n++) {
+    for (int n = 1; ; n++) {
       m = new double[n][n];
       for (int i = 0; i < n; i++)
-        for (int j = 0; j < n; j++)
-          m[i][j] = Math.floor(Math.random() * 10);
+        for (int j = 0; j < n; j++) m[i][j] = Math.floor(Math.random() * 10);
       System.out.printf("Found determinant of %dx%d matrix to be: %.4f\n", n, n, determinant(m));
     }
   }
@@ -55,12 +55,10 @@ public class MatrixDeterminantLaplaceExpansion {
     final int n = matrix.length;
 
     // Use closed form for 1x1 determinant
-    if (n == 1)
-      return matrix[0][0];
+    if (n == 1) return matrix[0][0];
 
     // Use closed form for 2x2 determinant
-    if (n == 2)
-      return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+    if (n == 2) return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
 
     // For 3x3 matrices and up use Laplace/cofactor expansion
     return laplace(matrix);
@@ -111,8 +109,7 @@ public class MatrixDeterminantLaplaceExpansion {
     for (int i = 1; i < n; i++, ii++) {
       int jj = 0;
       for (int j = 0; j < n; j++) {
-        if (j == skipColumn)
-          continue;
+        if (j == skipColumn) continue;
         double v = m[i][j];
         newMatrix[ii][jj++] = v;
       }

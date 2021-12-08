@@ -105,23 +105,20 @@ public class DoublyLinkedList<T> implements Iterable<T> {
 
   // Check the value of the first node if it exists, O(1)
   public T peekFirst() {
-    if (isEmpty())
-      throw new RuntimeException("Empty list");
+    if (isEmpty()) throw new RuntimeException("Empty list");
     return head.data;
   }
 
   // Check the value of the last node if it exists, O(1)
   public T peekLast() {
-    if (isEmpty())
-      throw new RuntimeException("Empty list");
+    if (isEmpty()) throw new RuntimeException("Empty list");
     return tail.data;
   }
 
   // Remove the first value at the head of the linked list, O(1)
   public T removeFirst() {
     // Can't remove data from an empty list
-    if (isEmpty())
-      throw new RuntimeException("Empty list");
+    if (isEmpty()) throw new RuntimeException("Empty list");
 
     // Extract the data at the head and move
     // the head pointer forwards one node
@@ -130,12 +127,10 @@ public class DoublyLinkedList<T> implements Iterable<T> {
     --size;
 
     // If the list is empty set the tail to null
-    if (isEmpty())
-      tail = null;
+    if (isEmpty()) tail = null;
 
     // Do a memory cleanup of the previous node
-    else
-      head.prev = null;
+    else head.prev = null;
 
     // Return the data that was at the first node we just removed
     return data;
@@ -144,8 +139,7 @@ public class DoublyLinkedList<T> implements Iterable<T> {
   // Remove the last value at the tail of the linked list, O(1)
   public T removeLast() {
     // Can't remove data from an empty list
-    if (isEmpty())
-      throw new RuntimeException("Empty list");
+    if (isEmpty()) throw new RuntimeException("Empty list");
 
     // Extract the data at the tail and move
     // the tail pointer backwards one node
@@ -154,12 +148,10 @@ public class DoublyLinkedList<T> implements Iterable<T> {
     --size;
 
     // If the list is now empty set the head to null
-    if (isEmpty())
-      head = null;
+    if (isEmpty()) head = null;
 
     // Do a memory clean of the node that was just removed
-    else
-      tail.next = null;
+    else tail.next = null;
 
     // Return the data that was in the last node we just removed
     return data;
@@ -169,10 +161,8 @@ public class DoublyLinkedList<T> implements Iterable<T> {
   private T remove(Node<T> node) {
     // If the node to remove is somewhere either at the
     // head or the tail handle those independently
-    if (node.prev == null)
-      return removeFirst();
-    if (node.next == null)
-      return removeLast();
+    if (node.prev == null) return removeFirst();
+    if (node.next == null) return removeLast();
 
     // Make the pointers of adjacent nodes skip over 'node'
     node.next.prev = node.prev;

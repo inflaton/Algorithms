@@ -1,14 +1,14 @@
 /**
  * Finds the longest repeated substring(s) of a string.
  *
- * <p>
- * Time complexity: O(nlogn), bounded by suffix array construction
+ * <p>Time complexity: O(nlogn), bounded by suffix array construction
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.strings;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.TreeSet;
 
 public class LongestRepeatedSubstring {
 
@@ -40,8 +40,7 @@ public class LongestRepeatedSubstring {
 
     private static int[] toIntArray(String s) {
       int[] text = new int[s.length()];
-      for (int i = 0; i < s.length(); i++)
-        text[i] = s.charAt(i);
+      for (int i = 0; i < s.length(); i++) text[i] = s.charAt(i);
       return text;
     }
 
@@ -59,36 +58,27 @@ public class LongestRepeatedSubstring {
 
     private void construct() {
       int i, p, r;
-      for (i = 0; i < N; ++i)
-        c[rank[i] = T[i]]++;
-      for (i = 1; i < ALPHABET_SZ; ++i)
-        c[i] += c[i - 1];
-      for (i = N - 1; i >= 0; --i)
-        sa[--c[T[i]]] = i;
+      for (i = 0; i < N; ++i) c[rank[i] = T[i]]++;
+      for (i = 1; i < ALPHABET_SZ; ++i) c[i] += c[i - 1];
+      for (i = N - 1; i >= 0; --i) sa[--c[T[i]]] = i;
       for (p = 1; p < N; p <<= 1) {
-        for (r = 0, i = N - p; i < N; ++i)
-          sa2[r++] = i;
-        for (i = 0; i < N; ++i)
-          if (sa[i] >= p)
-            sa2[r++] = sa[i] - p;
+        for (r = 0, i = N - p; i < N; ++i) sa2[r++] = i;
+        for (i = 0; i < N; ++i) if (sa[i] >= p) sa2[r++] = sa[i] - p;
         Arrays.fill(c, 0, ALPHABET_SZ, 0);
-        for (i = 0; i < N; ++i)
-          c[rank[i]]++;
-        for (i = 1; i < ALPHABET_SZ; ++i)
-          c[i] += c[i - 1];
-        for (i = N - 1; i >= 0; --i)
-          sa[--c[rank[sa2[i]]]] = sa2[i];
+        for (i = 0; i < N; ++i) c[rank[i]]++;
+        for (i = 1; i < ALPHABET_SZ; ++i) c[i] += c[i - 1];
+        for (i = N - 1; i >= 0; --i) sa[--c[rank[sa2[i]]]] = sa2[i];
         for (sa2[sa[0]] = r = 0, i = 1; i < N; ++i) {
-          if (!(rank[sa[i - 1]] == rank[sa[i]] && sa[i - 1] + p < N && sa[i] + p < N
-              && rank[sa[i - 1] + p] == rank[sa[i] + p]))
-            r++;
+          if (!(rank[sa[i - 1]] == rank[sa[i]]
+              && sa[i - 1] + p < N
+              && sa[i] + p < N
+              && rank[sa[i - 1] + p] == rank[sa[i] + p])) r++;
           sa2[sa[i]] = r;
         }
         tmp = rank;
         rank = sa2;
         sa2 = tmp;
-        if (r == N - 1)
-          break;
+        if (r == N - 1) break;
         ALPHABET_SZ = r + 1;
       }
     }
@@ -97,16 +87,13 @@ public class LongestRepeatedSubstring {
     private void kasai() {
       lcp = new int[N];
       int[] inv = new int[N];
-      for (int i = 0; i < N; i++)
-        inv[sa[i]] = i;
+      for (int i = 0; i < N; i++) inv[sa[i]] = i;
       for (int i = 0, len = 0; i < N; i++) {
         if (inv[i] > 0) {
           int k = sa[inv[i] - 1];
-          while ((i + len < N) && (k + len < N) && T[i + len] == T[k + len])
-            len++;
+          while ((i + len < N) && (k + len < N) && T[i + len] == T[k + len]) len++;
           lcp[inv[i] - 1] = len;
-          if (len > 0)
-            len--;
+          if (len > 0) len--;
         }
       }
     }
@@ -124,8 +111,7 @@ public class LongestRepeatedSubstring {
         if (lcp[i] > 0 && lcp[i] >= max_len) {
 
           // We found a longer LRS
-          if (lcp[i] > max_len)
-            lrss.clear();
+          if (lcp[i] > max_len) lrss.clear();
 
           // Append substring to the list and update max
           max_len = lcp[i];

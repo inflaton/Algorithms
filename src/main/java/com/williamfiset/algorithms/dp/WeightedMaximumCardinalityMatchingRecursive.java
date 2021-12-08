@@ -3,21 +3,15 @@
  * given a distance matrix which gives the distance from each node to every other node, and you want
  * to pair up all the nodes to one another minimizing the overall cost.
  *
- * <p>
- * Tested against: UVA 10911 - Forming Quiz Teams
+ * <p>Tested against: UVA 10911 - Forming Quiz Teams
  *
- * <p>
- * To Run: ./gradlew run -Palgorithm=dp.WeightedMaximumCardinalityMatchingRecursive
+ * <p>To Run: ./gradlew run -Palgorithm=dp.WeightedMaximumCardinalityMatchingRecursive
  *
- * <p>
- * Time Complexity: O(n * 2^n)
+ * <p>Time Complexity: O(n * 2^n)
  *
  * @author William Fiset
  */
 package com.williamfiset.algorithms.dp;
-
-import java.awt.geom.*;
-import java.util.*;
 
 public class WeightedMaximumCardinalityMatchingRecursive implements MwpmInterface {
 
@@ -96,11 +90,9 @@ public class WeightedMaximumCardinalityMatchingRecursive implements MwpmInterfac
   // a cost of `null`
   // between nodes i and j if no edge exists between those two nodes.
   public WeightedMaximumCardinalityMatchingRecursive(Double[][] cost) {
-    if (cost == null)
-      throw new IllegalArgumentException("Input cannot be null");
+    if (cost == null) throw new IllegalArgumentException("Input cannot be null");
     n = cost.length;
-    if (n <= 1)
-      throw new IllegalArgumentException("Invalid matrix size: " + n);
+    if (n <= 1) throw new IllegalArgumentException("Invalid matrix size: " + n);
     setCostMatrix(cost);
     FULL_STATE = (1 << n) - 1;
   }
@@ -149,11 +141,9 @@ public class WeightedMaximumCardinalityMatchingRecursive implements MwpmInterfac
    * index 2*i and 2*i+1 form a matched pair. For example, nodes at indexes (0, 1) are a pair, (2,
    * 3) are another pair, etc...
    *
-   * <p>
-   * How to iterate over the pairs:
+   * <p>How to iterate over the pairs:
    *
-   * <pre>
-   * {@code
+   * <pre>{@code
    * WeightedMaximumCardinalityMatchingRecursive mwpm = ...
    * int[] matching = mwpm.getMatching();
    * for (int i = 0; i < matching.length / 2; i++) {
@@ -161,8 +151,7 @@ public class WeightedMaximumCardinalityMatchingRecursive implements MwpmInterfac
    *   int node2 = matching[2*i+1];
    *   // Do something with the matched pair (node1, node2)
    * }
-   * }
-   * </pre>
+   * }</pre>
    */
   public int[] getMatching() {
     solve();
@@ -170,8 +159,7 @@ public class WeightedMaximumCardinalityMatchingRecursive implements MwpmInterfac
   }
 
   private void solve() {
-    if (solved)
-      return;
+    if (solved) return;
     MatchingCost[] dp = new MatchingCost[1 << n];
     int[] history = new int[1 << n];
 
@@ -292,9 +280,14 @@ public class WeightedMaximumCardinalityMatchingRecursive implements MwpmInterfac
 
   private static void test() {
     // mwpm is expected to be between nodes: 0 & 5, 1 & 2, 3 & 4
-    Double[][] costMatrix = {{0.0, 9.0, 9.0, 9.0, 9.0, 1.0}, {9.0, 0.0, 1.0, 9.0, 9.0, 9.0},
-        {9.0, 1.0, 0.0, 9.0, 9.0, 9.0}, {9.0, 9.0, 9.0, 0.0, 1.0, 9.0},
-        {9.0, 9.0, 9.0, 1.0, 0.0, 9.0}, {1.0, 9.0, 9.0, 9.0, 9.0, 0.0},};
+    Double[][] costMatrix = {
+      {0.0, 9.0, 9.0, 9.0, 9.0, 1.0},
+      {9.0, 0.0, 1.0, 9.0, 9.0, 9.0},
+      {9.0, 1.0, 0.0, 9.0, 9.0, 9.0},
+      {9.0, 9.0, 9.0, 0.0, 1.0, 9.0},
+      {9.0, 9.0, 9.0, 1.0, 0.0, 9.0},
+      {1.0, 9.0, 9.0, 9.0, 9.0, 0.0},
+    };
 
     WeightedMaximumCardinalityMatchingRecursive mwpm =
         new WeightedMaximumCardinalityMatchingRecursive(costMatrix);

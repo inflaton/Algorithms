@@ -3,11 +3,9 @@ package com.williamfiset.algorithms.dp.examples.tilingdominoes;
 /**
  * Solution to Tri Tiling (https://open.kattis.com/problems/tritiling)
  *
- * <p>
- * Explanation video: https://www.youtube.com/watch?v=yn2jnmlepY8
+ * <p>Explanation video: https://www.youtube.com/watch?v=yn2jnmlepY8
  *
- * <p>
- * Solution by: William Fiset
+ * <p>Solution by: William Fiset
  */
 import java.util.Scanner;
 
@@ -17,8 +15,7 @@ public class TilingDominoes {
   public static void main(String[] args) {
     while (true) {
       int n = sc.nextInt();
-      if (n == -1)
-        break;
+      if (n == -1) break;
       // Solution1:
       System.out.println(solution1(n));
 

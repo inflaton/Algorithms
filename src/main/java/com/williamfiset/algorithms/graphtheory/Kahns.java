@@ -1,20 +1,16 @@
 /**
  * Implementation of Kahn's algorithm to find a topological ordering
  *
- * <p>
- * Kahn's algorithm finds a topological ordering by iteratively removing nodes in the graph which
+ * <p>Kahn's algorithm finds a topological ordering by iteratively removing nodes in the graph which
  * have no incoming edges. When a node is removed from the graph, it is added to the topological
  * ordering and all its edges are removed allowing for the next set of nodes with no incoming edges
  * to be selected.
  *
- * <p>
- * Verified against: https://open.kattis.com/problems/builddeps
+ * <p>Verified against: https://open.kattis.com/problems/builddeps
  *
- * <p>
- * ./gradlew run -Palgorithm=graphtheory.Kahns
+ * <p>./gradlew run -Palgorithm=graphtheory.Kahns
  *
- * <p>
- * Time complexity: O(V+E)
+ * <p>Time complexity: O(V+E)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -23,7 +19,9 @@ package com.williamfiset.algorithms.graphtheory;
 import static com.williamfiset.algorithms.utils.graphutils.Utils.addDirectedEdge;
 import static com.williamfiset.algorithms.utils.graphutils.Utils.createEmptyAdjacencyList;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.List;
+import java.util.Queue;
 
 public class Kahns {
 

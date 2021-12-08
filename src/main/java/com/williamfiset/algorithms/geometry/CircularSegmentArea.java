@@ -2,14 +2,16 @@
  * This file shows you how to find the area of a circular segment which lies on the circumference of
  * a circle of radius r.
  *
- * <p>
- * Time Complexity: O(1)
+ * <p>Time Complexity: O(1)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.geometry;
 
-import static java.lang.Math.*;
+import static java.lang.Math.PI;
+import static java.lang.Math.abs;
+import static java.lang.Math.acos;
+import static java.lang.Math.sqrt;
 
 import java.awt.geom.Point2D;
 
@@ -52,8 +54,8 @@ public class CircularSegmentArea {
   }
 
   // Given three points a, b, c find the area of the triangle
-  public static double triangleArea(double ax, double ay, double bx, double by, double cx,
-      double cy) {
+  public static double triangleArea(
+      double ax, double ay, double bx, double by, double cx, double cy) {
 
     // Let v1 = <bx-ax, by-ay> and v2 = <cx-ax, cy-ay> be vectors
     // Take the determinant of v1 and v2 to find the area of the
@@ -87,10 +89,8 @@ public class CircularSegmentArea {
     // Double value rounding precision may lead to the value we're about to pass
     // into
     // the arccos function to be slightly outside its domain, so do a safety check.
-    if (value <= -1.0)
-      return PI;
-    if (value >= +1.0)
-      return 0;
+    if (value <= -1.0) return PI;
+    if (value >= +1.0) return 0;
     return acos(value);
   }
 

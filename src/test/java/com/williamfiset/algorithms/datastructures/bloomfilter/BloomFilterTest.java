@@ -61,8 +61,7 @@ public class BloomFilterTest {
     for (int i = 27; i < len; i++) {
       for (int j = i + 1; j < len; j++) {
         String sub = s.substring(i, j + 1);
-        if (set.contains(sub))
-          collisionHappened = true;
+        if (set.contains(sub)) collisionHappened = true;
       }
     }
 
@@ -87,8 +86,7 @@ public class BloomFilterTest {
           set.add(randStr);
         }
 
-        for (String s : javaset)
-          assertThat(set.contains(s)).isTrue();
+        for (String s : javaset) assertThat(set.contains(s)).isTrue();
 
         // Check that strings that aren't in the string set actually aren't
         // in the set, the probablity should be low enough that a false positive
@@ -113,8 +111,7 @@ public class BloomFilterTest {
 
   static String randomString(int len) {
     StringBuilder sb = new StringBuilder(len);
-    for (int i = 0; i < len; i++)
-      sb.append(AB.charAt(rand.nextInt(AB.length())));
+    for (int i = 0; i < len; i++) sb.append(AB.charAt(rand.nextInt(AB.length())));
     return sb.toString();
   }
 }

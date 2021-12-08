@@ -3,11 +3,9 @@
  * then increases. This implementation of ternary search returns the input value corresponding with
  * the minimum output value of the function you're searching on.
  *
- * <p>
- * Time Complexity: O(log(high - low)).
+ * <p>Time Complexity: O(log(high - low)).
  *
- * <p>
- * NOTE: You can also work with a function which increases and then decreases, simply negate your
+ * <p>NOTE: You can also work with a function which increases and then decreases, simply negate your
  * function :)
  *
  * @author Micah Stairs
@@ -29,12 +27,9 @@ public class TernarySearch {
     while (true) {
       double mid1 = (2 * low + high) / 3, mid2 = (low + 2 * high) / 3;
       double res1 = function.apply(mid1), res2 = function.apply(mid2);
-      if (res1 > res2)
-        low = mid1;
-      else
-        high = mid2;
-      if (best != null && Math.abs(best - mid1) < EPS)
-        break;
+      if (res1 > res2) low = mid1;
+      else high = mid2;
+      if (best != null && Math.abs(best - mid1) < EPS) break;
       best = mid1;
     }
     return best;

@@ -1,19 +1,22 @@
 /**
  * This file shows you how to find the area of intersection of two circles
  *
- * <p>
- * Time Complexity: O(1)
+ * <p>Time Complexity: O(1)
  *
- * <p>
- * NOTE: This file could use some formal testing.
+ * <p>NOTE: This file could use some formal testing.
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
 package com.williamfiset.algorithms.geometry;
 
-import static java.lang.Math.*;
+import static java.lang.Math.PI;
+import static java.lang.Math.abs;
+import static java.lang.Math.acos;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+import static java.lang.Math.sqrt;
 
-import java.awt.geom.*;
+import java.awt.geom.Point2D;
 
 public class CircleCircleIntersectionArea {
 
@@ -23,10 +26,8 @@ public class CircleCircleIntersectionArea {
   // function may be outside its domain of [-1, +1] which would return
   // the value Double.NaN which we do not want.
   private static double arccosSafe(double x) {
-    if (x >= +1.0)
-      return 0;
-    if (x <= -1.0)
-      return PI;
+    if (x >= +1.0) return 0;
+    if (x <= -1.0) return PI;
     return acos(x);
   }
 
@@ -109,16 +110,13 @@ public class CircleCircleIntersectionArea {
     double dist = c1.distance(c2);
 
     // There are an infinite number of solutions
-    if (dist < EPS && abs(r - R) < EPS)
-      return null;
+    if (dist < EPS && abs(r - R) < EPS) return null;
 
     // No intersection (small circle contained within big circle)
-    if (r + dist < R)
-      return null;
+    if (r + dist < R) return null;
 
     // No intersection (circles are disjoint)
-    if (r + R < dist)
-      return new Point2D[] {};
+    if (r + R < dist) return new Point2D[] {};
 
     // Let (cx, cy) be the center of the small circle
     // Let (Cx, Cy) be the center of the larger circle
@@ -138,8 +136,7 @@ public class CircleCircleIntersectionArea {
     Point2D point = new Point2D.Double(x, y);
 
     // Unique intersection point on circumference of both circles
-    if (abs(r + R - dist) < EPS || abs(R - (r + dist)) < EPS)
-      return new Point2D[] {point};
+    if (abs(r + R - dist) < EPS || abs(R - (r + dist)) < EPS) return new Point2D[] {point};
 
     // Find the angle via cos law
     double angle = arccosSafe((r * r - dist * dist - R * R) / (-2.0 * dist * R));

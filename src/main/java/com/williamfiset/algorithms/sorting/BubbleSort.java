@@ -1,11 +1,9 @@
 /**
  * Bubble sort implementation
  *
- * <p>
- * Run with:
+ * <p>Run with:
  *
- * <p>
- * $ ./gradlew run -Palgorithm=sorting.BubbleSort
+ * <p>$ ./gradlew run -Palgorithm=sorting.BubbleSort
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */

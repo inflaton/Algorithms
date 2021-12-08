@@ -150,7 +150,8 @@ public final class FibonacciHeapTest {
     queue.offer(20);
     queue.offer(21);
 
-    assertThat(queue.isEmpty()).isFalse();;
+    assertThat(queue.isEmpty()).isFalse();
+    ;
     assertThat(queue.peek()).isEqualTo(20);
     assertThat(queue.element()).isEqualTo(20);
     assertThat(queue.size()).isEqualTo(4);

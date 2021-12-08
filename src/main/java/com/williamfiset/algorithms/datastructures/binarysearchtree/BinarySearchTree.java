@@ -138,8 +138,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
   private Node remove(Node node, T elem) {
 
-    if (node == null)
-      return null;
+    if (node == null) return null;
 
     int cmp = elem.compareTo(node.data);
 
@@ -203,15 +202,13 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
   // Helper method to find the leftmost node (which has the smallest value)
   private Node findMin(Node node) {
-    while (node.left != null)
-      node = node.left;
+    while (node.left != null) node = node.left;
     return node;
   }
 
   // Helper method to find the rightmost node (which has the largest value)
   private Node findMax(Node node) {
-    while (node.right != null)
-      node = node.right;
+    while (node.right != null) node = node.right;
     return node;
   }
 
@@ -224,24 +221,20 @@ public class BinarySearchTree<T extends Comparable<T>> {
   private boolean contains(Node node, T elem) {
 
     // Base case: reached bottom, value not found
-    if (node == null)
-      return false;
+    if (node == null) return false;
 
     int cmp = elem.compareTo(node.data);
 
     // Dig into the left subtree because the value we're
     // looking for is smaller than the current value
-    if (cmp < 0)
-      return contains(node.left, elem);
+    if (cmp < 0) return contains(node.left, elem);
 
     // Dig into the right subtree because the value we're
     // looking for is greater than the current value
-    else if (cmp > 0)
-      return contains(node.right, elem);
+    else if (cmp > 0) return contains(node.right, elem);
 
     // We found the value we were looking for
-    else
-      return true;
+    else return true;
   }
 
   // Computes the height of the tree, O(n)
@@ -251,8 +244,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
   // Recursive helper method to compute the height of the tree
   private int height(Node node) {
-    if (node == null)
-      return 0;
+    if (node == null) return 0;
     return Math.max(height(node.left), height(node.right)) + 1;
   }
 
@@ -284,20 +276,16 @@ public class BinarySearchTree<T extends Comparable<T>> {
     return new java.util.Iterator<T>() {
       @Override
       public boolean hasNext() {
-        if (expectedNodeCount != nodeCount)
-          throw new java.util.ConcurrentModificationException();
+        if (expectedNodeCount != nodeCount) throw new java.util.ConcurrentModificationException();
         return root != null && !stack.isEmpty();
       }
 
       @Override
       public T next() {
-        if (expectedNodeCount != nodeCount)
-          throw new java.util.ConcurrentModificationException();
+        if (expectedNodeCount != nodeCount) throw new java.util.ConcurrentModificationException();
         Node node = stack.pop();
-        if (node.right != null)
-          stack.push(node.right);
-        if (node.left != null)
-          stack.push(node.left);
+        if (node.right != null) stack.push(node.right);
+        if (node.left != null) stack.push(node.left);
         return node.data;
       }
 
@@ -320,16 +308,14 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
       @Override
       public boolean hasNext() {
-        if (expectedNodeCount != nodeCount)
-          throw new java.util.ConcurrentModificationException();
+        if (expectedNodeCount != nodeCount) throw new java.util.ConcurrentModificationException();
         return root != null && !stack.isEmpty();
       }
 
       @Override
       public T next() {
 
-        if (expectedNodeCount != nodeCount)
-          throw new java.util.ConcurrentModificationException();
+        if (expectedNodeCount != nodeCount) throw new java.util.ConcurrentModificationException();
 
         // Dig left
         while (trav != null && trav.left != null) {
@@ -365,24 +351,20 @@ public class BinarySearchTree<T extends Comparable<T>> {
       Node node = stack1.pop();
       if (node != null) {
         stack2.push(node);
-        if (node.left != null)
-          stack1.push(node.left);
-        if (node.right != null)
-          stack1.push(node.right);
+        if (node.left != null) stack1.push(node.left);
+        if (node.right != null) stack1.push(node.right);
       }
     }
     return new java.util.Iterator<T>() {
       @Override
       public boolean hasNext() {
-        if (expectedNodeCount != nodeCount)
-          throw new java.util.ConcurrentModificationException();
+        if (expectedNodeCount != nodeCount) throw new java.util.ConcurrentModificationException();
         return root != null && !stack2.isEmpty();
       }
 
       @Override
       public T next() {
-        if (expectedNodeCount != nodeCount)
-          throw new java.util.ConcurrentModificationException();
+        if (expectedNodeCount != nodeCount) throw new java.util.ConcurrentModificationException();
         return stack2.pop().data;
       }
 
@@ -403,20 +385,16 @@ public class BinarySearchTree<T extends Comparable<T>> {
     return new java.util.Iterator<T>() {
       @Override
       public boolean hasNext() {
-        if (expectedNodeCount != nodeCount)
-          throw new java.util.ConcurrentModificationException();
+        if (expectedNodeCount != nodeCount) throw new java.util.ConcurrentModificationException();
         return root != null && !queue.isEmpty();
       }
 
       @Override
       public T next() {
-        if (expectedNodeCount != nodeCount)
-          throw new java.util.ConcurrentModificationException();
+        if (expectedNodeCount != nodeCount) throw new java.util.ConcurrentModificationException();
         Node node = queue.poll();
-        if (node.left != null)
-          queue.offer(node.left);
-        if (node.right != null)
-          queue.offer(node.right);
+        if (node.left != null) queue.offer(node.left);
+        if (node.right != null) queue.offer(node.right);
         return node.data;
       }
 

@@ -1,8 +1,7 @@
 /**
  * An implementation of BFS with an adjacency list.
  *
- * <p>
- * Time Complexity: O(V + E)
+ * <p>Time Complexity: O(V + E)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -31,8 +30,7 @@ public class BreadthFirstSearchAdjacencyListIterative {
   private List<List<Edge>> graph;
 
   public BreadthFirstSearchAdjacencyListIterative(List<List<Edge>> graph) {
-    if (graph == null)
-      throw new IllegalArgumentException("Graph can not be null");
+    if (graph == null) throw new IllegalArgumentException("Graph can not be null");
     n = graph.size();
     this.graph = graph;
   }
@@ -42,16 +40,14 @@ public class BreadthFirstSearchAdjacencyListIterative {
    * then this method returns the shortest path from 'start' to 'end'
    *
    * @return An array of nodes indexes of the shortest path from 'start' to 'end'. If 'start' and
-   *         'end' are not connected then an empty array is returned.
+   *     'end' are not connected then an empty array is returned.
    */
   public List<Integer> reconstructPath(int start, int end) {
     bfs(start);
     List<Integer> path = new ArrayList<>();
-    for (Integer at = end; at != null; at = prev[at])
-      path.add(at);
+    for (Integer at = end; at != null; at = prev[at]) path.add(at);
     Collections.reverse(path);
-    if (path.get(0) == start)
-      return path;
+    if (path.get(0) == start) return path;
     path.clear();
     return path;
   }
@@ -88,8 +84,7 @@ public class BreadthFirstSearchAdjacencyListIterative {
   // Initialize an empty adjacency list that can hold up to n nodes.
   public static List<List<Edge>> createEmptyGraph(int n) {
     List<List<Edge>> graph = new ArrayList<>(n);
-    for (int i = 0; i < n; i++)
-      graph.add(new ArrayList<>());
+    for (int i = 0; i < n; i++) graph.add(new ArrayList<>());
     return graph;
   }
 
@@ -145,7 +140,7 @@ public class BreadthFirstSearchAdjacencyListIterative {
   }
 
   private static String formatPath(List<Integer> path) {
-    return String.join(" -> ",
-        path.stream().map(Object::toString).collect(java.util.stream.Collectors.toList()));
+    return String.join(
+        " -> ", path.stream().map(Object::toString).collect(java.util.stream.Collectors.toList()));
   }
 }

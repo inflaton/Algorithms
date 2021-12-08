@@ -3,8 +3,7 @@
  * an array. This range adder is especially useful for offline algorithms which know all range
  * updates ahead of time.
  *
- * <p>
- * Time complexity to update O(1) but time complexity to finalize all additions is O(n)
+ * <p>Time complexity to update O(1) but time complexity to finalize all additions is O(n)
  *
  * @author Atharva Thorve, aaathorve@gmail.com
  */

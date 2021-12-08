@@ -9,7 +9,6 @@ import java.util.ConcurrentModificationException;
 import java.util.Deque;
 import java.util.Iterator;
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -41,58 +40,45 @@ class TestTreeNode {
 
   static void preOrder(List<Integer> lst, TestTreeNode node) {
 
-    if (node == null)
-      return;
+    if (node == null) return;
 
     lst.add(node.data);
-    if (node.left != null)
-      preOrder(lst, node.left);
-    if (node.right != null)
-      preOrder(lst, node.right);
+    if (node.left != null) preOrder(lst, node.left);
+    if (node.right != null) preOrder(lst, node.right);
   }
 
   static void inOrder(List<Integer> lst, TestTreeNode node) {
 
-    if (node == null)
-      return;
+    if (node == null) return;
 
-    if (node.left != null)
-      inOrder(lst, node.left);
+    if (node.left != null) inOrder(lst, node.left);
     lst.add(node.data);
-    if (node.right != null)
-      inOrder(lst, node.right);
+    if (node.right != null) inOrder(lst, node.right);
   }
 
   static void postOrder(List<Integer> lst, TestTreeNode node) {
 
-    if (node == null)
-      return;
+    if (node == null) return;
 
-    if (node.left != null)
-      postOrder(lst, node.left);
-    if (node.right != null)
-      postOrder(lst, node.right);
+    if (node.left != null) postOrder(lst, node.left);
+    if (node.right != null) postOrder(lst, node.right);
     lst.add(node.data);
   }
 
   static void levelOrder(List<Integer> lst, TestTreeNode node) {
 
     Deque<TestTreeNode> q = new ArrayDeque<>();
-    if (node != null)
-      q.offer(node);
+    if (node != null) q.offer(node);
 
     while (!q.isEmpty()) {
 
       node = q.poll();
       lst.add(node.data);
-      if (node.left != null)
-        q.offer(node.left);
-      if (node.right != null)
-        q.offer(node.right);
+      if (node.left != null) q.offer(node.left);
+      if (node.right != null) q.offer(node.right);
     }
   }
 }
-
 
 public class BinarySearchTreeTest {
 
@@ -369,8 +355,7 @@ public class BinarySearchTreeTest {
       int size = i;
       BinarySearchTree<Integer> tree = new BinarySearchTree<>();
       List<Integer> lst = genRandList(size);
-      for (Integer value : lst)
-        tree.add(value);
+      for (Integer value : lst) tree.add(value);
 
       Collections.shuffle(lst);
       // Remove all the elements we just placed in the tree
@@ -389,8 +374,7 @@ public class BinarySearchTreeTest {
 
   static List<Integer> genRandList(int sz) {
     List<Integer> lst = new ArrayList<>(sz);
-    for (int i = 0; i < sz; i++)
-      lst.add(i);
+    for (int i = 0; i < sz; i++) lst.add(i);
     Collections.shuffle(lst);
     return lst;
   }
@@ -439,17 +423,13 @@ public class BinarySearchTreeTest {
 
     // Get traversal output
     Iterator<Integer> iter = tree.traverse(trav_order);
-    while (iter.hasNext())
-      out.add(iter.next());
+    while (iter.hasNext()) out.add(iter.next());
 
     // The output and the expected size better be the same size
-    if (out.size() != expected.size())
-      return false;
+    if (out.size() != expected.size()) return false;
 
     // Compare output to expected
-    for (int i = 0; i < out.size(); i++)
-      if (!expected.get(i).equals(out.get(i)))
-        return false;
+    for (int i = 0; i < out.size(); i++) if (!expected.get(i).equals(out.get(i))) return false;
 
     return true;
   }

@@ -1,13 +1,11 @@
 /**
  * An implementation of an indexed min D-ary heap priority queue.
  *
- * <p>
- * This implementation supports arbitrary keys with comparable values. To use arbitrary keys (such
- * as strings or objects) first map all your keys to the integer domain [0, N) where N is the number
- * of keys you have and then use the mapping with this indexed priority queue.
+ * <p>This implementation supports arbitrary keys with comparable values. To use arbitrary keys
+ * (such as strings or objects) first map all your keys to the integer domain [0, N) where N is the
+ * number of keys you have and then use the mapping with this indexed priority queue.
  *
- * <p>
- * As convention, I denote 'ki' as the index value in the domain [0, N) associated with a key k,
+ * <p>As convention, I denote 'ki' as the index value in the domain [0, N) associated with a key k,
  * therefore: ki = map[k]
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
@@ -50,8 +48,7 @@ public class MinIndexedDHeap<T extends Comparable<T>> {
 
   // Initializes a D-ary heap with a maximum capacity of maxSize.
   public MinIndexedDHeap(int degree, int maxSize) {
-    if (maxSize <= 0)
-      throw new IllegalArgumentException("maxSize <= 0");
+    if (maxSize <= 0) throw new IllegalArgumentException("maxSize <= 0");
 
     D = max(2, degree);
     N = max(D + 1, maxSize);
@@ -106,8 +103,7 @@ public class MinIndexedDHeap<T extends Comparable<T>> {
   }
 
   public void insert(int ki, T value) {
-    if (contains(ki))
-      throw new IllegalArgumentException("index already exists; received: " + ki);
+    if (contains(ki)) throw new IllegalArgumentException("index already exists; received: " + ki);
     valueNotNullOrThrow(value);
     pm[ki] = sz;
     im[sz] = ki;
@@ -167,7 +163,7 @@ public class MinIndexedDHeap<T extends Comparable<T>> {
   /* Helper functions */
 
   private void sink(int i) {
-    for (int j = minChild(i); j != -1;) {
+    for (int j = minChild(i); j != -1; ) {
       swap(i, j);
       i = j;
       j = minChild(i);
@@ -184,9 +180,7 @@ public class MinIndexedDHeap<T extends Comparable<T>> {
   // From the parent node at index i find the minimum child below it
   private int minChild(int i) {
     int index = -1, from = child[i], to = min(sz, from + D);
-    for (int j = from; j < to; j++)
-      if (less(j, i))
-        index = i = j;
+    for (int j = from; j < to; j++) if (less(j, i)) index = i = j;
     return index;
   }
 
@@ -212,16 +206,14 @@ public class MinIndexedDHeap<T extends Comparable<T>> {
   @Override
   public String toString() {
     List<Integer> lst = new ArrayList<>(sz);
-    for (int i = 0; i < sz; i++)
-      lst.add(im[i]);
+    for (int i = 0; i < sz; i++) lst.add(im[i]);
     return lst.toString();
   }
 
   /* Helper functions to make the code more readable. */
 
   private void isNotEmptyOrThrow() {
-    if (isEmpty())
-      throw new NoSuchElementException("Priority queue underflow");
+    if (isEmpty()) throw new NoSuchElementException("Priority queue underflow");
   }
 
   private void keyExistsAndValueNotNullOrThrow(int ki, Object value) {
@@ -230,13 +222,11 @@ public class MinIndexedDHeap<T extends Comparable<T>> {
   }
 
   private void keyExistsOrThrow(int ki) {
-    if (!contains(ki))
-      throw new NoSuchElementException("Index does not exist; received: " + ki);
+    if (!contains(ki)) throw new NoSuchElementException("Index does not exist; received: " + ki);
   }
 
   private void valueNotNullOrThrow(Object value) {
-    if (value == null)
-      throw new IllegalArgumentException("value cannot be null");
+    if (value == null) throw new IllegalArgumentException("value cannot be null");
   }
 
   private void keyInBoundsOrThrow(int ki) {
@@ -255,10 +245,8 @@ public class MinIndexedDHeap<T extends Comparable<T>> {
   private boolean isMinHeap(int i) {
     int from = child[i], to = min(sz, from + D);
     for (int j = from; j < to; j++) {
-      if (!less(i, j))
-        return false;
-      if (!isMinHeap(j))
-        return false;
+      if (!less(i, j)) return false;
+      if (!isMinHeap(j)) return false;
     }
     return true;
   }

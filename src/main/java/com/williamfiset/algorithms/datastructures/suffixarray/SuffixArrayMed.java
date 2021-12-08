@@ -16,8 +16,7 @@ public class SuffixArrayMed extends SuffixArray {
     @Override
     public int compareTo(SuffixRankTuple other) {
       int cmp = Integer.compare(firstHalf, other.firstHalf);
-      if (cmp == 0)
-        return Integer.compare(secondHalf, other.secondHalf);
+      if (cmp == 0) return Integer.compare(secondHalf, other.secondHalf);
       return cmp;
     }
 
@@ -74,8 +73,7 @@ public class SuffixArrayMed extends SuffixArray {
 
         // If the first half differs from the second half
         if (currSuffixRank.firstHalf != lastSuffixRank.firstHalf
-            || currSuffixRank.secondHalf != lastSuffixRank.secondHalf)
-          newRank++;
+            || currSuffixRank.secondHalf != lastSuffixRank.secondHalf) newRank++;
 
         suffixRanks[1][currSuffixRank.originalIndex] = newRank;
       }
@@ -84,8 +82,7 @@ public class SuffixArrayMed extends SuffixArray {
       suffixRanks[0] = suffixRanks[1];
 
       // Optimization to stop early
-      if (newRank == N - 1)
-        break;
+      if (newRank == N - 1) break;
     }
 
     // Fill suffix array

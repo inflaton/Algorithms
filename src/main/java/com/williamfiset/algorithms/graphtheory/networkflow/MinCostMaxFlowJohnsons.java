@@ -2,12 +2,10 @@
  * Min cost max flow implementation using Johnson's algorithm (initial Bellman- Ford + subsequent
  * Dijkstra runs) as a method of finding augmenting paths.
  *
- * <p>
- * Tested against: - https://open.kattis.com/problems/mincostmaxflow -
+ * <p>Tested against: - https://open.kattis.com/problems/mincostmaxflow -
  * https://open.kattis.com/problems/jobpostings
  *
- * <p>
- * Time Complexity: O(E²Vlog(V))
+ * <p>Time Complexity: O(E²Vlog(V))
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -15,7 +13,10 @@ package com.williamfiset.algorithms.graphtheory.networkflow;
 
 import static java.lang.Math.min;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.PriorityQueue;
 
 public class MinCostMaxFlowJohnsons extends NetworkFlowSolverBase {
 
@@ -70,8 +71,7 @@ public class MinCostMaxFlowJohnsons extends NetworkFlowSolverBase {
 
       // Find bottle neck edge value along path.
       long bottleNeck = Long.MAX_VALUE;
-      for (Edge edge : path)
-        bottleNeck = min(bottleNeck, edge.remainingCapacity());
+      for (Edge edge : path) bottleNeck = min(bottleNeck, edge.remainingCapacity());
 
       // Retrace path while augmenting the flow
       for (Edge edge : path) {
@@ -118,13 +118,11 @@ public class MinCostMaxFlowJohnsons extends NetworkFlowSolverBase {
     while (!pq.isEmpty()) {
       Node node = pq.poll();
       visit(node.id);
-      if (dist[node.id] < node.value)
-        continue;
+      if (dist[node.id] < node.value) continue;
       List<Edge> edges = graph[node.id];
       for (int i = 0; i < edges.size(); i++) {
         Edge edge = edges.get(i);
-        if (visited(edge.to))
-          continue;
+        if (visited(edge.to)) continue;
         long newDist = dist[edge.from] + edge.cost;
         if (edge.remainingCapacity() > 0 && newDist < dist[edge.to]) {
           prev[edge.to] = edge;
@@ -135,13 +133,11 @@ public class MinCostMaxFlowJohnsons extends NetworkFlowSolverBase {
     }
 
     LinkedList<Edge> path = new LinkedList<>();
-    if (dist[t] == INF)
-      return path;
+    if (dist[t] == INF) return path;
 
     adjustEdgeCosts(dist);
 
-    for (Edge edge = prev[t]; edge != null; edge = prev[edge.from])
-      path.addFirst(edge);
+    for (Edge edge = prev[t]; edge != null; edge = prev[edge.from]) path.addFirst(edge);
     return path;
   }
 }

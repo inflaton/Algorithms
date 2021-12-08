@@ -3,8 +3,7 @@
  * shortest paths between nodes in a graph. We also demonstrate how to detect negative cycles and
  * reconstruct the shortest path.
  *
- * <p>
- * Time Complexity: O(V^3)
+ * <p>Time Complexity: O(V^3)
  *
  * @author Micah Stairs, William Fiset
  */
@@ -32,10 +31,9 @@ public class FloydWarshallSolver {
    * As input, this class takes an adjacency matrix with edge weights between nodes, where
    * POSITIVE_INFINITY is used to indicate that two nodes are not connected.
    *
-   * <p>
-   * NOTE: Usually the diagonal of the adjacency matrix is all zeros (i.e. matrix[i][i] = 0 for all
-   * i) since there is typically no cost to go from a node to itself, but this may depend on your
-   * graph and the problem you are trying to solve.
+   * <p>NOTE: Usually the diagonal of the adjacency matrix is all zeros (i.e. matrix[i][i] = 0 for
+   * all i) since there is typically no cost to go from a node to itself, but this may depend on
+   * your graph and the problem you are trying to solve.
    */
   public FloydWarshallSolver(double[][] matrix) {
     n = matrix.length;
@@ -45,8 +43,7 @@ public class FloydWarshallSolver {
     // Copy input matrix and setup 'next' matrix for path reconstruction.
     for (int i = 0; i < n; i++) {
       for (int j = 0; j < n; j++) {
-        if (matrix[i][j] != POSITIVE_INFINITY)
-          next[i][j] = j;
+        if (matrix[i][j] != POSITIVE_INFINITY) next[i][j] = j;
         dp[i][j] = matrix[i][j];
       }
     }
@@ -64,8 +61,7 @@ public class FloydWarshallSolver {
 
   // Executes the Floyd-Warshall algorithm.
   public void solve() {
-    if (solved)
-      return;
+    if (solved) return;
 
     // Compute all pairs shortest paths.
     for (int k = 0; k < n; k++) {
@@ -96,24 +92,21 @@ public class FloydWarshallSolver {
    * Reconstructs the shortest path (of nodes) from 'start' to 'end' inclusive.
    *
    * @return An array of nodes indexes of the shortest path from 'start' to 'end'. If 'start' and
-   *         'end' are not connected return an empty array. If the shortest path from 'start' to
-   *         'end' are reachable by a negative cycle return -1.
+   *     'end' are not connected return an empty array. If the shortest path from 'start' to 'end'
+   *     are reachable by a negative cycle return -1.
    */
   public List<Integer> reconstructShortestPath(int start, int end) {
     solve();
     List<Integer> path = new ArrayList<>();
-    if (dp[start][end] == POSITIVE_INFINITY)
-      return path;
+    if (dp[start][end] == POSITIVE_INFINITY) return path;
     int at = start;
     for (; at != end; at = next[at][end]) {
       // Return null since there are an infinite number of shortest paths.
-      if (at == REACHES_NEGATIVE_CYCLE)
-        return null;
+      if (at == REACHES_NEGATIVE_CYCLE) return null;
       path.add(at);
     }
     // Return null since there are an infinite number of shortest paths.
-    if (next[at][end] == REACHES_NEGATIVE_CYCLE)
-      return null;
+    if (next[at][end] == REACHES_NEGATIVE_CYCLE) return null;
     path.add(end);
     return path;
   }
@@ -180,8 +173,12 @@ public class FloydWarshallSolver {
         } else if (path.size() == 0) {
           str = String.format("DOES NOT EXIST (node %d doesn't reach node %d)", i, j);
         } else {
-          str = String.join(" -> ",
-              path.stream().map(Object::toString).collect(java.util.stream.Collectors.toList()));
+          str =
+              String.join(
+                  " -> ",
+                  path.stream()
+                      .map(Object::toString)
+                      .collect(java.util.stream.Collectors.toList()));
           str = "is: [" + str + "]";
         }
 

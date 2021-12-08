@@ -3,8 +3,7 @@
  * a method of finding augmenting paths. This Edmonds-Karp algorithm will allow you to find the max
  * flow through a directed graph and the min cut as a byproduct.
  *
- * <p>
- * Time Complexity: O(VE^2)
+ * <p>Time Complexity: O(VE^2)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -12,7 +11,8 @@ package com.williamfiset.algorithms.graphtheory.networkflow;
 
 import static java.lang.Math.min;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Queue;
 
 public class EdmondsKarpAdjacencyList extends NetworkFlowSolverBase {
 
@@ -38,9 +38,7 @@ public class EdmondsKarpAdjacencyList extends NetworkFlowSolverBase {
       maxFlow += flow;
     } while (flow != 0);
 
-    for (int i = 0; i < n; i++)
-      if (visited(i))
-        minCut[i] = true;
+    for (int i = 0; i < n; i++) if (visited(i)) minCut[i] = true;
   }
 
   private long bfs() {
@@ -54,8 +52,7 @@ public class EdmondsKarpAdjacencyList extends NetworkFlowSolverBase {
     // Perform BFS from source to sink
     while (!q.isEmpty()) {
       int node = q.poll();
-      if (node == t)
-        break;
+      if (node == t) break;
 
       for (Edge edge : graph[node]) {
         long cap = edge.remainingCapacity();
@@ -68,8 +65,7 @@ public class EdmondsKarpAdjacencyList extends NetworkFlowSolverBase {
     }
 
     // Sink not reachable!
-    if (prev[t] == null)
-      return 0;
+    if (prev[t] == null) return 0;
 
     long bottleNeck = Long.MAX_VALUE;
 
@@ -78,8 +74,7 @@ public class EdmondsKarpAdjacencyList extends NetworkFlowSolverBase {
       bottleNeck = min(bottleNeck, edge.remainingCapacity());
 
     // Retrace augmented path and update flow values.
-    for (Edge edge = prev[t]; edge != null; edge = prev[edge.from])
-      edge.augment(bottleNeck);
+    for (Edge edge = prev[t]; edge != null; edge = prev[edge.from]) edge.augment(bottleNeck);
 
     // Return bottleneck flow
     return bottleNeck;

@@ -14,8 +14,7 @@ public class JosephusProblem {
   // Let n be the number of people and k the hop size
   public static int josephus(int n, int k) {
     int[] dp = new int[n];
-    for (int i = 1; i < n; i++)
-      dp[i] = (dp[i - 1] + k) % (i + 1);
+    for (int i = 1; i < n; i++) dp[i] = (dp[i - 1] + k) % (i + 1);
     return dp[n - 1];
   }
 

@@ -52,8 +52,7 @@ public class HSet<T> implements Iterable<T> {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("[");
-    for (T key : map.keySet())
-      sb.append(key + ", ");
+    for (T key : map.keySet()) sb.append(key + ", ");
     sb.append("]");
     return sb.toString();
   }

@@ -3,17 +3,13 @@
  * a static array in O(1) for overlap friendly functions (idempotent functions) like min, max and
  * gcd using O(n*logn) memory
  *
- * <p>
- * Main inspiration: https://cp-algorithms.com/data_structures/sparse-table.html
+ * <p>Main inspiration: https://cp-algorithms.com/data_structures/sparse-table.html
  *
- * <p>
- * Tested against: https://www.spoj.com/problems/RMQSQ
+ * <p>Tested against: https://www.spoj.com/problems/RMQSQ
  *
- * <p>
- * To run this file:
+ * <p>To run this file:
  *
- * <p>
- * ./gradlew run -Pmain=com.williamfiset.algorithms.datastructures.sparsetable.SparseTable
+ * <p>./gradlew run -Pmain=com.williamfiset.algorithms.datastructures.sparsetable.SparseTable
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -40,7 +36,11 @@ public class SparseTable {
 
   // The various supported query operations on this sparse table.
   public enum Operation {
-    MIN, MAX, SUM, MULT, GCD
+    MIN,
+    MAX,
+    SUM,
+    MULT,
+    GCD
   };
 
   private Operation op;
@@ -51,15 +51,16 @@ public class SparseTable {
   private BinaryOperator<Long> minFn = (a, b) -> Math.min(a, b);
   private BinaryOperator<Long> maxFn = (a, b) -> Math.max(a, b);
   private BinaryOperator<Long> multFn = (a, b) -> a * b;
-  private BinaryOperator<Long> gcdFn = (a, b) -> {
-    long gcd = a;
-    while (b != 0) {
-      gcd = b;
-      b = a % b;
-      a = gcd;
-    }
-    return Math.abs(gcd);
-  };
+  private BinaryOperator<Long> gcdFn =
+      (a, b) -> {
+        long gcd = a;
+        while (b != 0) {
+          gcd = b;
+          b = a % b;
+          a = gcd;
+        }
+        return Math.abs(gcd);
+      };
 
   public SparseTable(long[] values, Operation op) {
     // TODO(william): Lazily call init in query methods instead of initializing in

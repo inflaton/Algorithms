@@ -3,8 +3,7 @@
  * paths. FF allows you to find the max flow through a directed graph and the min cut as a
  * byproduct.
  *
- * <p>
- * Time Complexity: O(fE), where f is the max flow and E is the number of edges
+ * <p>Time Complexity: O(fE), where f is the max flow and E is the number of edges
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -40,15 +39,12 @@ public class FordFulkersonDfsSolverAdjacencyList extends NetworkFlowSolverBase {
     }
 
     // Find min cut.
-    for (int i = 0; i < n; i++)
-      if (visited(i))
-        minCut[i] = true;
+    for (int i = 0; i < n; i++) if (visited(i)) minCut[i] = true;
   }
 
   private long dfs(int node, long flow) {
     // At sink node, return augmented path flow.
-    if (node == t)
-      return flow;
+    if (node == t) return flow;
 
     List<Edge> edges = graph[node];
     visit(node);
@@ -114,10 +110,8 @@ public class FordFulkersonDfsSolverAdjacencyList extends NetworkFlowSolverBase {
     List<Edge>[] g = solver.getGraph();
     for (List<Edge> edges : g) {
       for (Edge e : edges) {
-        if (e.to == s || e.from == t)
-          continue;
-        if (e.from == s || e.to == t || e.from < e.to)
-          System.out.println(e.toString(s, t));
+        if (e.to == s || e.from == t) continue;
+        if (e.from == s || e.to == t || e.from < e.to) System.out.println(e.toString(s, t));
         // System.out.println(e.residual.toString(s, t));
       }
     }

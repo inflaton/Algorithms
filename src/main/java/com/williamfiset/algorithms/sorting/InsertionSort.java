@@ -1,11 +1,9 @@
 /**
  * Insertion sort implementation
  *
- * <p>
- * Run with:
+ * <p>Run with:
  *
- * <p>
- * $ ./gradlew run -Palgorithm=sorting.InsertionSort
+ * <p>$ ./gradlew run -Palgorithm=sorting.InsertionSort
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */

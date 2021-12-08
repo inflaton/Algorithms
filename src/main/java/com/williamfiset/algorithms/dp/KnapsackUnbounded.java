@@ -3,14 +3,11 @@
  * where are you are trying to maximize the total profit of items selected without exceeding the
  * capacity of your knapsack.
  *
- * <p>
- * Version 1: Time Complexity: O(nW) Version 1 Space Complexity: O(nW)
+ * <p>Version 1: Time Complexity: O(nW) Version 1 Space Complexity: O(nW)
  *
- * <p>
- * Version 2: Time Complexity: O(nW) Space Complexity: O(W)
+ * <p>Version 2: Time Complexity: O(nW) Space Complexity: O(W)
  *
- * <p>
- * Tested code against: https://www.hackerrank.com/challenges/unbounded-knapsack
+ * <p>Tested code against: https://www.hackerrank.com/challenges/unbounded-knapsack
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -23,7 +20,7 @@ public class KnapsackUnbounded {
    * @param W - The weights of the items
    * @param V - The values of the items
    * @return The maximum achievable profit of selecting a subset of the elements such that the
-   *         capacity of the knapsack is not exceeded
+   *     capacity of the knapsack is not exceeded
    */
   public static int unboundedKnapsack(int maxWeight, int[] W, int[] V) {
 
@@ -46,12 +43,10 @@ public class KnapsackUnbounded {
       for (int sz = 1; sz <= maxWeight; sz++) {
 
         // Try including the current element
-        if (sz >= w)
-          DP[i][sz] = DP[i][sz - w] + v;
+        if (sz >= w) DP[i][sz] = DP[i][sz - w] + v;
 
         // Check if not selecting this item at all is more profitable
-        if (DP[i - 1][sz] > DP[i][sz])
-          DP[i][sz] = DP[i - 1][sz];
+        if (DP[i - 1][sz] > DP[i][sz]) DP[i][sz] = DP[i - 1][sz];
       }
     }
 
@@ -79,8 +74,7 @@ public class KnapsackUnbounded {
         // First check that we can include this item (we can't include it if
         // it's too heavy for our knapsack). Assumming it fits inside the
         // knapsack check if including this element would be profitable.
-        if (sz - W[i] >= 0 && DP[sz - W[i]] + V[i] > DP[sz])
-          DP[sz] = DP[sz - W[i]] + V[i];
+        if (sz - W[i] >= 0 && DP[sz - W[i]] + V[i] > DP[sz]) DP[sz] = DP[sz - W[i]] + V[i];
       }
     }
 

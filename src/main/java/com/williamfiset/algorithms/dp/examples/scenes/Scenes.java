@@ -3,8 +3,7 @@ package com.williamfiset.algorithms.dp.examples.scenes;
 /**
  * Solution to the Mountain Scenes problem (https://open.kattis.com/problems/scenes)
  *
- * <p>
- * Solution by: William Fiset
+ * <p>Solution by: William Fiset
  */
 import java.io.BufferedReader;
 import java.io.IOException;

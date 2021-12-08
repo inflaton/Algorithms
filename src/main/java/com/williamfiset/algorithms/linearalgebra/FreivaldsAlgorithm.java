@@ -3,8 +3,7 @@
  * multiplication. Given three n x n matrices, Freivalds' algorithm determines in O(kn^2) whether
  * the matrices are equal for a chosen k value with a probability of failure less than 2^-k.
  *
- * <p>
- * Time Complexity: O(kn^2)
+ * <p>Time Complexity: O(kn^2)
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
@@ -25,9 +24,7 @@ public class FreivaldsAlgorithm {
     int N = matrix.length;
     int[] vector = new int[N];
 
-    for (int i = 0; i < N; i++)
-      for (int j = 0; j < N; j++)
-        vector[i] += v[j] * matrix[i][j];
+    for (int i = 0; i < N; i++) for (int j = 0; j < N; j++) vector[i] += v[j] * matrix[i][j];
 
     return vector;
   }
@@ -50,8 +47,7 @@ public class FreivaldsAlgorithm {
       int[] expected = product(v, C);
       int[] result = product(product(v, B), A);
 
-      if (!java.util.Arrays.equals(expected, result))
-        return false;
+      if (!java.util.Arrays.equals(expected, result)) return false;
 
     } while (--k > 0);
 
