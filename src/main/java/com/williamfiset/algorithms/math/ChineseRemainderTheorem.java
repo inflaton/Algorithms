@@ -9,16 +9,15 @@
  * <p>
  * The second method (reduce) is used to reduce a set of equations so that the moduli become
  * pairwise co-prime (which means that we can apply the Chinese Remainder Theorem). The input and
- * output are of the form x≡a_0(mod m_0),...,x≡a_n−1(mod m_n−1)x≡a_0(mod
- * m_0),...,x≡a_n−1(mod m_n−1). Note that the number of equations may change during this
- * process. A value of null is returned if the set of equations cannot be reduced to co-prime
- * moduli.
+ * output are of the form x≡a_0(mod m_0),...,x≡a_n−1(mod m_n−1)x≡a_0(mod m_0),...,x≡a_n−1(mod
+ * m_n−1). Note that the number of equations may change during this process. A value of null is
+ * returned if the set of equations cannot be reduced to co-prime moduli.
  *
  * <p>
  * The third method (crt) is the actual Chinese Remainder Theorem. It assumes that all pairs of
  * moduli are co-prime to one another. This solves a set of equations of the form x≡a_0(mod
- * m_0),...,x≡v_n−1(mod m_n−1)x≡a_0(mod m_0),...,x≡v_n−1(mod m_n−1). It's output is of
- * the form x≡a_new(mod m_new)x≡a_new(mod m_new).
+ * m_0),...,x≡v_n−1(mod m_n−1)x≡a_0(mod m_0),...,x≡v_n−1(mod m_n−1). It's output is of the form
+ * x≡a_new(mod m_new)x≡a_new(mod m_new).
  *
  * @author Micah Stairs
  */
