@@ -28,6 +28,8 @@ repositories {
 // Describe all project deps. Use 'testCompile' for test dependencies and
 // 'compile' for project dependencies.
 dependencies {
+  compile fileTree(dir: 'libs', include: ['*.jar'])
+
   // Apache commons lang
   testCompile 'org.apache.commons:commons-lang3:3.6'
 
@@ -36,7 +38,7 @@ dependencies {
 
   // JUnit 5 / Jupiter
   testImplementation('org.junit.jupiter:junit-jupiter-api:5.4.2')
-   
+
   // Google Guava lib
   testCompile group: 'com.google.guava', name: 'guava', version: '22.0'
 
