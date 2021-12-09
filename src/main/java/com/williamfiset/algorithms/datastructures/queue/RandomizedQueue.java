@@ -6,6 +6,7 @@ import edu.princeton.cs.algs4.StdRandom;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+@SuppressWarnings("unchecked")
 public class RandomizedQueue<Item> implements Iterable<Item> {
   // initial capacity of underlying resizing array
   private static final int INIT_CAPACITY = 8;
@@ -110,33 +111,38 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     return new ArrayIterator();
   }
 
-  // Fisher–Yates shuffle Algorithm works in O(n) time complexity. The assumption here is, we are
-  // given a function rand() that generates random number in O(1) time.
-  // The idea is to start from the last element, swap it with a randomly selected element from the
-  // whole array (including last). Now consider the array from 0 to n-2 (size reduced by 1), and
-  // repeat the process till we hit the first element.
-  private void randomize() {
-    if (n < 2) return;
-
-    // Start from the last element and swap one by one. We don't
-    // need to run for the first element that's why i > 0
-    for (int i = n - 1; i > 0; i--) {
-      // Pick a random index from 0 to i
-      int j = StdRandom.uniform(i + 1);
-
-      // Swap arr[i] with the element at random index
-      Item temp = q[(first + i) % q.length];
-      q[(first + i) % q.length] = q[(first + j) % q.length];
-      q[(first + j) % q.length] = temp;
-    }
-  }
-
   // an iterator, doesn't implement remove() since it's optional
   private class ArrayIterator implements Iterator<Item> {
     private int i = 0;
+    private Item[] copy;
 
     public ArrayIterator() {
-      randomize();
+      randomizeAndCopy();
+    }
+
+    // Fisher–Yates shuffle Algorithm works in O(n) time complexity. The assumption here is, we are
+    // given a function rand() that generates random number in O(1) time.
+    // The idea is to start from the last element, swap it with a randomly selected element from the
+    // whole array (including last). Now consider the array from 0 to n-2 (size reduced by 1), and
+    // repeat the process till we hit the first element.
+    private void randomizeAndCopy() {
+      copy = (Item[]) new Object[n];
+
+      for (int i = n - 1; i >= 0; i--) {
+        // Start from the last element and swap one by one. We don't
+        // need to run for the first element that's why i > 0
+        if (i > 0) {
+          // Pick a random index from 0 to i
+          int j = StdRandom.uniform(i + 1);
+
+          // Swap arr[i] with the element at random index
+          Item temp = q[(first + i) % q.length];
+          q[(first + i) % q.length] = q[(first + j) % q.length];
+          q[(first + j) % q.length] = temp;
+        }
+
+        copy[i] = q[(first + i) % q.length];
+      }
     }
 
     public boolean hasNext() {
@@ -149,7 +155,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     public Item next() {
       if (!hasNext()) throw new NoSuchElementException();
-      Item item = q[(i + first) % q.length];
+      Item item = copy[i];
       i++;
       return item;
     }
@@ -194,10 +200,11 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     StdOut.println();
 
     StdOut.println("samples:");
-    while (size-- > 0) {
+    while (size > 0) {
       String item = queue.sample();
       StdOut.print(item);
       StdOut.print(" ");
+      size--;
     }
     StdOut.println();
   }
